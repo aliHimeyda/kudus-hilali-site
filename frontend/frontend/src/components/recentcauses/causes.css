@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap");
+
+.recent-causes-section {
+    
+  padding-top: 5%;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-in-out;
+  
+}
+
+.recent-causes-section.animate-cards {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.title {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  
+  color: var(--color-block);
+}
+
+
+
+
+

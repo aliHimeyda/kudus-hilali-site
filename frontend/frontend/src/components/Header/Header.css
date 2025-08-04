@@ -1,0 +1,159 @@
+@import "../../constants/colors.css";
+/* Header arka planları */
+.transparent-header {
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+  animation: fadein 1s ease-out;
+  z-index: 100000;
+}
+.transparent-header .nav-link,
+.transparent-header .fw-bold {
+  color: white !important;
+}
+.hover-menu .nav-link,
+.hover-menu .fw-bold {
+  color: black !important;
+}
+.fontsize {
+  font-size: 1.3vw;
+}
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 100000;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+}
+.scrolled-header {
+  background-color: var(--color-cream);
+  transition: background-color 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  z-index: 100000;
+}
+/* Frame  */
+
+.frame {
+  display: none;
+  position: fixed;
+  padding-left: 0%;
+  top: 50px;
+  border-radius: 20px;
+  z-index: 900;
+  width: 210px;
+  height: auto;
+  background: var(--color-cream);
+}
+#home-item:hover .frame {
+  display: block;
+  list-style: none;
+}
+.frametext {
+  font-family: "Poppins";
+  font-style: normal;
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 35px;
+  /* identical to box height */
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-block);
+}
+.frametext:hover {
+  color: var(--color-orange);
+}
+/* Projects */
+
+.frameprojects {
+  position: absolute;
+  width: 65px;
+  height: 24px;
+  left: 80px;
+  top: 20px;
+}
+
+/* Volunteers */
+
+.framevolunteers {
+  position: absolute;
+  width: 87px;
+  height: 24px;
+  left: 69px;
+  top: 66px;
+}
+
+/* NEWS & ARTICLES */
+
+.framenews {
+  position: absolute;
+  width: 139px;
+  height: 24px;
+  left: 46px;
+  top: 112px;
+}
+
+/* About Us */
+.frameabout {
+  position: absolute;
+  width: 73px;
+  height: 24px;
+  left: 76px;
+  top: 158px;
+}
+
+/* Contact Us butonu */
+.contact-btn {
+  background-color: var(--color-orange);
+  color: white;
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-weight: 500;
+  border: none;
+}
+
+.contact-btn:hover {
+  background-color: var(--color-orange);
+  color: white;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-toggle {
+  display: inline-block;
+}
+
+.hover-menu {
+  display: none;
+  position: absolute;
+  top: 100%; /* butonun altına gelsin */
+  left: 0;
+  width: 500px;
+  background-color: var(--color-cream);
+  z-index: 1000;
+  padding: 0.5rem 0;
+  border-radius: 4px;
+}
+
+.menu-toggle:hover .hover-menu {
+  display: inline-block;
+}
+
+.hover-menu .nav-link {
+  color: #000;
+  padding: 0.5rem 1rem;
+}
+
+.hover-menu .nav-link:hover {
+  background-color: var(--color-orange);
+}

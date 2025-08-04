@@ -1,0 +1,129 @@
+.news-card {
+  background: var(--color-cream);
+  border-radius: 90px;
+  padding: 10px 15px;
+  width: 90%;
+  min-height: 150px;
+  max-width: 1300px;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+.news-card:hover {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.28);
+}
+
+.news-img {
+  width: 270px;
+  height: 120px;
+  border-radius: 100px;
+  background-color: #c1c1c1;
+  object-fit: cover;
+}
+
+.news-content {
+  margin-left: 20px;
+  flex: 1;
+}
+.news-meta {
+  font-size: 10px;
+  color: var(--color-green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.meta-icon {
+  width: 14px;
+}
+.divider {
+  font-weight: bold;
+  color: black;
+}
+
+.news-title {
+  font-size: 21px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.news-admin {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.admin-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #C1C1C1;
+}
+.admin-avatar img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.ellipse {
+    display: flex;
+  width: 120px;
+  height: 120px;
+ background: rgba(246, 164, 40, 0.1);
+  border-radius: 50%;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color:var(--color-orange);
+}
+.ellipse p{
+    margin: 0;
+}
+
+.customnewscard {
+  width: 100%;
+  height: max-content;
+  transition: color 0.3s ease;
+}
+.customnewscard:hover{
+  color: var(--color-orange);
+  cursor: pointer;
+}
+.newsimage {
+  width: 70px;
+  height: 70px;
+  background-color: #c1c1c1;
+  border-radius: 10px;
+}
+.newsdata {
+  width: 80%;
+  height: max-content;
+  font-size: 12px;
+}
+.newsmeta {
+  font-size: 9px;
+  color: #548010;
+}
+@media (max-width: 768px) {
+  .news-card {
+    width: 80%;
+    border-radius: 20px;
+    gap: 20px;
+    align-items: end;
+    justify-content: end;
+  }
+  .news-content{
+    width: 100%;
+
+  }
+  
+  .news-img{
+    width: 100%;
+  height: 15rem;
+  border-radius: 20px;
+  }
+  .ellipse{
+    border-radius: 10px;
+    width: 120px;
+  height: 40px;
+  }
+}

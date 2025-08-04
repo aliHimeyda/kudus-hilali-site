@@ -1,0 +1,40 @@
+@import "../../constants/colors.css";
+
+.footer-section {
+  width: 100vw;
+  background-color: var(--color-cream);
+}
+
+.footer-title {
+  color: var(--color-green);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.footer-section a {
+  color: var(--color-block);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+  color: var(--color-orange);
+}
+
+.contact-btn {
+  background-color: var(--color-orange);
+  color: white;
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-weight: 500;
+  border: none;
+}
+
+.contact-btn:hover {
+  background-color: var(--color-orange);
+  color: white;
+}
+.footerflex{
+  justify-content: space-around;
+}

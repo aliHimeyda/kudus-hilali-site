@@ -1,0 +1,51 @@
+.cause-card {
+  margin-bottom: 20px;
+  background: var(--color-cream);
+  width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: all 0.8s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cause-card.visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+.btn-success{
+    background-color: var(--color-green);
+    border-radius: 20px;
+}
+.cause-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.image-area {
+  height: 170px;
+  background-color: #ccc;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 10px;
+}
+
+.progress {
+  height: 4px;
+  background: #c6c5c5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--color-red);
+  transition: width 3s ease;
+}

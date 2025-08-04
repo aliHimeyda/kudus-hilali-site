@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap");
+
+.what-we-do-container {
+  padding-top: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.what-we-do-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 1s ease-in-out;
+  padding: 0px 40px;
+  width: 100%;
+}
+
+.what-we-do-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.left {
+  width: 70%;
+}
+.description {
+  font-size: 20px;
+  margin-top: 20px;
+  max-width: 400px;
+  color: black;
+  line-height: 1.6;
+}
+.bdescription{
+  color: white;
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 60vw;
+}
+strong {
+  color: var(--color-block);
+}
+
+.card {
+  border-radius: 12px;
+  padding: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: 100%;
+align-items: center;
+justify-content: center;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card .icon {
+width: 50px;
+height:50px;
+border-radius: 50%;
+justify-content: center;
+align-items: center;
+/* Gray Colors/White 4 */
+background: #FFFFFF;
+
+}
+.witemtitle{
+  font-size: 70%;
+  font-weight: 800;
+}
+.wicon{
+  width: 50%;
+  height: 50%;
+
+}
+.card h5 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s ease-out;
+}
+.left strong{
+  color: var(--color-red);
+}
+.visible .left {
+  opacity: 1;
+  transform: translateX(0);
+
+}
+.left-animate {
+  animation: slideInFromLeft 0.6s ease forwards;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+.bottom.visible{
+ font-size: 0.8rem;
+}
+.card.active{
+  color: white;
+}
+.card.active{
+  color: white;
+}

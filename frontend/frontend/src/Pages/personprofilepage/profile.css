@@ -1,0 +1,125 @@
+.container {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+/* General Animation */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease-out;
+}
+.fade-in-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Profile Picture */
+.personinfo {
+  flex-direction: row;
+}
+.profile-pic {
+  width: 375px;
+  height: 375px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 212px;
+  border: 5px solid white;
+  background-color: #c1c1c1;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Titles and Labels */
+.username {
+  font-family: "Epilogue", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #252839;
+}
+.charity-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #F6A428;
+  text-transform: capitalize;
+}
+.address-label,
+.social-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #252839;
+}
+.address {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #4f4f4f;
+  text-transform: capitalize;
+}
+
+/* Social Icons */
+.icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.fb { background-image: url('/public/assets/Facebook.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
+.linkedin { background-image: url('/public/assets/linkdin.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
+.twitter { background-image: url('/public/assets/twitter.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
+.insta { background-image: url('/public/assets/instagram.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
+
+/* Bio Section */
+.bio-box {
+  background: #ebebeb;
+  border: 1.5px solid #c1c1c1;
+  border-radius: 10px;
+  padding: 30px;
+  margin-top: 80px;
+}
+.bio-title {
+  font-family: "Epilogue";
+  font-size: 24px;
+  font-weight: 700;
+  color: #252839;
+}
+.bio-text {
+  font-family: "Poppins";
+  font-size: 15px;
+  font-weight: 400;
+  color: #4f4f4f;
+}
+
+/* Experience Boxes */
+.experience-title {
+  font-family: "Epilogue";
+  font-size: 24px;
+  font-weight: 700;
+  color: #252839;
+}
+.info-box {
+  width: 250px;
+  height: 85px;
+  background: #ebebeb;
+  border: 1.5px solid #c1c1c1;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+.info-text {
+  font-family: "Poppins";
+  font-size: 15px;
+  font-weight: 700;
+  color: #252839;
+}
+
+@media (max-width: 790px) {
+  .profile-pic {
+    width: 200px;
+    height: 200px;
+  }
+}
+@media (max-width: 440px) {
+  .personinfo {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,24 @@
+
+.custom-red-btn {
+  background-color: #ea080a;
+  border: none;
+  font-weight: 500;
+  border-radius: 8px;
+  width: 10.5rem;
+  font-size: 0.8rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-red-btn:hover {
+  background-color: var(--color-red);
+  transform: translateY(-2px);
+}
+
+.custom-red-btn .arrow {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.custom-red-btn:hover .arrow {
+  transform: translateX(4px);
+}

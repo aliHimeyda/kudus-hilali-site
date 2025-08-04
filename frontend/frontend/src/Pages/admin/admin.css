@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css');
+
+.admin-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background: #f4f6f9;
+}
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #1f2937, #111827);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 3px 0 8px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+}
+
+.sidebar h4 {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 30px;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+.sidebar .nav {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar .nav-item {
+  margin-bottom: 10px;
+}
+
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #cbd5e1;
+  text-align: left;
+  width: 100%;
+  font-weight: 500;
+  padding: 12px 15px;
+  border-radius: 8px;
+  transition: background 0.25s, color 0.25s;
+}
+
+.sidebar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.sidebar .nav-item.active .nav-link {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+}
+
+.content {
+  margin-left: 260px;
+  padding: 30px;
+  width: calc(100% - 260px);
+  background: #f8fafc;
+  overflow-y: auto;
+}
+
+.card {
+  border-radius: 14px;
+  border: none;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+}
+
+.card h4 {
+  font-weight: 600;
+  color: #1f2937;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+/* Make the Offcanvas sidebar static on md+ and push content */
+@media (min-width: 768px) {
+  .offcanvas-md {
+    position: static !important;
+    transform: none !important;
+    visibility: visible !important;
+    width: 260px;
+    flex: 0 0 260px;
+  }
+  .offcanvas-md .offcanvas-body {
+    padding: 20px;
+  }
+  .content-admin {
+    margin-left: 260px;
+  }
+}

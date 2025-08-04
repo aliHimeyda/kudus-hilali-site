@@ -1,0 +1,157 @@
+.feedback-section {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease;
+  padding: 4rem 1rem;
+}
+
+.feedback-section.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feedback-subtitle {
+  text-align: center;
+  color: #ea080a;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+.feedback-title {
+  text-align: center;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.feedback-title span {
+  color: red;
+}
+
+.feedback-card {
+  position: relative;
+  background: transparent;
+  padding: 1rem;
+  flex: 0 0 auto;
+  width: 250px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+.feedback-card p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  line-height: 1.4;
+}
+.feedback-cards {
+  overflow-x: auto;
+  display: flex;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  width: max-content;
+}
+.feedback-cards::-webkit-scrollbar {
+  display: none;
+}
+.feedback-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+.feedback-name {
+  font-weight: bold;
+  color: #252839;
+}
+
+.feedback-text {
+  font-size: 14px;
+  color: #555;
+  margin: 0.5rem 0;
+}
+
+.feedback-stars {
+  color: #f6a428;
+  font-size: 20px;
+}
+
+.arrow-btn {
+  width: 30px;
+  height: 30px;
+  background: #ecf0dd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.arrow-btn img {
+  width: 100%;
+}
+
+.dots .dot {
+  width: 12px;
+  height: 12px;
+  background: #ccc;
+  border-radius: 50%;
+}
+
+.dots .dot.active {
+  background: #f6a428;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px #f6a428;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.feedback-animate-left {
+  animation: slideInFromLeft 0.8s ease;
+}
+
+.feedback-animate-right {
+  animation: slideInFromRight 0.8s ease;
+}
+@media (width<766px) {
+  .feedback-card{
+    width: 90%;
+  }
+  .feedback-card .values{
+    display: flex;
+    padding-left: 15px;
+    width: 70%;
+    text-align: start;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+  }
+  .feedback-text{
+    font-size: 12px;
+  }
+  .feedback-name{
+    font-size: 15px;
+  }
+}
+
+

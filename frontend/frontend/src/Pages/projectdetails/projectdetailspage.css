@@ -1,0 +1,173 @@
+
+.project-details-container > div {
+  opacity: 0;
+  animation: fadeIn 1.2s ease-in-out forwards;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+  
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+.image-section{
+    width: 100%;
+  height: 500px;
+  background: #c1c1c1;
+  border-radius: 20px;
+}
+.circle-progress {
+  border-width: 10px !important;
+  border-style: solid;
+  border-color: #ea080a transparent transparent transparent;
+  border-radius: 50%;
+  position: relative;
+  font-size: 13px;
+}
+.target-value{
+    width: 50vw;
+    height: 100%;
+    padding:10px 30px ;
+    background-color: var(--color-cream);
+    border-radius: 20px;
+}
+.target-value span{
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0px;
+}
+.target-value p{
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-green);
+    margin: 0px;
+}
+.circle-progress .percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 600;
+  color: #252839;
+}
+.bar-circle{
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border:0.5px black solid;
+    border-radius: 50%;
+}
+.bar-value{
+    position: absolute;
+    top: 0px;
+    z-index: 200;
+}
+.amount-box {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid #c1c1c1;
+  cursor: pointer;
+  background-color: #fff;
+  font-weight: 500;
+  font-size: 13px;
+  color: #252839;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+.btn-outline-secondary{
+     border:1px #c1c1c1 solid;
+}
+.btn-outline-secondary:hover{
+    background-color: var(--color-green);
+   
+}
+.amount-box:hover {
+  background-color: #f4f5f8;
+  border-color: #548010;
+}
+.btn-success{
+    width: 200px;
+    border-radius: 10px;
+}
+
+.amount-box.custom {
+  background-color: #548010;
+  color: white;
+}
+
+.custom-amount-input {
+  font-size: 13px;
+}
+
+.note-section p,
+.mission-section p,
+.desc-section,
+.text-danger {
+  font-size: 13px !important;
+}
+
+.text-danger {
+  font-weight: 500;
+}
+
+.progress-bar-outer {
+    
+  background-color: #e9ecef;
+  border-radius: 100px;
+  height: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+.progress-container{
+    width: 46%;
+}
+.progress{
+    position: relative;
+    overflow: visible;
+}
+
+.progress-bar-inner {
+  background-color: #548010;
+  height: 100%;
+  border-radius: 100px;
+  transition: width 0.4s ease-in-out;
+}
+
+.donate-btn {
+  background-color: #548010;
+  color: #f4f5f8;
+  padding: 12px 24px;
+  font-size: 15px;
+  border-radius: 10px;
+  font-weight: 500;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.donate-btn:hover {
+  background-color: #3e640a;
+}
+.form-check-label{
+    font-size: 12px;
+}
+input.form-control::placeholder {
+  color: #c1c1c1;
+  font-size: 13px;
+}
+
+h4.fw-bold.fs-4 {
+  font-size: 29px !important;
+  color: #252839;
+}
+@media (width<768px) {
+    .image-section{
+    width: 100%;
+  height: 400px;
+  background: #c1c1c1;
+  border-radius: 20px;
+}
+}

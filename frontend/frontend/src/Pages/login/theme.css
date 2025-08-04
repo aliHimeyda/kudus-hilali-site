@@ -1,0 +1,14 @@
+.container-login, .container-signup {
+    max-width: 540px;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto;
+}
+.lsf-section{
+      background: url('../../../public/assets/heroimage.webp') center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
