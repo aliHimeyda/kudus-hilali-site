@@ -6,6 +6,8 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 require_once "../db.php";
 
+
+
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'OPTIONS') {

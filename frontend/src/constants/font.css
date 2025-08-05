@@ -1,0 +1,5 @@
+@font-face {
+  font-family: 'Alexandria';
+  src: url('Alexandria[wght].ttf') format('truetype');
+  font-weight: 100 900; /* variable font aralığı */
+}

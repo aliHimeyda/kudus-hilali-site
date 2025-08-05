@@ -1,0 +1,49 @@
+.logocontainer {
+  width: 50px;
+  height: 59px;
+  justify-content: space-between;
+}
+.logohead {
+  width: 12px;
+  height: 12px;
+  background-color: #606d13;
+}
+.logobody {
+  width: 45px;
+  height: 45px;
+  background-color: #606d13;
+  overflow: hidden;
+}
+
+.logobody svg {
+    position: absolute;
+    top: -1.89%;
+    left: 31%;
+  width: 17px;
+  height: 13px;
+  fill: #ffffff;
+}
+.logobody img {
+    position: absolute;
+    top: 2.9%;
+    left: 41%;
+  width: 9px;
+  height: 9px;
+  fill: #ffffff;
+}
+.logobodyscircle{
+    position: absolute;
+    top: 24%;
+    left: 0.67%;
+  width: 44px;
+  height: 44px;
+  background-color: #dea50d;
+  border: 2.3px #ffffff solid;
+}
+.logobodyscircle svg{
+      position: absolute;
+    top: 25%;
+    left: 33.5%;
+  width: 14px;
+  height: 14px;
+}

@@ -6,6 +6,7 @@ import { useRef } from "react";
 
 const Hero = () => {
   const [step, setStep] = useState(0);
+  const [showimages, setShowimages] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,8 +15,8 @@ const Hero = () => {
     const interval = setInterval(() => {
       setStep((prev) => {
         if (prev === 3) {
+          setShowimages(true);
           clearInterval(interval);
-          setTimeout(1000);
         }
         return prev + 1;
       });
@@ -34,72 +35,55 @@ const Hero = () => {
   const positions = [
     [null, null, null, null],
     ["5px", null, "6px", null],
-    [null, '5px', null, '6px'],
-    ['25%', 0,'25%' , 0],
+    [null, "5px", null, "6px"],
+    ["25%", 0, "25%", 0],
   ];
 
- const imageCacheRef = useRef([]);
+  const imageCacheRef = useRef([]);
 
-const preloadImages = (imageArray) => {
-  imageCacheRef.current = imageArray.map((src) => {
-    if (!src) return null;
-    const img = new Image();
-    img.src = src;
-    return img;
-  });
-};
-
-
+  const preloadImages = (imageArray) => {
+    imageCacheRef.current = imageArray.map((src) => {
+      if (!src) return null;
+      const img = new Image();
+      img.src = src;
+      return img;
+    });
+  };
 
   return (
-      <div className="image-wrapper">
-        {step <= 3 && step > 0 && (
-          <img
-            src={backgroundImages[step]}
-            alt="intro"
-            className="intro-bg"
-            style={{
-              top:
-                positions[step]?.[0] != null
-                  ? positions[step][0] 
-                  : undefined,
-              bottom:
-                positions[step]?.[1] != null
-                  ? positions[step][1] 
-                  : undefined,
-              left:
-                positions[step]?.[2] != null
-                  ? positions[step][2] 
-                  : undefined,
-              right:
-                positions[step]?.[3] != null
-                  ? positions[step][3] 
-                  : undefined,
-            }}
-          />
-        )}
-        {step > 3 && (
-          <>
-             <img
-              className="woman-image"
-              src="/assets/herowoman.webp"
-              alt="herowoman"
-            ></img>
-            <img
-              className="background-image"
-              src={backgroundImages[step]}
-              alt="heroimage"
-            ></img>
-             <div className="gradient-overlay"></div>
-          </>
-            
+    <div className="image-wrapper">
+      {step <= 3 && step > 0 && (
+        <img
+          key={step}
+          src={backgroundImages[step]}
+          alt="intro"
+          className="intro-bg"
+          style={{
+            top: positions[step]?.[0] != null ? positions[step][0] : undefined,
+            bottom:
+              positions[step]?.[1] != null ? positions[step][1] : undefined,
+            left: positions[step]?.[2] != null ? positions[step][2] : undefined,
+            right:
+              positions[step]?.[3] != null ? positions[step][3] : undefined,
+          }}
+        />
+      )}
 
-           
-        )}
-        <div className="hero-title-wrapper">
-          <h1 className="hero-title">KUDÜS HİLALİ</h1>
-        </div>
+      <img
+        className={`woman-image ${showimages ? "visible" : ""}`}
+        src="/assets/herowoman.webp"
+        alt="herowoman"
+      ></img>
+      <img
+        className={`background-image ${showimages ? "visible" : ""}`}
+        src={backgroundImages[step]}
+        alt="heroimage"
+      ></img>
+      <div className={`gradient-overlay ${showimages ? "visible" : ""}`}></div>
+      <div className="hero-title-wrapper">
+        <h1 className="hero-title">KUDÜS HİLALİ</h1>
       </div>
+    </div>
   );
 };
 

@@ -20,15 +20,13 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
 return(
-    <div style={{ height: "auto" ,width:"100vw"  }}>
-      <div className="w-100">
+    <div style={{ width:"100vw"  }}>
         <Hero />
         {showContent && (
           <div className="stats-container-mockup">
         <KPIS />
       </div>
         )}
-      </div>
 
       {showContent && (
         <>

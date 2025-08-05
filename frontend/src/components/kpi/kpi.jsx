@@ -19,7 +19,9 @@ const KPIS = () => {
   useEffect(() => {
     const fetchKPI = async () => {
       try {
-        const res = await axios.get("http://localhost:8888/kudus/backend/Home/home_kpi.php");
+        const res = await axios.get(
+          "http://localhost:8888/kudus/backend/Home/home_kpi.php"
+        );
         if (res.data.status === "success" && res.data.data) {
           setKpi(res.data.data);
         }
@@ -29,7 +31,6 @@ const KPIS = () => {
     };
     fetchKPI();
   }, []);
-
 
   useEffect(() => {
     if (kpi) {
@@ -46,7 +47,8 @@ const KPIS = () => {
     }
   }, [kpi]);
 
-  if (!kpi) return <p className="text-center text-light mt-3">Loading KPIs...</p>;
+  if (!kpi)
+    return <p className="text-center text-light mt-3">Loading KPIs...</p>;
 
   const stats = [
     { value: kpi.months, label: "Months" },

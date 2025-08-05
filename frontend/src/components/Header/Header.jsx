@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "./Header.css";
 import { Link, useLocation } from "react-router-dom";
+import Logo from "../logo/logo";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const height = window.innerHeight - 300;
@@ -32,14 +33,12 @@ const Header = () => {
     >
       <nav className="navbar navbar-expand-lg d-none d-md-block px-4 py-3 fontsize ">
         <div className="container-fluid d-flex justify-content-between align-items-center">
-          <div className="d-flex align-items-center">
-            <img
-              src="/assets/logo.webp"
-              alt="Logo"
-              height="40"
-              className="me-2"
-            />
-            <span className="fw-bold d-none d-md-inline">KUDÜS HILALI</span>
+          <div className="d-flex align-items-end gap-2">
+            <Logo />
+            <div className="logostext d-md-flex flex-column d-none">
+              <span className="fw-bold ">KUDÜS HILALI</span>
+              <span>Association</span>
+            </div>
           </div>
 
           <ul className="navbar-nav d-md-flex d-none flex-row gap-4 mb-0 ">
@@ -80,16 +79,10 @@ const Header = () => {
         </div>
       </nav>
 
-      <nav className="navbar navbar-light bg-transparent d-md-none position-relative">
-        <div className="container-fluid d-flex justify-content-between align-items-center position-relative">
+      <nav className="navbar navbar-light bg-transparent d-md-none ">
+        <div className="container-fluid d-flex justify-content-between align-items-center ">
           <div className="d-flex align-items-center">
-            <img
-              src="/assets/logo.webp"
-              alt="Logo"
-              height="40"
-              className="me-2"
-            />
-            <span className="fw-bold d-none d-md-inline">KUDÜS HILALI</span>
+            <Logo />
           </div>
 
           {/* Üç çizgi buton */}

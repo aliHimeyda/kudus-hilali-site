@@ -1,13 +1,17 @@
 @import "../../constants/colors.css";
+
 /* Header arka planları */
 .transparent-header {
   background-color: transparent;
   transition: background-color 0.3s ease-in-out;
   animation: fadein 1s ease-out;
   z-index: 100000;
+  font-family: "Alexandria", sans-serif;
+
 }
 .transparent-header .nav-link,
 .transparent-header .fw-bold {
+  
   color: white !important;
 }
 .hover-menu .nav-link,
@@ -31,6 +35,8 @@
   transition: background-color 0.3s ease-in-out;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   z-index: 100000;
+  font-family: "Alexandria", sans-serif;
+
 }
 /* Frame  */
 
@@ -156,4 +162,20 @@
 
 .hover-menu .nav-link:hover {
   background-color: var(--color-orange);
+}
+
+.logostext span {
+  margin: 0;
+  color: white;
+  height: 16px;
+  font-family: "Alexandria", sans-serif;
+  
+}
+.scrolled-header .logostext span {
+  margin: 0;
+  color: black;
+  height: 16px;
+}
+.logostext {
+  margin-bottom: 10px;
 }
