@@ -5,7 +5,7 @@
 
 .news-wrapper {
   width: 60%;
-  font-family: "Poppins", sans-serif;
+  font-family: "Alexandria", sans-serif;
 }
 
 .news-image {
@@ -31,7 +31,7 @@
 .news-title {
   font-size: 29px; /* 32px - 3px */
   font-weight: 700;
-  color: #252839;
+  color: var(--color-block);
   margin-top: 20px;
 }
 
@@ -45,7 +45,7 @@
 .visit-experience h4 {
   font-size: 29px;
   font-weight: 700;
-  color: #252839;
+  color: var(--color-block);
   margin-top: 20px;
 }
 .visit-experience {
@@ -76,7 +76,7 @@
 .side-panel h5 {
   font-size: 21px;
   font-weight: 700;
-  color: #252839;
+  color: var(--color-block);
 }
 
 .contact-email,

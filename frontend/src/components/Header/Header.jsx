@@ -37,7 +37,7 @@ const Header = () => {
             <Logo />
             <div className="logostext d-md-flex flex-column d-none">
               <span className="fw-bold ">KUDÜS HILALI</span>
-              <span>Association</span>
+              <span className="fw-light">Association</span>
             </div>
           </div>
 

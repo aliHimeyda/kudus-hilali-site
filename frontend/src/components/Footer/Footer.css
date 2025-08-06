@@ -38,3 +38,12 @@
 .footerflex{
   justify-content: space-around;
 }
+
+.flogostext span {
+  margin: 0;
+  color: black;
+  height: 22px;
+  font-family: "Alexandria", sans-serif;
+  
+
+}

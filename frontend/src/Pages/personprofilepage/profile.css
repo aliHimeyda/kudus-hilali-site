@@ -31,27 +31,27 @@
 
 /* Titles and Labels */
 .username {
-  font-family: "Epilogue", sans-serif;
+  font-family: "Alexandria", sans-serif;
   font-size: 32px;
   font-weight: 700;
-  color: #252839;
+  color: var(--color-block);
 }
 .charity-title {
-  font-family: "Poppins", sans-serif;
+  font-family: "Alexandria", sans-serif;
   font-size: 20px;
   font-weight: 700;
-  color: #F6A428;
+  color: var(--color-orange);
   text-transform: capitalize;
 }
 .address-label,
 .social-label {
-  font-family: "Poppins", sans-serif;
+  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 700;
-  color: #252839;
+  color: var(--color-block);
 }
 .address {
-  font-family: "Poppins", sans-serif;
+  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: #4f4f4f;
@@ -78,13 +78,13 @@
   margin-top: 80px;
 }
 .bio-title {
-  font-family: "Epilogue";
+  font-family: "Alexandria", sans-serif;
   font-size: 24px;
   font-weight: 700;
-  color: #252839;
+  color: var(--color-block);
 }
 .bio-text {
-  font-family: "Poppins";
+  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: #4f4f4f;
@@ -92,10 +92,10 @@
 
 /* Experience Boxes */
 .experience-title {
-  font-family: "Epilogue";
+  font-family: "Alexandria", sans-serif;
   font-size: 24px;
   font-weight: 700;
-  color: #252839;
+  color: var(--color-block);
 }
 .info-box {
   width: 250px;
@@ -106,10 +106,10 @@
   padding: 10px 20px;
 }
 .info-text {
-  font-family: "Poppins";
+  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 700;
-  color: #252839;
+  color: var(--color-block);
 }
 
 @media (max-width: 790px) {

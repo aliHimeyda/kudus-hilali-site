@@ -1,29 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import KPIS from "../kpi/kpi";
 import "./herospace.css";
 import { useRef } from "react";
-
 const Hero = () => {
   const [step, setStep] = useState(0);
   const [showimages, setShowimages] = useState(false);
-  const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/") {
+      console.log("siliniyor");
+      sessionStorage.removeItem("hasVisited");
+    }
+    const hasVisited = sessionStorage.getItem("hasVisited");
+    console.log(hasVisited);
+    if (!hasVisited) {
+      preloadImages(backgroundImages);
+      const interval = setInterval(() => {
+        setStep((prev) => {
+          if (prev === 3) {
+            clearInterval(interval);
+          }
+          return prev + 1;
+        });
+      }, 500); // her 0.5 saniyede bir ilerle
+
+      return () => clearInterval(interval);
+    } else {
+      setShowimages(true);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
-    //animasyon resimleri gecikme yapiyordu ahmet hocam bu yuzden onceden yuklenmesini istedim >
-    preloadImages(backgroundImages);
-    const interval = setInterval(() => {
-      setStep((prev) => {
-        if (prev === 3) {
-          setShowimages(true);
-          clearInterval(interval);
-        }
-        return prev + 1;
-      });
-    }, 500); // her 0.5 saniyede bir ilerle
-
-    return () => clearInterval(interval);
-  }, [navigate]);
+    if (step === 4) {
+      setShowimages(true);
+      sessionStorage.setItem("hasVisited", "true"); // animasyon oynatıldı
+    }
+  }, [step]);
 
   const backgroundImages = [
     null,
@@ -76,7 +89,7 @@ const Hero = () => {
       ></img>
       <img
         className={`background-image ${showimages ? "visible" : ""}`}
-        src={backgroundImages[step]}
+        src="/assets/heroimage.webp"
         alt="heroimage"
       ></img>
       <div className={`gradient-overlay ${showimages ? "visible" : ""}`}></div>

@@ -19,8 +19,8 @@
 .comments-title {
   font-size: 29px;
   font-weight: 700;
-  font-family: 'Epilogue', sans-serif;
-  color: #252839;
+  font-family: "Alexandria", sans-serif;
+  color: var(--color-block);
   margin-bottom: 30px;
 }
 
@@ -49,14 +49,14 @@
 .comment-name {
   font-size: 15px;
   font-weight: 600;
-  color: #252839;
-  font-family: 'Poppins', sans-serif;
+  color: var(--color-block);
+ font-family: "Alexandria", sans-serif;
 }
 
 .comment-date {
   font-size: 11px;
-  color: #EA080A;
-  font-family: 'Poppins', sans-serif;
+  color: var(--color-red);
+  font-family: "Alexandria", sans-serif;
   margin-top: 2px;
   margin-bottom: 8px;
 }
@@ -64,7 +64,7 @@
 .comment-text {
   font-size: 13px;
   color: #4F4F4F;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Alexandria", sans-serif;
 }
 
 .post-comment-wrapper {
@@ -74,8 +74,8 @@
 .post-comment-title {
   font-size: 29px;
   font-weight: 700;
-  color: #252839;
-  font-family: 'Epilogue', sans-serif;
+  color: var(--color-block);
+  font-family: "Alexandria", sans-serif;
   margin-bottom: 20px;
 }
 
@@ -92,7 +92,7 @@
   font-size: 13px;
   border: 2px solid #F4F5F8;
   border-radius: 5px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Alexandria", sans-serif;
 }
 
 textarea {
@@ -102,15 +102,15 @@ textarea {
   font-size: 13px;
   border: 2px solid #F4F5F8;
   border-radius: 5px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Alexandria", sans-serif;
   margin-bottom: 20px;
   resize: none;
 }
 
 .submit-btn {
-  background: #EA080A;
+  background: var(--color-red);
   color: white;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Alexandria", sans-serif;
   font-size: 13px;
   font-weight: 500;
   padding: 15px 40px;

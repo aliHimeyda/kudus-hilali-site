@@ -1,6 +1,8 @@
 // src/components/Footer/Footer.jsx
 import React from 'react';
 import './Footer.css';
+import Logo from '../logo/logo';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -10,8 +12,13 @@ const Footer = () => {
           {/* Sol logo ve açıklama */}
           <div className="col-md-3 ">
             <div className="d-flex align-items-center justify-content-center mb-3">
-              <img src="/assets/logo.webp" alt="logo" height="40" className="me-2" />
-              <span className="fw-bold text-success">KUDUS HILALI</span>
+              <div className="d-flex align-items-end gap-2">
+            <Logo />
+            <div className="flogostext d-md-flex flex-column d-none">
+              <span className="fw-bold ">KUDÜS HILALI</span>
+              <span className="fw-light">Association</span>
+            </div>
+          </div>
             </div>
             <p className="text-center small">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut et dolore magna aliqua.
@@ -49,7 +56,7 @@ const Footer = () => {
             </ul>
 
             <div className="d-flex align-items-center mt-3">
-              <button className="btn contact-btn me-3">Contact Us</button>
+              <Link to="/contactuspage" className="btn contact-btn me-3">Contact Us</Link>
               <div className="d-flex gap-3">
                 <a href="#"><i className="bi bi-facebook"></i></a>
                 <a href="#"><i className="bi bi-linkedin"></i></a>

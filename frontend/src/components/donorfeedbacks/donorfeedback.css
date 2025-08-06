@@ -12,7 +12,7 @@
 
 .feedback-subtitle {
   text-align: center;
-  color: #ea080a;
+  color: var(--color-red);
   font-weight: 600;
   letter-spacing: 3px;
 }
@@ -24,7 +24,7 @@
 }
 
 .feedback-title span {
-  color: red;
+  color: var(--color-red);
 }
 
 .feedback-card {
@@ -62,7 +62,7 @@
 
 .feedback-name {
   font-weight: bold;
-  color: #252839;
+  color: var(--color-block);
 }
 
 .feedback-text {
@@ -72,7 +72,7 @@
 }
 
 .feedback-stars {
-  color: #f6a428;
+  color: var(--color-orange);
   font-size: 20px;
 }
 

@@ -1,18 +1,23 @@
 // src/Layout.js
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+let hasVisited=false;
 const Layout = () => {
   const [showLayout, setShowLayout] = useState(true);
   const location = useLocation();
 
+  
   useEffect(() => {
-    if (location.pathname === "/") {
+
+    if (!hasVisited) {
       setShowLayout(false);
       const timer = setTimeout(() => {
         setShowLayout(true);
-      }, 3000);
+         hasVisited=true;
+      }, 3500);
+     
       return () => clearTimeout(timer);
     } else {
       setShowLayout(true);

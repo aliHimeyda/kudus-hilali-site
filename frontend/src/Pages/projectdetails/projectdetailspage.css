@@ -21,7 +21,7 @@
 .circle-progress {
   border-width: 10px !important;
   border-style: solid;
-  border-color: #ea080a transparent transparent transparent;
+  border-color: var(--color-red) transparent transparent transparent;
   border-radius: 50%;
   position: relative;
   font-size: 13px;
@@ -87,7 +87,7 @@
 }
 .amount-box:hover {
   background-color: #f4f5f8;
-  border-color: #548010;
+  border-color: var(--color-green);
 }
 .btn-success{
     width: 200px;
@@ -95,7 +95,7 @@
 }
 
 .amount-box.custom {
-  background-color: #548010;
+  background-color: var(--color-green);
   color: white;
 }
 
@@ -131,14 +131,14 @@
 }
 
 .progress-bar-inner {
-  background-color: #548010;
+  background-color: var(--color-green);
   height: 100%;
   border-radius: 100px;
   transition: width 0.4s ease-in-out;
 }
 
 .donate-btn {
-  background-color: #548010;
+  background-color: var(--color-green);
   color: #f4f5f8;
   padding: 12px 24px;
   font-size: 15px;

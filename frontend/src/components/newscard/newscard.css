@@ -36,7 +36,7 @@
 }
 .divider {
   font-weight: bold;
-  color: black;
+  color: var(--color-block);
 }
 
 .news-title {
@@ -101,7 +101,7 @@
 }
 .newsmeta {
   font-size: 9px;
-  color: #548010;
+  color: var(--color-green);
 }
 @media (max-width: 768px) {
   .news-card {

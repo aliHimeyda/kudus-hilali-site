@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./home.css";
 import Hero from "../../components/herospace/herospace";
 import KPIS from "../../components/kpi/kpi";
@@ -9,13 +9,20 @@ import HowToContribute from "../../components/HowToContribute/HowToContribute";
 import Volunteers from "../../components/Volunteers/volunteers";
 import NewsCards from "../../components/homenewscards/newscards";
 import DonorFeedbacks from "../../components/donorfeedbacks/donorsfeedbacks";
+let hasVisited = false;
 const Home = () => {
      const [showContent, setShowContent] = useState(false);
-
   useEffect(() => {
-    const timer = setTimeout(() => {
+    let timer ;
+    if (!hasVisited) {
+      timer = setTimeout(() => {
       setShowContent(true);
+       hasVisited=true;
     }, 3500);
+    
+    } else {
+      setShowContent(true);
+    }
 
     return () => clearTimeout(timer);
   }, []);

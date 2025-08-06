@@ -5,8 +5,14 @@ import { Link } from "react-router-dom";
 
 const AnimatedSection = ({ children, className = "", triggerPercent = 0.3 }) => {
   const ref = useRef(null);
-
+ const imageCacheRef = useRef();
   useEffect(() => {
+     imageCacheRef.current = (src) => {
+      if (!"/assets/200.webp") return null;
+      const img = new Image();
+      img.src = src;
+      return img;
+    };
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

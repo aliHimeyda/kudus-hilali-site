@@ -42,14 +42,14 @@ body > * {
  }   */
 
 .h4 {
-  font-family: "Cinzel", serif;
+ font-family: "Alexandria", sans-serif;
   font-size: 14px;
-  color: #ea080a;
+  color: var(--color-red);
   letter-spacing: 1px;
 }
 
 .h2 {
-  font-family: "Cinzel", serif;
+  font-family: "Alexandria", sans-serif;
   font-size: 32px;
   font-weight: bold;
   margin: 10px 0;
@@ -96,7 +96,7 @@ code {
 }
 
 .category-box.active {
-  background: #548010;
+  background: var(--color-green);
   color: #f4f5f8;
   font-weight: 500;
 }

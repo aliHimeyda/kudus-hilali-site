@@ -10,23 +10,23 @@
 }
 
 .section-sub {
-  font-family: 'Rowdies', sans-serif;
-  color: #EA080A;
+  font-family: "Alexandria", sans-serif;
+  color: var(--color-red);
   text-align: center;
   letter-spacing: 3px;
   margin-bottom: 10px;
 }
 
 .section-title {
-  font-family: 'Epilogue', sans-serif;
+  font-family: "Alexandria", sans-serif;
   font-size: 48px;
   text-align: center;
   font-weight: bold;
-  color: #252839;
+  color: var(--color-block);
   margin-bottom: 40px;
 }
 .section-title span {
-  color: red;
+  color: var(--color-red);
 }
 
 .cards-container {

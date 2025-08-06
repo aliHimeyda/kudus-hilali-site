@@ -5,8 +5,14 @@ import Morebtn from "../../components/btns/morebtn";
 
 const Contactuspage = () => {
   const animatedRefs = useRef([]);
-
+  const imageCacheRef = useRef();
   useEffect(() => {
+    imageCacheRef.current = (src) => {
+      if (!"/public/assets/sky1.webp") return null;
+      const img = new Image();
+      img.src = src;
+      return img;
+    };
     const card = animatedRefs.current[1];
 
     // 1. Mouse move effect

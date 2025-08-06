@@ -6,12 +6,12 @@
 .logohead {
   width: 12px;
   height: 12px;
-  background-color: #606d13;
+  background-color: var(--color-green);
 }
 .logobody {
   width: 45px;
   height: 45px;
-  background-color: #606d13;
+  background-color: var(--color-green);
   overflow: hidden;
 }
 
@@ -37,7 +37,7 @@
     left: 0.67%;
   width: 44px;
   height: 44px;
-  background-color: #dea50d;
+  background-color: var(--color-orange);
   border: 2.3px #ffffff solid;
 }
 .logobodyscircle svg{
