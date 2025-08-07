@@ -3,6 +3,7 @@ import axios from "axios";
 import "./newspage.css";
 import Newscard from "../../components/newscard/newscard";
 import Bottomline from "../../components/bottomline/bottomline";
+import Logo from "../../components/logo/logo";
 
 const BASE_URL = "http://localhost:8888/kudus/backend/news/news_CRUD.php";
 const categories = [
@@ -91,8 +92,8 @@ const Newspage = () => {
       <div
         className={`loading ${
           isloading ? "visible" : ""
-        } d-flex justify-content-center align-items-center`}
-      ></div>
+        } d-flex justify-content-center align-items-center mt-5`}
+      ><Logo/></div>
     </div>
   );
 };

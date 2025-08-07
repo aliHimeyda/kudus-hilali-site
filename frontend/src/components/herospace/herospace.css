@@ -2,7 +2,8 @@
 @import "../../constants/colors.css";
 .hero-title-wrapper {
   width: 100%;
-  display: inline;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   z-index: 5;
   justify-content: center;

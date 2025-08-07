@@ -3,6 +3,7 @@ import "./projects.css";
 import CauseCard from "../../components/recentcause/cause";
 import Bottomline from "../../components/bottomline/bottomline";
 import axios from "axios";
+import Logo from "../../components/logo/logo";
 
 const categories = [
   "All",
@@ -17,7 +18,7 @@ const categories = [
 const Projects = () => {
   const sectionRef = useRef(null);
   const elementRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
   const [causes, setCauses] = useState([]);
   const [catActive, setActive] = useState("All");
   const fetchProjects = async (category = "All") => {
@@ -43,6 +44,19 @@ const Projects = () => {
     setActive(category);
     fetchProjects(category);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.innerHeight + window.scrollY;
+      const bottomPosition = elementRef.current.offsetHeight;
+      if (bottomPosition - scrollPosition < 100 && !isloading) {
+        setIsLoading(true);
+        setTimeout(() => setIsLoading(false), 500);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isloading]);
 
   return (
     <div
@@ -73,11 +87,13 @@ const Projects = () => {
           <p>No projects found.</p>
         )}
       </div>
-      {isLoading && (
-        <div className="loading d-flex justify-content-center align-items-center">
-          <p>Loading...</p>
-        </div>
-      )}
+      <div
+        className={`loading ${
+          isloading ? "visible" : ""
+        } d-flex justify-content-center align-items-center mt-5`}
+      >
+        <Logo />
+      </div>
     </div>
   );
 };

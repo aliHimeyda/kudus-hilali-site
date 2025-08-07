@@ -9,20 +9,20 @@ import HowToContribute from "../../components/HowToContribute/HowToContribute";
 import Volunteers from "../../components/Volunteers/volunteers";
 import NewsCards from "../../components/homenewscards/newscards";
 import DonorFeedbacks from "../../components/donorfeedbacks/donorsfeedbacks";
-let hasVisited = false;
+// let hasVisited = false;
 const Home = () => {
      const [showContent, setShowContent] = useState(false);
   useEffect(() => {
     let timer ;
-    if (!hasVisited) {
+    // if (!hasVisited) {
       timer = setTimeout(() => {
       setShowContent(true);
-       hasVisited=true;
+      //  hasVisited=true;
     }, 3500);
     
-    } else {
-      setShowContent(true);
-    }
+    // } else {
+    //   setShowContent(true);
+    // }
 
     return () => clearTimeout(timer);
   }, []);

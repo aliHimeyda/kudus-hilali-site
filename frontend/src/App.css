@@ -1,0 +1,25 @@
+.lefticons{
+    overflow: hidden;
+    z-index: 0;
+    width: 50px;
+    left: 30px;
+    opacity: calc(0.5);
+}
+
+.righticons{
+    overflow: hidden;
+    z-index: 0;
+    width: 50px;
+    right: 30px;
+    opacity: calc(0.5);
+}
+@media (width<770px) {
+    .lefticons{
+        width: 30px;
+        left: 15px;
+    }
+    .righticons{
+        width: 30px;
+        right: 15px;
+    }
+}

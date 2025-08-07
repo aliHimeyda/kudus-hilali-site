@@ -6,15 +6,15 @@ import { useRef } from "react";
 const Hero = () => {
   const [step, setStep] = useState(0);
   const [showimages, setShowimages] = useState(false);
-  const location = useLocation();
+  // const location = useLocation();
   useEffect(() => {
-    if (location.pathname === "/") {
-      console.log("siliniyor");
-      sessionStorage.removeItem("hasVisited");
-    }
-    const hasVisited = sessionStorage.getItem("hasVisited");
-    console.log(hasVisited);
-    if (!hasVisited) {
+    // if (location.pathname === "/") {
+    //   console.log("siliniyor");
+    //   sessionStorage.removeItem("hasVisited");
+    // }
+    // const hasVisited = sessionStorage.getItem("hasVisited");
+    // console.log(hasVisited);
+    // if (!hasVisited) {
       preloadImages(backgroundImages);
       const interval = setInterval(() => {
         setStep((prev) => {
@@ -26,15 +26,15 @@ const Hero = () => {
       }, 500); // her 0.5 saniyede bir ilerle
 
       return () => clearInterval(interval);
-    } else {
-      setShowimages(true);
-    }
-  }, [location.pathname]);
+    // } else {
+    //   setShowimages(true);
+    // }
+  }, []);
 
   useEffect(() => {
     if (step === 4) {
       setShowimages(true);
-      sessionStorage.setItem("hasVisited", "true"); // animasyon oynatıldı
+      // sessionStorage.setItem("hasVisited", "true"); // animasyon oynatıldı
     }
   }, [step]);
 
@@ -65,6 +65,7 @@ const Hero = () => {
 
   return (
     <div className="image-wrapper">
+      
       {step <= 3 && step > 0 && (
         <img
           key={step}
