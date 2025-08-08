@@ -13,7 +13,7 @@ const RecentCauses = () => {
   const fetchLatestProjects = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8888/kudus/backend/projects/projects_CRUD.php"
+        "http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php"
       );
       if (res.data.status === "success") {
         setProjects(res.data.data.slice(0, 3));

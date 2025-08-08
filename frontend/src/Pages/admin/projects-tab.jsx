@@ -46,7 +46,7 @@ export default class ProjectsTab extends Component {
     isLoading: false,
   };
 
-  apiUrl = 'http://localhost:8888/kudus/backend/projects/projects_CRUD.php';
+  apiUrl = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php';
 
   componentDidMount() {
     this.fetchProjects();

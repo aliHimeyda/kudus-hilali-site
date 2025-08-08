@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from "react";
 const PageCache = ({ isActive, children }) => {
   const containerRef = useRef();
- 
+
   useEffect(() => {
     if (!isActive && containerRef.current) {
       // Gizlemeden once scroll pozisyonunu kaydet

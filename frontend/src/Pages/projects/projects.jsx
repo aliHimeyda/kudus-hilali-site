@@ -26,8 +26,8 @@ const Projects = () => {
     try {
       const url =
         category === "All"
-          ? "http://localhost:8888/kudus/backend/projects/projects_CRUD.php"
-          : `http://localhost:8888/kudus/backend/projects/projects_CRUD.php?category=${category}`;
+          ? "http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php"
+          : `http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php?category=${category}`;
       const res = await axios.get(url);
       if (res.data.status === "success") {
         setCauses(res.data.data);

@@ -18,7 +18,7 @@ import {
 
 export default class NewsTab extends Component {
   // Base URL for relative image paths
-  IMAGE_BASE = 'http://localhost:8888/kudus/backend/news/';
+  IMAGE_BASE = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/news/';
 
   state = {
     newsList: [],
@@ -38,7 +38,7 @@ export default class NewsTab extends Component {
     selectedNews: null,
   };
 
-  apiUrl = 'http://localhost:8888/kudus/backend/news/news_CRUD.php';
+  apiUrl = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/news/news_CRUD.php';
 
   componentDidMount() {
     this.fetchNews();

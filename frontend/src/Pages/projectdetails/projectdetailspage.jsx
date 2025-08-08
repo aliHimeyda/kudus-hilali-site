@@ -24,7 +24,7 @@ const ProjectDetailsPage = () => {
   const fetchProjectDetails = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8888/kudus/backend/projects/projects_CRUD.php?id=${projectid}`
+        `http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php?id=${projectid}`
       );
       if (res.data.status === "success" && res.data.data.length > 0) {
         setProject(res.data.data[0]);
@@ -41,7 +41,7 @@ const ProjectDetailsPage = () => {
   const fetchRelatedProjects = async (category) => {
     try {
       const res = await axios.get(
-        `http://localhost:8888/kudus/backend/projects/projects_CRUD.php?category=${category}`
+        `http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php?category=${category}`
       );
       if (res.data.status === "success") {
 

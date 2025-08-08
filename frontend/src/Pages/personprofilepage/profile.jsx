@@ -17,7 +17,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchPerson = async () => {
       try {
-        const res = await axios.get(`http://localhost:8888/kudus/backend/teams/teams_CRUD.php?id=${personid}`);
+        const res = await axios.get(`http://mediumslateblue-pony-639793.hostingersite.com/backend/teams/teams_CRUD.php?id=${personid}`);
         if (res.data.status === "success" && res.data.data) {
           const result = Array.isArray(res.data.data)
             ? res.data.data[0]

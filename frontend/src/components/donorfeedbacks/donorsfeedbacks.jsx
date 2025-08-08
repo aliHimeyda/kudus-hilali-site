@@ -13,7 +13,7 @@ const DonorFeedbacks = () => {
   const fetchFeedbacks = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8888/kudus/backend/donors_feedbacks/donors_feedbacks_CRUD.php"
+        "http://mediumslateblue-pony-639793.hostingersite.com/backend/donors_feedbacks/donors_feedbacks_CRUD.php"
       );
       if (res.data.status === "success" && Array.isArray(res.data.data)) {
         const formatted = res.data.data.map((item) => ({

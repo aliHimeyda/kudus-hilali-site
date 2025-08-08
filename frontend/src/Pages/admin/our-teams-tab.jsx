@@ -39,7 +39,7 @@ export default class OurTeamsTab extends Component {
     isLoading: false,
   };
 
-  apiUrl = 'http://localhost:8888/kudus/backend/teams/teams_CRUD.php';
+  apiUrl = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/teams/teams_CRUD.php';
 
   componentDidMount() {
     this.fetchTeams();
