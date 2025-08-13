@@ -29,7 +29,7 @@ const Customnewscard = ({ news }) => {
 
       <div className="newsdata d-flex flex-column gap-2">
         <div className="newsmeta d-flex flex-row align-items-center gap-1">
-          <img src="/assets/dateicon.svg" alt="" />
+          <img loading="lazy" src="/assets/dateicon.svg" alt="" />
           <p className="m-0">{news.publish_date || news.date}</p>
         </div>
         <p className="newstitle m-0">{news.title}</p>

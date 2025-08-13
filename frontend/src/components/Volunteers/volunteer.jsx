@@ -14,6 +14,7 @@ const Volunteer = ({ volunteerdata }) => {
       <div className="vol-card d-flex flex-column ">
         <div className="volimg">
           <img
+          loading="lazy"
             src={volunteerdata.image}
             alt={volunteerdata.name}
             className="img-fluid vol-img"

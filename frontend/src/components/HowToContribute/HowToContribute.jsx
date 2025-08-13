@@ -45,12 +45,13 @@ const HowToContribute = () => {
           <div className="imagesection">
             <div className="playiconshadow">
               <div className="play-icon">
-                <img src="/assets/playVector.svg" alt="Play" />
+                <img loading="lazy" src="/assets/playVector.svg" alt="Play" />
               </div>
             </div>
-            <img src="/assets/4000.webp" alt="Scene" className="img-top" />
+            <img loading="lazy" src="/assets/4000.webp" alt="Scene" className="img-top" />
             <div className="img-boxed">
               <img
+              loading="lazy"
                 src="/assets/200.webp"
                 alt="Helping Hands"
                 className="img-bottom"
@@ -84,6 +85,7 @@ const HowToContribute = () => {
                 <div className="d-flex flex-row justify-content-center align-items-center gap-4">
                   <div className="image-container">
                     <img
+                    loading="lazy"
                       src="/assets/DonationVector.webp"
                       alt="Donation"
                       className="icon-img"
@@ -102,6 +104,7 @@ const HowToContribute = () => {
                 <div className="d-flex flex-row justify-content-center align-items-center gap-4">
                   <div className="image-container">
                     <img
+                    loading="lazy"
                       src="/assets/Volunteerector.webp"
                       alt="Donation"
                       className="icon-img"

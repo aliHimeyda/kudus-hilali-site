@@ -67,7 +67,7 @@ const NewsDetails = () => {
           ref={el => (animatedRefs.current[0] = el)}
           style={{ overflow: 'hidden', position: 'relative' }}
         >
-          <img
+          <img loading="lazy"
             src={newsDetail.image}
             alt={newsDetail.title}
             style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '20px' }}
@@ -77,7 +77,7 @@ const NewsDetails = () => {
             ref={el => (animatedRefs.current[1] = el)}
           >
             <div className="lesson">
-              <img src="/assets/dateicon.svg" alt="" /> {newsDetail.publish_date}
+              <img loading="lazy" src="/assets/dateicon.svg" alt="" /> {newsDetail.publish_date}
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@ const NewsDetails = () => {
           >
             {moreNews.map((item, i) => (
               <div className="image-box" key={i}>
-                <img
+                <img loading="lazy"
                   src={item.image}
                   alt={item.title}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}

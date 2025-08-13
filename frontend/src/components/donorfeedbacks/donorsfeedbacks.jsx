@@ -85,7 +85,7 @@ const DonorFeedbacks = () => {
       {feedbackData.length > 3 && (
         <div className="feedback-controls mt-5 d-flex justify-content-center align-items-center gap-5">
           <div className="arrow-btn" onClick={prev}>
-            <img src="/assets/leftslider.svg" alt="Previous" />
+            <img loading="lazy" src="/assets/leftslider.svg" alt="Previous" />
           </div>
 
           <div className="dots d-flex gap-2">
@@ -100,7 +100,7 @@ const DonorFeedbacks = () => {
           </div>
 
           <div className="arrow-btn" onClick={next}>
-            <img src="/assets/rightslider.svg" alt="Next" />
+            <img loading="lazy" src="/assets/rightslider.svg" alt="Next" />
           </div>
         </div>
       )}

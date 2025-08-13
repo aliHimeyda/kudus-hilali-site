@@ -36,7 +36,7 @@ const Aboutus = () => {
   return (
     <div className="container-fluid p-0">
       <div className="hero-section position-relative text-center">
-        <img
+        <img loading="lazy"
           src="/assets/200.webp"
           alt="Hero"
         />
@@ -68,18 +68,18 @@ From year to year we strive to invent the most innovative technology that is use
 
       <AnimatedSection className="image-gallery d-flex flex-row justify-content-center align-items-center gap-3 py-5">
         <AnimatedSection className="imgpacket1 d-flex flex-column align-items-end w-50 gap-4">
-            <img src="/assets/200.webp" alt="" style={{width:'250px',height:'450px', objectFit:'cover'}} className="image1"/>
+            <img loading="lazy" src="/assets/200.webp" alt="" style={{width:'250px',height:'450px', objectFit:'cover'}} className="image1"/>
             <AnimatedSection  className="d-flex flex-row w-100 justify-content-end gap-4">
-                <img src="/assets/4000.webp" alt="" style={{width:'300px',height:'200px', objectFit:'cover'}} className="image2"/>
-                <img src="/assets/a6.webp" alt="" style={{width:'200px',height:'170px', objectFit:'cover' }} className="px-3 image3"/>
+                <img loading="lazy" src="/assets/4000.webp" alt="" style={{width:'300px',height:'200px', objectFit:'cover'}} className="image2"/>
+                <img loading="lazy" src="/assets/a6.webp" alt="" style={{width:'200px',height:'170px', objectFit:'cover' }} className="px-3 image3"/>
             </AnimatedSection>
         </AnimatedSection>
         <AnimatedSection className="imgpacket2 d-flex flex-column w-50 gap-3">
             <AnimatedSection className="d-flex flex-row w-100 align-items-end gap-3">
-            <img src="/assets/a5.webp" alt="" style={{width:'200px',height:'200px', objectFit:'cover'}} className="image4"/>
-            <img src="/assets/a4.webp" alt="" style={{width:'300px',height:'250px', objectFit:'cover'}} className="image5"/>
+            <img loading="lazy" src="/assets/a5.webp" alt="" style={{width:'200px',height:'200px', objectFit:'cover'}} className="image4"/>
+            <img loading="lazy" src="/assets/a4.webp" alt="" style={{width:'300px',height:'250px', objectFit:'cover'}} className="image5"/>
             </AnimatedSection>
-         <img src="/assets/a2.webp" alt="" style={{width:'300px',height:'300px', objectFit:'cover'}} className="image6"/>
+         <img loading="lazy" src="/assets/a2.webp" alt="" style={{width:'300px',height:'300px', objectFit:'cover'}} className="image6"/>
         </AnimatedSection>
       </AnimatedSection>
 
@@ -90,7 +90,7 @@ From year to year we strive to invent the most innovative technology that is use
           <div>
             <div className="d-flex flex-column">
               <div className="value-card p-3">
-                <div className="icon-box mb-2"><img src="/assets/Workflow.svg" alt="" /></div>
+                <div className="icon-box mb-2"><img loading="lazy" src="/assets/Workflow.svg" alt="" /></div>
                 <h5 className="fw-bold" style={{ fontSize: "17px" }}>Collaboration</h5>
                 <p className="text-muted" style={{ fontSize: "13px" }}>
                   Collaboration Collaboration is the process of two or more people or organizations working together to complete a task or achieve a goal. 
@@ -99,7 +99,7 @@ From year to year we strive to invent the most innovative technology that is use
             </div>
             <div className="d-flex flex-column">
               <div className="value-card p-3">
-                <div className="icon-box mb-2"><img src="/assets/Iconshape.svg" alt="" /></div>
+                <div className="icon-box mb-2"><img loading="lazy" src="/assets/Iconshape.svg" alt="" /></div>
                 <h5 className="fw-bold" style={{ fontSize: "17px" }}>Transparency</h5>
                 <p className="text-muted" style={{ fontSize: "13px" }}>
                   Transparency Collaboration is the process of two or more people or organizations working together to complete a task or achieve a goal. 
@@ -110,7 +110,7 @@ From year to year we strive to invent the most innovative technology that is use
          <div>
             <div className="d-flex flex-column">
               <div className="value-card p-3">
-                <div className="icon-box mb-2"><img src="/assets/likeicon.svg" alt="" /></div>
+                <div className="icon-box mb-2"><img loading="lazy" src="/assets/likeicon.svg" alt="" /></div>
                 <h5 className="fw-bold" style={{ fontSize: "17px" }}>Trust</h5>
                 <p className="text-muted" style={{ fontSize: "13px" }}>
                   Trust Collaboration is the process of two or more people or organizations working together to complete a task or achieve a goal. 
@@ -119,7 +119,7 @@ From year to year we strive to invent the most innovative technology that is use
             </div>
             <div className="d-flex flex-column">
               <div className="value-card p-3">
-                <div className="icon-box mb-2"><img src="/assets/Integrity.svg" alt="" /></div>
+                <div className="icon-box mb-2"><img loading="lazy" src="/assets/Integrity.svg" alt="" /></div>
                 <h5 className="fw-bold" style={{ fontSize: "17px" }}>Integrity</h5>
                 <p className="text-muted" style={{ fontSize: "13px" }}>
                   Integrity Collaboration is the process of two or more people or organizations working together to complete a task or achieve a goal. 
@@ -144,7 +144,7 @@ From year to year we strive to invent the most innovative technology that is use
         </div>
          <div className="shape-container">
           {[...Array(5)].map((_, i) => (
-            <div key={i} className={`shape-box shape-${i + 1}`}><img src={`/assets/v${i+1}.webp`} alt={i} style={{objectFit:'cover', width:'100%',height:'100%' , borderRadius:'10px'}}/></div>
+            <div key={i} className={`shape-box shape-${i + 1}`}><img loading="lazy" src={`/assets/v${i+1}.webp`} alt={i} style={{objectFit:'cover', width:'100%',height:'100%' , borderRadius:'10px'}}/></div>
           ))}
         </div>
       </AnimatedSection>
