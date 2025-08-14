@@ -36,7 +36,7 @@ const ProjectDetailsPage = () => {
   const fetchProjectDetails = async () => {
     try {
       const res = await axios.get(
-        `http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php?id=${projectid}`
+        `https://kudushilali.org/backend/projects/projects_CRUD.php?id=${projectid}`
       );
       if (res.data.status === "success" && res.data.data.length > 0) {
         setProject(res.data.data[0]);
@@ -51,7 +51,7 @@ const ProjectDetailsPage = () => {
   const fetchRelatedProjects = async (category) => {
     try {
       const res = await axios.get(
-        `http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php?category=${category}`
+        `https://kudushilali.org/backend/projects/projects_CRUD.php?category=${category}`
       );
       if (res.data.status === "success") {
         const filtered = res.data.data.filter(

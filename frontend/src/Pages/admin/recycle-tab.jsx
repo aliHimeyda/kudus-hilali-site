@@ -20,7 +20,7 @@ export default class RecycleTab extends Component {
     deleteId: null,
   };
 
-  baseUrl = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/recycle/recycle_CRUD.php';
+  baseUrl = 'https://kudushilali.org/backend/recycle/recycle_CRUD.php';
 
   componentDidMount() { this.loadItems(); }
 

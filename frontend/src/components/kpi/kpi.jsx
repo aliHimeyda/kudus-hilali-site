@@ -20,7 +20,7 @@ const KPIS = () => {
     const fetchKPI = async () => {
       try {
         const res = await axios.get(
-          "http://mediumslateblue-pony-639793.hostingersite.com/backend/Home/home_kpi.php"
+          "https://kudushilali.org/backend/Home/home_kpi.php"
         );
         if (res.data.status === "success" && res.data.data) {
           setKpi(res.data.data);

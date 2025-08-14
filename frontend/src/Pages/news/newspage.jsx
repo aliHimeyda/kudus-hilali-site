@@ -5,7 +5,7 @@ import Newscard from "../../components/newscard/newscard";
 import Bottomline from "../../components/bottomline/bottomline";
 import Logo from "../../components/logo/logo";
 
-const BASE_URL = "http://mediumslateblue-pony-639793.hostingersite.com/backend/news/news_CRUD.php";
+const BASE_URL = "https://kudushilali.org/backend/news/news_CRUD.php";
 const categories = [
   "All",
   "Education",

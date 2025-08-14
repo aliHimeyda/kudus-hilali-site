@@ -32,8 +32,8 @@ export default class DonationsTab extends Component {
     },
   };
 
-  donationsUrl = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/donations/donations_CRUD.php';
-  projectsUrl = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php';
+  donationsUrl = 'https://kudushilali.org/backend/donations/donations_CRUD.php';
+  projectsUrl = 'https://kudushilali.org/backend/projects/projects_CRUD.php';
 
   componentDidMount() {
     this.loadProjects();

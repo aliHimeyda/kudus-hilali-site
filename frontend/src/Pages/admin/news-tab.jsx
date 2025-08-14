@@ -18,7 +18,7 @@ import {
 
 export default class NewsTab extends Component {
   // Base URL for relative image paths
-  IMAGE_BASE = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/news/';
+  IMAGE_BASE = 'https://kudushilali.org/backend/news/';
 
   state = {
     newsList: [],
@@ -38,7 +38,7 @@ export default class NewsTab extends Component {
     selectedNews: null,
   };
 
-  apiUrl = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/news/news_CRUD.php';
+  apiUrl = 'https://kudushilali.org/backend/news/news_CRUD.php';
 
   componentDidMount() {
     this.fetchNews();

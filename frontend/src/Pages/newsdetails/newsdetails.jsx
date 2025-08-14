@@ -6,7 +6,7 @@ import Customnewscard from '../../components/newscard/customnewscard';
 import { useParams } from 'react-router-dom';
 import Comments from '../../components/commentarea/commentarea';
 
-const BASE_URL = "http://mediumslateblue-pony-639793.hostingersite.com/backend/news/news_CRUD.php";
+const BASE_URL = "https://kudushilali.org/backend/news/news_CRUD.php";
 
 const NewsDetails = () => {
   const { newsid } = useParams();

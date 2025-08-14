@@ -46,7 +46,7 @@ export default class ProjectsTab extends Component {
     isLoading: false,
   };
 
-  apiUrl = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php';
+  apiUrl = 'https://kudushilali.org/backend/projects/projects_CRUD.php';
 
   componentDidMount() {
     this.fetchProjects();

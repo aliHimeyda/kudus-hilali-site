@@ -5,7 +5,7 @@ import Newscard from "../newscard/newscard";
 import Bottomline from "../bottomline/bottomline";
 import Allsbtn from "../btns/allsbtn";
 
-const BASE_URL = "http://mediumslateblue-pony-639793.hostingersite.com/backend/news/news_CRUD.php";
+const BASE_URL = "https://kudushilali.org/backend/news/news_CRUD.php";
 
 const NewsCards = () => {
   const [cards, setCards] = useState([]);

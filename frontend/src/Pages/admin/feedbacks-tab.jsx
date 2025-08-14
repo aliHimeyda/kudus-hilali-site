@@ -26,7 +26,7 @@ export default class FeedbacksTab extends Component {
     },
   };
 
-  apiUrl = 'http://mediumslateblue-pony-639793.hostingersite.com/backend/donors_feedbacks/donors_feedbacks_CRUD.php';
+  apiUrl = 'https://kudushilali.org/backend/donors_feedbacks/donors_feedbacks_CRUD.php';
 
   componentDidMount() {
     this.fetchFeedbacks();
