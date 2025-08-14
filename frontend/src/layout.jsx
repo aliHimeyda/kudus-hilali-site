@@ -11,19 +11,17 @@ const Layout = () => {
   const isHome = location.pathname === "/";
   const hasVisited = useRef(false);
 
-
- useEffect(() => {
-  if (!hasVisited.current && isHome) {
-    const timer = setTimeout(() => {
+  useEffect(() => {
+    if (!hasVisited.current && isHome) {
+      const timer = setTimeout(() => {
+        setShowLayout(true);
+      }, 3200);
+      return () => clearTimeout(timer);
+    } else {
       setShowLayout(true);
-    }, 3500);
-    return () => clearTimeout(timer);
-  } else {
-    setShowLayout(true);
-    hasVisited.current = true;
-  }
-}, [location.pathname]);
-
+      hasVisited.current = true;
+    }
+  }, [location.pathname]);
 
   return (
     <>

@@ -6,17 +6,17 @@ import Morebtn from "../btns/morebtn";
 const items1 = [
   {
     id: 1,
-    title: "Natural Disasters",
+    title: "Emergency assistance",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
+      "We deliver urgent relief, seasonal food aid, and winter support to those in need.",
     color: "var(--color-red)",
     icon: "🌪️",
   },
   {
     id: 2,
-    title: "Natural Disasters",
+    title: "Community Development",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
+      "Building stronger communities through empowerment, inclusion, and local action.",
     color: "var(--color-orange)",
     icon: "🌪️",
   },
@@ -24,32 +24,32 @@ const items1 = [
 const items2 = [
   {
     id: 3,
-    title: "Healthcare Services",
+    title: "Children & Education",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
+      "We empower children through education, care, and emotional support for a brighter future.",
     color: "var(--color-orange)",
     icon: "🏥",
   },
   {
     id: 4,
-    title: "Clean Water Projects",
+    title: "Advocacy & Awareness",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the",
+      "Raising voices for Palestine through art, stories, and community action.",
     color: "var(--color-green)",
     icon: "🚰",
   },
 ];
 const descriptions = [
-  "Committed to global upliftment, we offer aid to those facing diverse challenges, aiming to empower, inspire resilience, and drive positive change for brighter futures in communities worldwide. Our dedication spans borders, fostering hope and transformation.",
-  "Committed to global upliftment, we offer aid to those facing diverse challenges, aiming to empower, inspire resilience, and drive positive change for brighter futures in communities worldwide. Our dedication spans borders, fostering hope and transformation.",
-  "Committed to global upliftment, we offer aid to those facing diverse challenges, aiming to empower, inspire resilience, and drive positive change for brighter futures in communities worldwide. Our dedication spans borders, fostering hope and transformation.",
-  "Committed to global upliftment, we offer aid to those facing diverse challenges, aiming to empower, inspire resilience, and drive positive change for brighter futures in communities worldwide. Our dedication spans borders, fostering hope and transformation.",
+  "We provide urgent response to crises (war, earthquakes, displacement), Ramadan food campaigns, Qurban meat distribution and winter kits (blankets, heating support).",
+  "We strengthen communities by supporting refugees and families (especially in Turkey), empowering women and youth, promoting local initiatives in Sakarya, and fostering skills-building and volunteer integration.",
+  "We provide orphan support and child sponsorship, school kits and uniforms, education programs (tutoring, literacy), and mental health & trauma care.",
+  "We advocate for Palestine through impactful campaigns, social media storytelling, art exhibitions and events, and active participation in NGO summits, youth panels, and mosque information booths.",
 ];
 const titles = [
-  "Global <strong>Struggles</strong> Aid Assistance",
-  "Global <strong>Struggles</strong> Aid Assistance",
-  "<strong>Healthcare</strong> Services",
-  "Clean <strong>Water</strong> Projects",
+  "<strong>Emergency</strong> Relief & Seasonal Aid",
+  "Community <strong>Development</strong>",
+  "Children & <strong>Education</strong>",
+  "<strong>Advocacy</strong> & Awareness",
 ];
 
 const WhatWeDo = () => {
@@ -122,7 +122,7 @@ const WhatWeDo = () => {
                 onClick={() => setSelected(item.id)}
               >
                 <div className="icon d-flex">
-                  <img
+                  <img decoding="async"
                     loading="lazy"
                     src="/assets/disastericon.png"
                     alt=""
@@ -150,7 +150,9 @@ const WhatWeDo = () => {
                   <h5
                     dangerouslySetInnerHTML={{ __html: titles[selected - 1] }}
                   />
-                  <p className="bdescription">{descriptions[selected - 1]}</p>
+                  <p
+                    dangerouslySetInnerHTML={{ __html: descriptions[selected - 1] }}
+                  />
                 </div>
               </div>
             ))}
@@ -173,7 +175,7 @@ const WhatWeDo = () => {
                 onClick={() => setSelected(item.id)}
               >
                 <div className="icon d-flex">
-                  <img
+                  <img decoding="async"
                     loading="lazy"
                     src="/assets/puzzleicon.png"
                     alt=""

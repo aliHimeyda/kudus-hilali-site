@@ -4,7 +4,7 @@
 .transparent-header {
   background-color: transparent;
   transition: background-color 0.3s ease-in-out;
-  animation: fadein 1s ease-out;
+  animation: fadein-down 1s ease-out;
   z-index: 100000;
   font-family: "Alexandria", sans-serif;
 
@@ -124,16 +124,17 @@
   color: white;
 }
 
-@keyframes fadein {
+@keyframes fadein-down {
   0% {
     opacity: 0;
-    transform: translateY(-40px);
+    transform: translateY(-100%); /* tamamen yukarıdan başlat */
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0); /* normal konuma getir */
   }
 }
+
 
 .menu-toggle {
   display: inline-block;

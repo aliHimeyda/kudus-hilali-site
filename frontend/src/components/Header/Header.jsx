@@ -8,12 +8,22 @@ const Header = () => {
   const height = window.innerHeight - 300;
   const location = useLocation();
   useEffect(() => {
+    if (
+      location.pathname !== "/" &&
+      location.pathname !== "/aboutuspage" &&
+      location.pathname !== "/contactuspage"
+    ) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
     const onScroll = () => {
       if (
         location.pathname === "/" ||
         location.pathname === "/aboutuspage" ||
         location.pathname === "/contactuspage"
       ) {
+        setIsScrolled(false);
         //sadece homepage icin
         setIsScrolled(window.scrollY > height); // 962px sonra background gelsin
       } else {

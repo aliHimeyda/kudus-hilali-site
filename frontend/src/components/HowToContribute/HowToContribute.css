@@ -46,7 +46,7 @@
 }
 
 .playiconshadow {
-    display: flex;
+    display: none;
   position: absolute;
   top: 40%;
   left: 30%;

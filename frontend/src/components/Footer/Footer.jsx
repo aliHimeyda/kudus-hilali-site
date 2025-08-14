@@ -50,9 +50,9 @@ const Footer = () => {
           <div className="d-flex flex-column align-items-center justify-content-center">
             <h6 className="footer-title">GET SUPPORT</h6>
             <ul className="list-unstyled small">
-              <li><img loading="lazy" src="/assets/EmailVector.svg" alt="" /> <a href="mailto:kudushilali@gmail.com">kudushilali@gmail.com</a></li>
-              <li><img loading="lazy" src="/assets/CallVector.svg" alt="" /> +90 505 878 50 40</li>
-              <li><img loading="lazy" src="/assets/LocationVector.svg" alt="" /> Arabacıalanı, 605 nolu sokak<br />No: 1/1, 54100 Serdivan/Sakarya</li>
+              <li><img decoding="async" loading="lazy" src="/assets/EmailVector.svg" alt="" /> <a href="mailto:kudushilali@gmail.com">kudushilali@gmail.com</a></li>
+              <li><img decoding="async" loading="lazy" src="/assets/CallVector.svg" alt="" /> +90 505 878 50 40</li>
+              <li><img decoding="async" loading="lazy" src="/assets/LocationVector.svg" alt="" /> Arabacıalanı, 605 nolu sokak<br />No: 1/1, 54100 Serdivan/Sakarya</li>
             </ul>
 
             <div className="d-flex align-items-center mt-3">

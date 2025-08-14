@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import "./home.css";
 import Hero from "../../components/herospace/herospace";
@@ -11,42 +10,41 @@ import NewsCards from "../../components/homenewscards/newscards";
 import DonorFeedbacks from "../../components/donorfeedbacks/donorsfeedbacks";
 // let hasVisited = false;
 const Home = () => {
-     const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(false);
   useEffect(() => {
-    let timer ;
+    let timer;
     // if (!hasVisited) {
-      timer = setTimeout(() => {
+    timer = setTimeout(() => {
       setShowContent(true);
       //  hasVisited=true;
-    }, 3500);
-    
+    }, 3200);
+
     // } else {
     //   setShowContent(true);
     // }
 
     return () => clearTimeout(timer);
   }, []);
-return(
-    <div style={{ width:"100vw"  }}>
-        <Hero />
-        {showContent && (
-          <div className="stats-container-mockup">
-        <KPIS />
-      </div>
-        )}
+  return (
+    <div style={{ width: "100vw" }}>
+      <Hero />
+      {showContent && (
+        <div className="stats-container-mockup">
+          <KPIS />
+        </div>
+      )}
 
       {showContent && (
         <>
-        
-          <RecentCauses/>
-          <WhatWeDo/>
-          <HowToContribute/>
-          <Volunteers/>
-          <NewsCards/>
-          <DonorFeedbacks/>
-          
+          <RecentCauses />
+          <WhatWeDo />
+          <HowToContribute />
+          <Volunteers />
+          <NewsCards />
+          <DonorFeedbacks />
         </>
       )}
     </div>
-  );}
+  );
+};
 export default Home;

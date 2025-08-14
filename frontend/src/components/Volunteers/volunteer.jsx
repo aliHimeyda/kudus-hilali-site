@@ -13,7 +13,7 @@ const Volunteer = ({ volunteerdata }) => {
     <div key={volunteerdata.id} onClick={handleClick}>
       <div className="vol-card d-flex flex-column ">
         <div className="volimg">
-          <img
+          <img decoding="async"
           loading="lazy"
             src={volunteerdata.image}
             alt={volunteerdata.name}

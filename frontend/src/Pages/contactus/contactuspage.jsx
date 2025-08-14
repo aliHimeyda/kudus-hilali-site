@@ -159,7 +159,7 @@ const Contactuspage = () => {
             </span>
             <div className="mt-5 d-flex flex-column gap-4">
               <div className="d-flex flex-row gap-3">
-                <img loading="lazy" src="/assets/EmailVector.svg" alt="" />
+                <img decoding="async" loading="lazy" src="/assets/EmailVector.svg" alt="" />
                 <button class="button" data-text="Awesome">
                   <span class="actual-text text-start">
                     kudushilali@gmail.com
@@ -170,7 +170,7 @@ const Contactuspage = () => {
                 </button>
               </div>
               <div className="d-flex flex-row gap-3">
-                <img loading="lazy" src="/assets/CallVector.svg" alt="" />
+                <img decoding="async" loading="lazy" src="/assets/CallVector.svg" alt="" />
                 <button class="button" data-text="Awesome">
                   <span class="actual-text text-start">+90 505 878 50 40</span>
                   <span aria-hidden="true" class="hover-text text-start">
@@ -179,7 +179,7 @@ const Contactuspage = () => {
                 </button>
               </div>
               <div className="d-flex flex-row gap-3">
-                <img loading="lazy" src="/assets/LocationVector.svg" alt="" />
+                <img decoding="async" loading="lazy" src="/assets/LocationVector.svg" alt="" />
                 <span className="fw-bold">
                   Arabacıalanı, 605 nolu sokak <br />
                   No: 1/1, 54100 Serdivan/Sakarya

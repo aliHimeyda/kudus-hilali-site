@@ -4,6 +4,7 @@ import "./projectdetailspage.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import CauseCard from "../../components/recentcause/cause";
+import CookiePopup from "../../components/message/message";
 
 const ProjectDetailsPage = () => {
   const { projectid } = useParams();
@@ -20,7 +21,18 @@ const ProjectDetailsPage = () => {
   });
   const [error, setError] = useState("");
   const [ischecked, setCheck] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
+  const openPopup = () => setShowPopup(true);
+  const closePopup = () => setShowPopup(false);
+
+  const handleAccept = () => {
+    console.log("Cookies accepted!");
+  };
+
+  const handleManage = () => {
+    console.log("Opening preferences...");
+  };
   const fetchProjectDetails = async () => {
     try {
       const res = await axios.get(
@@ -29,7 +41,6 @@ const ProjectDetailsPage = () => {
       if (res.data.status === "success" && res.data.data.length > 0) {
         setProject(res.data.data[0]);
         fetchRelatedProjects(res.data.data[0].category);
-        
       }
     } catch (err) {
       console.error("Proje detayı alınırken hata:", err);
@@ -37,15 +48,15 @@ const ProjectDetailsPage = () => {
     setLoading(false);
   };
 
-
   const fetchRelatedProjects = async (category) => {
     try {
       const res = await axios.get(
         `http://mediumslateblue-pony-639793.hostingersite.com/backend/projects/projects_CRUD.php?category=${category}`
       );
       if (res.data.status === "success") {
-
-        const filtered = res.data.data.filter((p) => p.id !== parseInt(projectid));
+        const filtered = res.data.data.filter(
+          (p) => p.id !== parseInt(projectid)
+        );
         setRelatedProjects(filtered.slice(0, 3)); // En fazla 3 proje göster
       }
     } catch (err) {
@@ -57,10 +68,11 @@ const ProjectDetailsPage = () => {
     fetchProjectDetails();
   }, [projectid]);
 
-
   const handleAmountChange = (val) => {
-    if (val > (project?.goal - project?.raised)) {
-      setError(`Amount exceeds remaining goal of $${project.goal - project.raised}`);
+    if (val > project?.goal - project?.raised) {
+      setError(
+        `Amount exceeds remaining goal of $${project.goal - project.raised}`
+      );
       return;
     }
     if (val < 0) {
@@ -78,7 +90,6 @@ const ProjectDetailsPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Donation submitted:", formData);
-
   };
 
   if (loading) return <p className="text-center mt-5">Loading...</p>;
@@ -88,12 +99,22 @@ const ProjectDetailsPage = () => {
   const remaining = project.goal - project.raised;
   const totalProgress = Math.min(
     100,
-    Math.round(((project.raised + Number(formData.amount || 0)) / project.goal) * 100)
+    Math.round(
+      ((project.raised + Number(formData.amount || 0)) / project.goal) * 100
+    )
   );
 
   return (
-    <div className="project-details-container d-flex flex-column justify-content-center mt-5" style={{ width: "90vw" }}>
-
+    <div
+      className="project-details-container d-flex flex-column justify-content-center mt-5"
+      style={{ width: "90vw" }}
+    >
+      <CookiePopup
+        show={showPopup}
+        onClose={closePopup}
+        onAccept={handleAccept}
+        onManage={handleManage}
+      />
       <div
         className="image-section mb-4 d-flex w-100"
         style={{
@@ -105,14 +126,14 @@ const ProjectDetailsPage = () => {
         }}
       ></div>
 
-
       <div className="title-section mb-2 fw-bold fs-4">{project.title}</div>
 
-
-      <div className="desc-section mb-4 text-secondary" style={{ fontSize: "14px" }}>
+      <div
+        className="desc-section mb-4 text-secondary"
+        style={{ fontSize: "14px" }}
+      >
         {project.explanation}
       </div>
-
 
       <div className="target-section mb-4 d-flex flex-column w-100">
         <h4 className="fw-bold fs-5">Target</h4>
@@ -142,7 +163,6 @@ const ProjectDetailsPage = () => {
         </div>
       </div>
 
-
       <div className="payment-section mb-4 d-flex flex-column w-100 mt-4">
         <h4 className="fw-bold fs-5">Donate Now</h4>
         <form onSubmit={handleSubmit} className="d-flex flex-column w-100 mt-3">
@@ -153,7 +173,9 @@ const ProjectDetailsPage = () => {
                 className="form-control"
                 placeholder="Full Name"
                 value={formData.fullName}
-                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, fullName: e.target.value })
+                }
                 required
               />
             </div>
@@ -163,7 +185,9 @@ const ProjectDetailsPage = () => {
                 className="form-control"
                 placeholder="Email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 required
               />
             </div>
@@ -176,7 +200,9 @@ const ProjectDetailsPage = () => {
                 className="form-control"
                 placeholder="Phone"
                 value={formData.Phonenumber}
-                onChange={(e) => setFormData({ ...formData, Phonenumber: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, Phonenumber: e.target.value })
+                }
               />
             </div>
             <div className="col-md-4">
@@ -185,11 +211,12 @@ const ProjectDetailsPage = () => {
                 className="form-control"
                 placeholder="City"
                 value={formData.city}
-                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, city: e.target.value })
+                }
               />
             </div>
           </div>
-
 
           <div className="form-check mb-3">
             <input
@@ -207,11 +234,12 @@ const ProjectDetailsPage = () => {
                 className="form-control mt-2"
                 placeholder="Type Honor or Someone's Name"
                 value={formData.honor}
-                onChange={(e) => setFormData({ ...formData, honor: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, honor: e.target.value })
+                }
               />
             )}
           </div>
-
 
           <input
             type="number"
@@ -224,19 +252,17 @@ const ProjectDetailsPage = () => {
 
           {error && <div className="text-danger mb-2">{error}</div>}
 
-          <button type="submit" className="btn btn-success">
+          <button onClick={openPopup} type="submit" className="btn btn-success">
             Donate Now
           </button>
         </form>
       </div>
-
 
       <div className="mission-section mb-4">
         <h4 className="fw-bold fs-5">Our Mission & Objective</h4>
         <p className="text-secondary">{project.mission}</p>
         <p className="text-secondary">{project.objective}</p>
       </div>
-
 
       <div className="more-section mb-4">
         <h4 className="fw-bold fs-5">More Related Projects</h4>
