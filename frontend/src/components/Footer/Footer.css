@@ -2,9 +2,10 @@
 
 .footer-section {
   width: 100vw;
-  background-color: var(--color-cream);
+  background-color: var(--color-green);
   position: relative;
   z-index: 1;
+  color: white;
 }
 
 .footer-title {
@@ -14,7 +15,7 @@
 }
 
 .footer-section a {
-  color: var(--color-block);
+  color: white;
   text-decoration: none;
   font-size: 14px;
 }
@@ -37,15 +38,19 @@
   background-color: var(--color-orange);
   color: white;
 }
-.footerflex{
+.footerflex {
   justify-content: space-around;
 }
 
 .flogostext span {
   margin: 0;
-  color: black;
+  color: white;
   height: 22px;
   font-family: "Alexandria", sans-serif;
-  
-
+}
+.bottomtext {
+  color: white !important;
+}
+.bottomtext .spantext {
+  color: var(--color-orange);
 }

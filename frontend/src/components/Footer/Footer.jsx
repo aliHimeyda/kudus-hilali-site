@@ -68,8 +68,8 @@ const Footer = () => {
 
         {/* Alt yazı */}
         <hr className="my-4" />
-        <div className="text-center small text-muted">
-          kudushilali@gmail.com 2025 <span className="text-primary">all right</span> Received
+        <div className="bottomtext text-center small text-muted ">
+          kudushilali@gmail.com 2025 <span className="spantext">all right</span> Received
         </div>
       </div>
     </footer>

@@ -1,5 +1,16 @@
 html,
 body {
+  /* Chrome, Safari, Edge */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE/Edge (eski sürümler) */
+  -ms-overflow-style: none;
+
   background-color: #f5f4f4;
   margin: 0;
   display: flex;
@@ -10,6 +21,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  background-image: url("../public/assets/Sideicons.svg"),
+    url("../public/assets/Sideicon2.svg");
+  background-position: 30px top, calc(100% - 30px) top;
+  background-repeat: repeat-y, repeat-y; /* her biri Y’de sonsuz tekrar */
+  background-size: auto auto,  auto;
 }
 
 /* 
@@ -42,7 +58,7 @@ body > * {
  }   */
 
 .h4 {
- font-family: "Alexandria", sans-serif;
+  font-family: "Alexandria", sans-serif;
   font-size: 14px;
   color: var(--color-red);
   letter-spacing: 1px;
@@ -61,6 +77,9 @@ body > * {
   }
   .h2 {
     font-size: 20px;
+  }
+  body{
+    background-size: 10%,  10%;
   }
 }
 code {

@@ -26,15 +26,13 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div style={{ width: "100vw" }}>
+    <div style={{ width: "100vw" ,overflow:"hidden"}}>
       <Hero />
-      {showContent && (
+
+      <div className={showContent ? "d-block" : "d-none"}>
         <div className="stats-container-mockup">
           <KPIS />
         </div>
-      )}
-
-      {showContent && (
         <>
           <RecentCauses />
           <WhatWeDo />
@@ -43,7 +41,7 @@ const Home = () => {
           <NewsCards />
           <DonorFeedbacks />
         </>
-      )}
+      </div>
     </div>
   );
 };
