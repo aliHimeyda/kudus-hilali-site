@@ -10,7 +10,7 @@ const items1 = [
     description:
       "We deliver urgent relief, seasonal food aid, and winter support to those in need.",
     color: "var(--color-red)",
-    icon: "🌪️",
+    icon: "/assets/healthcare.webp",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const items1 = [
     description:
       "Building stronger communities through empowerment, inclusion, and local action.",
     color: "var(--color-orange)",
-    icon: "🌪️",
+    icon: "/assets/partners.webp",
   },
 ];
 const items2 = [
@@ -28,7 +28,7 @@ const items2 = [
     description:
       "We empower children through education, care, and emotional support for a brighter future.",
     color: "var(--color-orange)",
-    icon: "🏥",
+    icon: "/assets/open-book.webp",
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const items2 = [
     description:
       "Raising voices for Palestine through art, stories, and community action.",
     color: "var(--color-green)",
-    icon: "🚰",
+    icon: "/assets/loudspeaker.webp",
   },
 ];
 const descriptions = [
@@ -122,9 +122,10 @@ const WhatWeDo = () => {
                 onClick={() => setSelected(item.id)}
               >
                 <div className="icon d-flex">
-                  <img decoding="async"
+                  <img
+                    decoding="async"
                     loading="lazy"
-                    src="/assets/disastericon.png"
+                    src={item.icon}
                     alt=""
                     className="wicon"
                   />
@@ -151,7 +152,9 @@ const WhatWeDo = () => {
                     dangerouslySetInnerHTML={{ __html: titles[selected - 1] }}
                   />
                   <p
-                    dangerouslySetInnerHTML={{ __html: descriptions[selected - 1] }}
+                    dangerouslySetInnerHTML={{
+                      __html: descriptions[selected - 1],
+                    }}
                   />
                 </div>
               </div>
@@ -175,9 +178,10 @@ const WhatWeDo = () => {
                 onClick={() => setSelected(item.id)}
               >
                 <div className="icon d-flex">
-                  <img decoding="async"
+                  <img
+                    decoding="async"
                     loading="lazy"
-                    src="/assets/puzzleicon.png"
+                    src={item.icon}
                     alt=""
                     className="wicon"
                   />

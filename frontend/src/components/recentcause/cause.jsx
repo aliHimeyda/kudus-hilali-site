@@ -83,7 +83,7 @@ const CauseCard = ({ value }) => {
             }}
           ></div>
         </div>
-        <button className="btn btn-success btn-sm mt-4">MAKE A DONATION</button>
+        <button className="btn btn-success btn-sm mt-4">KNOW MORE</button>
       </div>
     </div>
   );

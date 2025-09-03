@@ -12,7 +12,7 @@ const AnimatedSection = ({
   const imageCacheRef = useRef();
   useEffect(() => {
     imageCacheRef.current = (src) => {
-      if (!"/assets/200.webp") return null;
+      if (!"/assets/2000.webp") return null;
       const img = new Image();
       img.src = src;
       return img;
@@ -43,7 +43,7 @@ const Aboutus = () => {
         <img
           decoding="async"
           loading="lazy"
-          src="/assets/200.webp"
+          src="/assets/2000.webp"
           alt="Hero"
         />
 
@@ -95,9 +95,9 @@ const Aboutus = () => {
             <img
               decoding="async"
               loading="lazy"
-              src="/assets/4000.webp"
+              src="/assets/5000.webp"
               alt=""
-              style={{ width: "300px", height: "200px", objectFit: "cover" }}
+              style={{ width: "300px", height: "200px", objectFit: "contain" }}
               className="image2"
             />
             <img
@@ -105,7 +105,7 @@ const Aboutus = () => {
               loading="lazy"
               src="/assets/a6.webp"
               alt=""
-              style={{ width: "200px", height: "170px", objectFit: "cover" }}
+              style={{ width: "200px", height: "200px", objectFit: "cover" }}
               className="px-3 image3"
             />
           </AnimatedSection>
@@ -117,7 +117,7 @@ const Aboutus = () => {
               loading="lazy"
               src="/assets/a5.webp"
               alt=""
-              style={{ width: "200px", height: "200px", objectFit: "cover" }}
+              style={{ width: "180px", height: "200px", objectFit: "contain" }}
               className="image4"
             />
             <img
@@ -125,7 +125,7 @@ const Aboutus = () => {
               loading="lazy"
               src="/assets/a4.webp"
               alt=""
-              style={{ width: "300px", height: "250px", objectFit: "cover" }}
+              style={{ width: "300px", height: "300px", objectFit: "cover" }}
               className="image5"
             />
           </AnimatedSection>
@@ -134,12 +134,13 @@ const Aboutus = () => {
             loading="lazy"
             src="/assets/a2.webp"
             alt=""
-            style={{ width: "300px", height: "300px", objectFit: "cover" }}
+            style={{ width: "250px", height: "300px", objectFit: "contain" }}
             className="image6"
           />
         </AnimatedSection>
       </AnimatedSection>
-
+<br />
+<br />
       <AnimatedSection className="py-5 mt-5 d-flex flex-column align-items-center text-center">
         <h6
           className="h4 text-uppercase text-danger mb-3"
@@ -261,12 +262,12 @@ const Aboutus = () => {
           </Link>
         </div>
         <div className="shape-container">
-          {[...Array(5)].map((_, i) => (
+          {[...Array(3)].map((_, i) => (
             <div key={i} className={`shape-box shape-${i + 1}`}>
               <img
                 decoding="async"
                 loading="lazy"
-                src={`/assets/v${i + 1}.webp`}
+                src={`/assets/${i + 1}t.webp`}
                 alt={i}
                 style={{
                   objectFit: "cover",

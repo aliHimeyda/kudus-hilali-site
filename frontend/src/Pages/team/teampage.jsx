@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './team.css';
+import "./team.css";
 import Volunteer from "../../components/Volunteers/volunteer";
 import axios from "axios";
 
@@ -11,7 +11,9 @@ const Teampage = () => {
     const fetchTeam = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get("http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/teams/teams_CRUD.php");
+        const res = await axios.get(
+          "http://kudushilali.org/backend/teams/teams_CRUD.php"
+        );
         if (res.data.status === "success" && Array.isArray(res.data.data)) {
           setTeam(res.data.data);
         }

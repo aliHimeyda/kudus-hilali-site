@@ -36,7 +36,7 @@ const ProjectDetailsPage = () => {
   const fetchProjectDetails = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php?id=${projectid}`
+        `http://kudushilali.org/backend/projects/projects_CRUD.php?id=${projectid}`
       );
       if (res.data.status === "success" && res.data.data.length > 0) {
         setProject(res.data.data[0]);
@@ -51,7 +51,9 @@ const ProjectDetailsPage = () => {
   const fetchRelatedProjects = async (category) => {
     try {
       const res = await axios.get(
-        `http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php?category=${encodeURIComponent(category)}`
+        `http://kudushilali.org/backend/projects/projects_CRUD.php?category=${encodeURIComponent(
+          category
+        )}`
       );
       if (res.data.status === "success") {
         const filtered = res.data.data.filter(
@@ -135,7 +137,7 @@ const ProjectDetailsPage = () => {
         {project.explanation}
       </div>
 
-      <div className="target-section mb-4 d-flex flex-column w-100">
+      <div className="target-section mb-4 d-none flex-column w-100">
         <h4 className="fw-bold fs-5">Target</h4>
         <div className="target-value d-flex align-items-center justify-content-center my-2">
           <div
@@ -164,7 +166,11 @@ const ProjectDetailsPage = () => {
       </div>
 
       <div className="payment-section mb-4 d-flex flex-column w-100 mt-4">
-        <h4 className="fw-bold fs-5">Donate Now</h4>
+        <h4 className="fw-bold fs-5">Join Our Efforts</h4>
+        <h5>
+          If you are interested in knowing more about our activities and
+          projects, please fill out this form and we will get in touch with you
+        </h5>
         <form onSubmit={handleSubmit} className="d-flex flex-column w-100 mt-3">
           <div className="row g-2 mb-3">
             <div className="col-md-6">
@@ -218,7 +224,7 @@ const ProjectDetailsPage = () => {
             </div>
           </div>
 
-          <div className="form-check mb-3">
+          <div className="form-check mb-3 d-none">
             <input
               className="form-check-input"
               type="checkbox"
@@ -243,22 +249,22 @@ const ProjectDetailsPage = () => {
 
           <input
             type="number"
-            className="form-control mb-3"
+            className="form-control mb-3 d-none"
             placeholder="$00.00"
             value={formData.amount}
             onChange={(e) => handleAmountChange(Number(e.target.value))}
             required
           />
 
-          {error && <div className="text-danger mb-2">{error}</div>}
+          {/* {error && <div className="text-danger mb-2">{error}</div>} */}
 
           <button onClick={openPopup} type="submit" className="btn btn-success">
-            Donate Now
+            Learn More
           </button>
         </form>
       </div>
 
-      <div className="mission-section mb-4">
+      <div className="mission-section mb-4 d-none">
         <h4 className="fw-bold fs-5">Our Mission & Objective</h4>
         <p className="text-secondary">{project.mission}</p>
         <p className="text-secondary">{project.objective}</p>

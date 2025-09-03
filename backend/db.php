@@ -5,9 +5,9 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 
-$host = "srv494.hstgr.io";
+$host = "localhost";
 $username = "u852957645_kudushilali_us";
-$password = "KudusHilali_123";
+$password = "Kudus123456789";
 $dbname = "u852957645_kudushilali_db";
 // $host = "localhost";
 // $username = "root";

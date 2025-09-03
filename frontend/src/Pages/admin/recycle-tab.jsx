@@ -20,7 +20,7 @@ export default class RecycleTab extends Component {
     deleteId: null,
   };
 
-  baseUrl = 'http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/recycle/recycle_CRUD.php';
+  baseUrl = 'http://kudushilali.org/backend/recycle/recycle_CRUD.php';
 
   componentDidMount() { this.loadItems(); }
 

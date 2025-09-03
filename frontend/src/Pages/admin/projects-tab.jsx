@@ -45,7 +45,7 @@ export default class ProjectsTab extends Component {
     isLoading: false,
   };
 
-  apiUrl = 'http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php';
+  apiUrl = 'http://kudushilali.org/backend/projects/projects_CRUD.php';
 
   componentDidMount() {
     this.fetchProjects();

@@ -13,7 +13,7 @@ const Volunteers = () => {
   useEffect(() => {
     const fetchVolunteers = async () => {
       try {
-        const res = await axios.get("http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/teams/teams_CRUD.php?limit=3");
+        const res = await axios.get("http://kudushilali.org/backend/teams/teams_CRUD.php?limit=3");
         if (res.data.status === "success" && Array.isArray(res.data.data)) {
           setVolunteers(res.data.data);
         }
@@ -41,8 +41,8 @@ const Volunteers = () => {
         ref={sectionRef}
         className={`volunteers-section container text-center py-5 mt-5 ${visible ? "fade-in-up" : ""}`}
       >
-        <h4 className="h4">TEAM</h4>
-        <h2 className="h2">Our TEAM</h2>
+        <h4 className="h4">MEET US</h4>
+        <h2 className="h2">Our Team</h2>
         <div className="d-flex flex-column flex-md-row flex-wrap justify-content-center align-items-center p-5 mt-5 gap-4">
           {volunteers.length === 0 ? (
             <p>Hiç gönüllü bulunamadı.</p>

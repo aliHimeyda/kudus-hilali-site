@@ -14,7 +14,7 @@ const Loginpage = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/login.php", {
+      const response = await fetch("http://kudushilali.org/backend/login.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

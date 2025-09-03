@@ -32,8 +32,8 @@ export default class DonationsTab extends Component {
     },
   };
 
-  donationsUrl = 'http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/donations/donations_CRUD.php';
-  projectsUrl = 'http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php';
+  donationsUrl = 'http://kudushilali.org/backend/donations/donations_CRUD.php';
+  projectsUrl = 'http://kudushilali.org/backend/projects/projects_CRUD.php';
 
   componentDidMount() {
     this.loadProjects();

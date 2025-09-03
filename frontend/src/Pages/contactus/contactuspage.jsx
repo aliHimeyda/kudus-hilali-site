@@ -144,14 +144,13 @@ const Contactuspage = () => {
             className=" h2 follow-text text-center text-wrap"
             ref={(el) => (animatedRefs.current[0] = el)}
           >
-            Wherever you are in the world, you can be the hope of a family.
+            Wherever you are in the world, you can be the hope of some one.
           </span>
           <Bottomline />
           <div
             className="contactuscard mt-5 d-flex flex-column align-items-center gap-1"
             ref={(el) => (animatedRefs.current[1] = el)}
           >
-            <span className=" h4 text-wrap">CONTACT INFO</span>
             <span className=" h2 text-wrap">CONTACT US</span>
             <span className="text-center text-wrap fw-bold w-50 mt-2">
               Have a project in mind that you think we’d be a great fit for it?
@@ -159,7 +158,12 @@ const Contactuspage = () => {
             </span>
             <div className="mt-5 d-flex flex-column gap-4">
               <div className="d-flex flex-row gap-3">
-                <img decoding="async" loading="lazy" src="/assets/EmailVector.svg" alt="" />
+                <img
+                  decoding="async"
+                  loading="lazy"
+                  src="/assets/EmailVector.svg"
+                  alt=""
+                />
                 <button class="button" data-text="Awesome">
                   <span class="actual-text text-start">
                     kudushilali@gmail.com
@@ -170,7 +174,12 @@ const Contactuspage = () => {
                 </button>
               </div>
               <div className="d-flex flex-row gap-3">
-                <img decoding="async" loading="lazy" src="/assets/CallVector.svg" alt="" />
+                <img
+                  decoding="async"
+                  loading="lazy"
+                  src="/assets/CallVector.svg"
+                  alt=""
+                />
                 <button class="button" data-text="Awesome">
                   <span class="actual-text text-start">+90 505 878 50 40</span>
                   <span aria-hidden="true" class="hover-text text-start">
@@ -179,7 +188,12 @@ const Contactuspage = () => {
                 </button>
               </div>
               <div className="d-flex flex-row gap-3">
-                <img decoding="async" loading="lazy" src="/assets/LocationVector.svg" alt="" />
+                <img
+                  decoding="async"
+                  loading="lazy"
+                  src="/assets/LocationVector.svg"
+                  alt=""
+                />
                 <span className="fw-bold">
                   Arabacıalanı, 605 nolu sokak <br />
                   No: 1/1, 54100 Serdivan/Sakarya

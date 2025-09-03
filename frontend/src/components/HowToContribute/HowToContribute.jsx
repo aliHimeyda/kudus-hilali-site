@@ -37,7 +37,7 @@ const HowToContribute = () => {
         }`}
       >
         {/* Başlıklar */}
-        <h4 className="h4">CONTRIBUTE US</h4>
+        <h4 className="h4">DO SOMETHING</h4>
         <h2 className="h2">How To Contribute ?</h2>
 
         <div className="contribute-container">

@@ -25,8 +25,8 @@ const Projects = () => {
     try {
       const url =
         category === "All"
-          ? "http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php"
-          : `http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php?category=${encodeURIComponent(category)}`;
+          ? "http://kudushilali.org/backend/projects/projects_CRUD.php"
+          : `http://kudushilali.org/backend/projects/projects_CRUD.php?category=${encodeURIComponent(category)}`;
       const res = await axios.get(url);
       if (res.data.status === "success") {
         setCauses(res.data.data);
@@ -62,7 +62,6 @@ const Projects = () => {
       className="projectspage d-flex flex-column align-items-center justify-content-center"
       ref={elementRef}
     >
-      <h4 className="h4">OUR WORKS</h4>
       <h2 className="h2">What We Do ?</h2>
       <div className="categoriescontainer justify-content-md-center justify-content-start d-flex mt-5">
         {categories.map((category, index) => (

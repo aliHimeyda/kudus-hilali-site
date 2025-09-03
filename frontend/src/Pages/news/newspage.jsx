@@ -5,7 +5,7 @@ import Newscard from "../../components/newscard/newscard";
 import Bottomline from "../../components/bottomline/bottomline";
 import Logo from "../../components/logo/logo";
 
-const BASE_URL = "http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/news/news_CRUD.php";
+const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
 const categories = [
   "All",
   "Projects & Initiatives",
@@ -64,7 +64,6 @@ const Newspage = () => {
       className="newspage d-flex flex-column align-items-center justify-content-center"
       ref={elementRef}
     >
-      <h4 className="h4">ARTICLES</h4>
       <h2 className="h2">Latest News & Articles</h2>
       <div className="categoriescontainer justify-content-md-center justify-content-start  d-flex mt-5">
         {categories.map((category, index) => (

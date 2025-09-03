@@ -5,7 +5,8 @@ import Newscard from "../newscard/newscard";
 import Bottomline from "../bottomline/bottomline";
 import Allsbtn from "../btns/allsbtn";
 
-const BASE_URL = "http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/news/news_CRUD.php";
+const BASE_URL =
+  "http://kudushilali.org/backend/news/news_CRUD.php";
 
 const NewsCards = () => {
   const [cards, setCards] = useState([]);
@@ -36,21 +37,26 @@ const NewsCards = () => {
   }, []);
 
   return (
-    <>
-      <section ref={sectionRef} className={`news-section d-flex flex-column align-items-center ${visible ? "animate" : ""} mt-5 pt-5`}>
-        <h4 className="h4">ARTICLES</h4>
+    <div className={`${cards.length===0?"d-none":""}`}>
+      <section
+        ref={sectionRef}
+        className={`news-section d-flex flex-column align-items-center ${
+          visible ? "animate" : ""
+        } mt-5 pt-5 `}
+      >
+        <h4 className="h4">KEEP UP</h4>
         <h2 className="h2">
           Latest News & <span>Articles</span>
         </h2>
-        <div className="cards-container mt-5 ">
+        <div className="cards-container mt-5  ">
           {cards.map((card, index) => (
             <Newscard key={card.id || index} newsvalue={card} />
           ))}
         </div>
-        <Allsbtn title={'VIEW ALL'} path={'/newspage'} />
+        <Allsbtn title={"VIEW ALL"} path={"/newspage"} />
       </section>
       <Bottomline />
-    </>
+    </div>
   );
 };
 

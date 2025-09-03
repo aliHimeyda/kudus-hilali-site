@@ -13,7 +13,7 @@ const DonorFeedbacks = () => {
   const fetchFeedbacks = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/donors_feedbacks/donors_feedbacks_CRUD.php"
+        "http://kudushilali.org/backend/donors_feedbacks/donors_feedbacks_CRUD.php"
       );
       if (res.data.status === "success" && Array.isArray(res.data.data)) {
         const formatted = res.data.data.map((item) => ({
@@ -63,7 +63,7 @@ const DonorFeedbacks = () => {
       ref={sectionRef}
       className={`feedback-section d-flex flex-column align-items-center justify-content-center ${
         visible ? "animate" : ""
-      }`}
+      } ${feedbackData.length===0?"d-none":""}`}
     >
       <h4 className="h4">TESTIMONIALS</h4>
       <h2 className="h2">

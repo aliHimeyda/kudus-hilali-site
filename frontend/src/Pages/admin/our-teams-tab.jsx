@@ -39,7 +39,7 @@ export default class OurTeamsTab extends Component {
     isLoading: false,
   };
 
-  apiUrl = 'http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/teams/teams_CRUD.php';
+  apiUrl = 'http://kudushilali.org/backend/teams/teams_CRUD.php';
 
   componentDidMount() {
     this.fetchTeams();

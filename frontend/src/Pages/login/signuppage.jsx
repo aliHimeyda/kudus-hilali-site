@@ -22,7 +22,7 @@ const Signuppage = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/signup.php", {
+      const response = await fetch("http://kudushilali.org/backend/signup.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
