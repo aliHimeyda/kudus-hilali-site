@@ -6,13 +6,12 @@ import axios from "axios";
 import Logo from "../../components/logo/logo";
 
 const categories = [
-  "All",
-  "Education",
-  "Health",
-  "Medical",
-  "Homeless",
-  "Relief Food",
-  "Kids World",
+  'All',
+  'Relief & Food Aid',
+  'Health & Medical Support',
+  'Shelter & Emergency Response',
+  'Education & Community Development',
+  'Economic & Social Support'
 ];
 
 const Projects = () => {
@@ -26,8 +25,8 @@ const Projects = () => {
     try {
       const url =
         category === "All"
-          ? "https://kudushilali.org/backend/projects/projects_CRUD.php"
-          : `https://kudushilali.org/backend/projects/projects_CRUD.php?category=${category}`;
+          ? "http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php"
+          : `http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php?category=${encodeURIComponent(category)}`;
       const res = await axios.get(url);
       if (res.data.status === "success") {
         setCauses(res.data.data);
@@ -69,7 +68,7 @@ const Projects = () => {
         {categories.map((category, index) => (
           <div
             key={index}
-            className={`category-box ${catActive === category ? "active" : ""}`}
+            className={`category-btn btn ${catActive === category ? "active" : ""}`}
             onClick={() => GetProjectsByCategory(category)}
           >
             {category}

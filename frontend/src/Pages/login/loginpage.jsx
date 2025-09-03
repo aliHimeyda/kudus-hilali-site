@@ -1,25 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./theme.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 const Loginpage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/login.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.setItem("userSession", JSON.stringify(data.user));
+        navigate("/admin");
+      } else {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError("Sunucuya bağlanırken bir hata oluştu.");
+    }
+  };
+
   return (
     <section
       className="lsf-section bg-home d-flex align-items-center position-relative w-100"
-      
     >
       <div className="bg-overlay"></div>
       <div className="container-login">
         <div className="row">
           <div className="col-12">
             <div className="card form-signin border-0 p-4 rounded shadow">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="text-center mb-4">
-                  <Link href="/" className="text-primary h4 text-uppercase">
+                  <Link to="/" className="text-primary h4 text-uppercase">
                     Kudus Hilali
                   </Link>
                 </div>
                 <h5 className="card-title">Please sign in</h5>
+                
+                {error && <div className="alert alert-danger">{error}</div>}
 
                 <div className="form-floating mb-2">
                   <input
@@ -27,6 +60,8 @@ const Loginpage = () => {
                     className="form-control"
                     id="floatingInput"
                     placeholder="name@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <label htmlFor="floatingInput">Email address</label>
                 </div>
@@ -37,6 +72,8 @@ const Loginpage = () => {
                     className="form-control"
                     id="floatingPassword"
                     placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <label htmlFor="floatingPassword">Password</label>
                 </div>

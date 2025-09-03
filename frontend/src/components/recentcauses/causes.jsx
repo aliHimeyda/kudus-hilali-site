@@ -13,7 +13,7 @@ const RecentCauses = () => {
   const fetchLatestProjects = async () => {
     try {
       const res = await axios.get(
-        "https://kudushilali.org/backend/projects/projects_CRUD.php"
+        "http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php"
       );
       if (res.data.status === "success") {
         setProjects(res.data.data.slice(0, 3));

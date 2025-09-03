@@ -36,7 +36,7 @@ const ProjectDetailsPage = () => {
   const fetchProjectDetails = async () => {
     try {
       const res = await axios.get(
-        `https://kudushilali.org/backend/projects/projects_CRUD.php?id=${projectid}`
+        `http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php?id=${projectid}`
       );
       if (res.data.status === "success" && res.data.data.length > 0) {
         setProject(res.data.data[0]);
@@ -51,7 +51,7 @@ const ProjectDetailsPage = () => {
   const fetchRelatedProjects = async (category) => {
     try {
       const res = await axios.get(
-        `https://kudushilali.org/backend/projects/projects_CRUD.php?category=${category}`
+        `http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php?category=${encodeURIComponent(category)}`
       );
       if (res.data.status === "success") {
         const filtered = res.data.data.filter(

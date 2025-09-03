@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "../layout";
@@ -15,6 +14,10 @@ import Contactuspage from "../Pages/contactus/contactuspage";
 import Admin from "./../Pages/admin/admin";
 import Loginpage from "./../Pages/login/loginpage";
 import Signuppage from "./../Pages/login/signuppage";
+
+// ProtectedRoute bileşenini import et
+import ProtectedRoute from "../components/ProtectedRoute"; 
+
 const MyRouter = () => {
   return (
     <BrowserRouter>
@@ -34,11 +37,17 @@ const MyRouter = () => {
             path="/projectdetailspage/:projectid"
             element={<ProjectDetailsPage />}
           />
-          {/* diğer sayfalar */}
-          <Route path="/login" element={<Loginpage />} />
+        </Route>
+        
+        {/* Public Routes - Layout olmadan */}
+        <Route path="/login" element={<Loginpage />} />
+        
+
+        {/* Protected Admin Route */}
+        <Route path="/" element={<ProtectedRoute />}>
+          <Route path="/admin" element={<Admin />} />
           <Route path="/signup" element={<Signuppage />} />
         </Route>
-        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );

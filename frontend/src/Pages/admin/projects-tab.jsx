@@ -17,12 +17,11 @@ import {
 } from 'react-bootstrap';
 
 const CATEGORY_OPTIONS = [
-  'Education',
-  'Health',
-  'Medical',
-  'Homeless',
-  'Relief Food',
-  'Kids World',
+  'Relief & Food Aid',
+  'Health & Medical Support',
+  'Shelter & Emergency Response',
+  'Education & Community Development',
+  'Economic & Social Support'
 ];
 
 export default class ProjectsTab extends Component {
@@ -46,7 +45,7 @@ export default class ProjectsTab extends Component {
     isLoading: false,
   };
 
-  apiUrl = 'https://kudushilali.org/backend/projects/projects_CRUD.php';
+  apiUrl = 'http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/projects/projects_CRUD.php';
 
   componentDidMount() {
     this.fetchProjects();

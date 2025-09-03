@@ -16,3 +16,23 @@
 opacity: 1;
   transform: translateY(0);
 }
+.category-btn.active{
+  background: var(--color-green);
+  color: #f4f5f8;
+  font-weight: 500;
+}
+.category-btn{
+  flex: 0 0 auto;
+  padding: 12px 15px;
+  border-radius: 10px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #252839;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}

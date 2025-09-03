@@ -5,7 +5,7 @@ import Newscard from "../newscard/newscard";
 import Bottomline from "../bottomline/bottomline";
 import Allsbtn from "../btns/allsbtn";
 
-const BASE_URL = "https://kudushilali.org/backend/news/news_CRUD.php";
+const BASE_URL = "http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/news/news_CRUD.php";
 
 const NewsCards = () => {
   const [cards, setCards] = useState([]);

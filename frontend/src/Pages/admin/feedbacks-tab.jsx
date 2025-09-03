@@ -26,7 +26,7 @@ export default class FeedbacksTab extends Component {
     },
   };
 
-  apiUrl = 'https://kudushilali.org/backend/donors_feedbacks/donors_feedbacks_CRUD.php';
+  apiUrl = 'http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/donors_feedbacks/donors_feedbacks_CRUD.php';
 
   componentDidMount() {
     this.fetchFeedbacks();

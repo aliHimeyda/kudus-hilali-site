@@ -5,15 +5,14 @@ import Newscard from "../../components/newscard/newscard";
 import Bottomline from "../../components/bottomline/bottomline";
 import Logo from "../../components/logo/logo";
 
-const BASE_URL = "https://kudushilali.org/backend/news/news_CRUD.php";
+const BASE_URL = "http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/news/news_CRUD.php";
 const categories = [
   "All",
-  "Education",
-  "Health",
-  "Medical",
-  "Homeless",
-  "Relief Food",
-  "Kids World",
+  "Projects & Initiatives",
+  "Impact Stories",
+  "Events & Campaigns",
+  "Research & Insights",
+  "Organizational Updates",
 ];
 
 const Newspage = () => {
@@ -71,7 +70,7 @@ const Newspage = () => {
         {categories.map((category, index) => (
           <div
             key={index}
-            className={`category-box ${
+            className={`category-btn ${
               catActive === category ? "active" : ""
             }`}
             onClick={() => GetNewsByCategory(category)}

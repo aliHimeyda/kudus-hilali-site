@@ -13,7 +13,7 @@ const Volunteers = () => {
   useEffect(() => {
     const fetchVolunteers = async () => {
       try {
-        const res = await axios.get("https://kudushilali.org/backend/teams/teams_CRUD.php?limit=3");
+        const res = await axios.get("http://localhost:8888/kudus_hilali/kudus-hilali-site/backend/teams/teams_CRUD.php?limit=3");
         if (res.data.status === "success" && Array.isArray(res.data.data)) {
           setVolunteers(res.data.data);
         }
