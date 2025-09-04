@@ -63,7 +63,7 @@ const HowToContribute = () => {
           </div>
 
           {/* Sağ İçerik */}
-          <div className="content-section">
+          <div className="content-section text-center text-md-start">
             <h3 className="headline">
               Be a Part of the <span>Change</span>
             </h3>
@@ -87,9 +87,9 @@ const HowToContribute = () => {
                     />
                   </div>
                   <div>
-                    <p className="icon-title ">Donate</p>
+                    <p className="icon-title ">Contact Us</p>
                     <p className="icon-text">
-                      Your donation supports the life-saving programs on the ground. Every amount makes a difference.
+                      Contact us to find out how you can help us.
                     </p>
                   </div>
                 </div>
@@ -115,7 +115,7 @@ const HowToContribute = () => {
               </div>
             </div>
 
-            <Morebtn title={"Donate Now"} path={"/Projects"} />
+            <Morebtn title={"Find Out More !"} path={"/Projects"} />
           </div>
         </div>
       </div>

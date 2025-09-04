@@ -4,6 +4,7 @@ import "./newspage.css";
 import Newscard from "../../components/newscard/newscard";
 import Bottomline from "../../components/bottomline/bottomline";
 import Logo from "../../components/logo/logo";
+import { Link } from "react-router-dom";
 
 const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
 const categories = [
@@ -80,13 +81,33 @@ const Newspage = () => {
       </div>
       <Bottomline />
       <div
-        className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5"
-        ref={sectionRef}
-      >
-        {news.map((newvalue) => (
-          <Newscard newsvalue={newvalue} key={newvalue.id} />
-        ))}
+  className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5"
+  ref={sectionRef}
+>
+  {news.length > 0 ? (
+    news.map((newvalue) => (
+      <Newscard newsvalue={newvalue} key={newvalue.id} />
+    ))
+  ) : (
+    <div className="text-center">
+      <div className="d-flex flex-row gap-1 align-items-center justify-content-center mb-3">
+        <Logo />
+        <div className="messagetitle d-md-flex flex-column d-none">
+          <span className="fw-bold">KUDÜS HILALI</span>
+          <span className="fw-light">Organization</span>
+        </div>
       </div>
+
+      <p className="description">
+        Unfortunately, there is no information available. <br /> 
+        Thank you for visiting this area. <br /> 
+        We will add new information as soon as possible. <br /> 
+        If you wish, <Link to="/aboutuspage">Read more about us</Link>.
+      </p>
+    </div>
+  )}
+</div>
+
       <div
         className={`loading ${
           isloading ? "visible" : ""

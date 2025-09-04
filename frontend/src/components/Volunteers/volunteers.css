@@ -11,7 +11,7 @@
 
 .vol-card {
   margin-bottom: 20px;
-    width: 220px;
+  width: 250px;
   background: var(--color-cream);
   border-radius: 12px;
   transition: box-shadow 0.3s ease;
@@ -19,6 +19,7 @@
 }
 
 .vol-card:hover {
+  cursor: pointer;
   box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.28);
 }
 
@@ -30,11 +31,11 @@
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
-.volimg{
-    background-color: var(--color-gray);
+.volimg {
+  background-color: var(--color-gray);
 }
 .vol-name {
- font-family: "Alexandria", sans-serif;
+  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: var(--color-block);
@@ -72,9 +73,9 @@
   background: #deddcd;
 }
 
-/* From Uiverse.io by 0800Gonza */ 
+/* From Uiverse.io by 0800Gonza */
 .scard {
-  width:100%;
+  width: 100%;
   height: 20px;
   background-color: transparent;
   display: flex;
@@ -123,7 +124,6 @@
 
 .socialSvg {
   width: 11px;
-
 }
 
 .socialSvg path {

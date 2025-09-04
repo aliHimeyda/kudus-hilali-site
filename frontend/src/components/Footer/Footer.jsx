@@ -15,7 +15,7 @@ const Footer = () => {
               <div className="d-flex align-items-end gap-2">
                 <Logo />
                 <div className="flogostext d-md-flex flex-column d-none">
-                  <span className="fw-bold ">KUDÜS HILALI</span>
+                  <span className="fw-bold ">KUDÜS HİLALİ</span>
                   <span className="fw-light">Organization</span>
                 </div>
               </div>
@@ -32,16 +32,16 @@ const Footer = () => {
             <h6 className="footer-title">Explore Links</h6>
             <ul className="list-unstyled text-center">
               <li>
-                <a href="/Projects">Latest Projects</a>
+                <Link to="/Projects">Latest Projects</Link>
               </li>
               <li>
-                <a href="/newspage">Latest News</a>
+                <Link to="/newspage">Latest News</Link>
               </li>
               <li>
-                <a href="/teampage">Our Team</a>
+                <Link to="/teampage">Our Team</Link>
               </li>
               <li>
-                <a href="/aboutuspage">Our Mission & Vision</a>
+                <Link to="/aboutuspage">Our Mission & Vision</Link>
               </li>
             </ul>
           </div>
@@ -51,13 +51,10 @@ const Footer = () => {
             <h6 className="footer-title">SUPPORT US</h6>
             <ul className="list-unstyled text-center">
               <li>
-                <a href="/aboutuspage">About Us</a>
+                <Link to="/aboutuspage">Our Story</Link>
               </li>
               <li>
-                <a href="#">Our Story</a>
-              </li>
-              <li>
-                <a href="#">Contact Us</a>
+                <Link to="/contactuspage">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -73,7 +70,7 @@ const Footer = () => {
                   src="/assets/EmailVector.svg"
                   alt=""
                 />{" "}
-                <a href="mailto:kudushilali@gmail.com">kudushilali@gmail.com</a>
+                <a href="mailto:kudushilali@gmail.com">info@kudushilali.org</a>
               </li>
               <li>
                 <img
@@ -102,13 +99,13 @@ const Footer = () => {
                 Contact Us
               </Link>
               <div className="d-flex gap-3">
-                <a href="#">
+                <a href="https://www.facebook.com/KudusHilali/">
                   <i className="bi bi-facebook"></i>
                 </a>
-                <a href="#">
+                <a href="https://www.linkedin.com/company/kudus-hilali/">
                   <i className="bi bi-linkedin"></i>
                 </a>
-                <a href="#">
+                <a href="https://www.instagram.com/kudus_hilali/">
                   <i className="bi bi-instagram"></i>
                 </a>
               </div>
@@ -119,7 +116,7 @@ const Footer = () => {
         {/* Alt yazı */}
         <hr className="my-4" />
         <div className="bottomtext text-center small text-muted ">
-          kudushilali@gmail.com 2025 <span className="spantext">all right</span>{" "}
+          info@kudushilali.org 2025 <span className="spantext">all right</span>{" "}
           Received
         </div>
       </div>

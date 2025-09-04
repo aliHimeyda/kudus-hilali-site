@@ -9,17 +9,18 @@
   transition: all 0.8s ease;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.cause-card.visible{
+.cause-card.visible {
   opacity: 1;
   transform: translateY(0);
 }
-.btn-success{
-    background-color: var(--color-green);
-    border-radius: 20px;
+.btn-success {
+  background-color: var(--color-green);
+  border-radius: 20px;
 }
 .cause-card:hover {
   transform: scale(1.03);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .image-area {

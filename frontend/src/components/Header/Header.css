@@ -16,6 +16,12 @@
 .hover-menu .fw-bold {
   color: white !important;
 }
+.transparent-header .nav-link:hover {
+  color: var(--color-orange) !important;
+}
+.scrolled-header .nav-link:hover {
+  color: var(--color-orange) !important;
+}
 .fontsize {
   font-size: 1.3vw;
 }
@@ -172,8 +178,8 @@
   color: white;
   height: 22px;
 }
-.scrolled-header .nav-link{
-  color: white ;
+.scrolled-header .nav-link {
+  color: white;
 }
 .logostext {
   margin-bottom: 10px;

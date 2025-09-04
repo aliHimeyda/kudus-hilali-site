@@ -93,7 +93,7 @@ background: #FFFFFF;
   transition: all 0.8s ease-out;
 }
 .left strong{
-  color: var(--color-red);
+  color: var(--color-green);
 }
 .visible .left {
   opacity: 1;

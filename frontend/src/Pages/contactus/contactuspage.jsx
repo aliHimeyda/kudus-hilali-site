@@ -166,10 +166,10 @@ const Contactuspage = () => {
                 />
                 <button class="button" data-text="Awesome">
                   <span class="actual-text text-start">
-                    kudushilali@gmail.com
+                    info@kudushilali.org
                   </span>
                   <span aria-hidden="true" class="hover-text text-start">
-                    kudushilali@gmail.com
+                    info@kudushilali.org
                   </span>
                 </button>
               </div>

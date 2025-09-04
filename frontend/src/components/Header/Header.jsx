@@ -46,7 +46,7 @@ const Header = () => {
           <div className="d-flex align-items-end gap-2">
             <Logo />
             <div className="logostext d-md-flex flex-column d-none">
-              <span className="fw-bold ">KUDÜS HILALI</span>
+              <span className="fw-bold ">KUDÜS HİLALİ</span>
               <span className="fw-light">Organization</span>
             </div>
           </div>
@@ -102,30 +102,56 @@ const Header = () => {
             </div>
             <ul className="hover-menu navbar-nav text-center w-100">
               <li className="nav-item">
-                <Link className="nav-link" to="/Projects">
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/Projects" ? "fw-bold" : ""
+                  }`}
+                  to="/Projects"
+                >
                   Projects
                 </Link>
               </li>
+
               <li className="nav-item">
-                <Link className="nav-link" to="/teampage">
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/teampage" ? "fw-bold" : ""
+                  }`}
+                  to="/teampage"
+                >
                   Our Team
                 </Link>
               </li>
+
               <li className="nav-item">
                 <Link
-                  className="nav-link fw-bold text-uppercase"
+                  className={`nav-link text-uppercase ${
+                    location.pathname === "/newspage" ? "fw-bold" : ""
+                  }`}
                   to="/newspage"
                 >
                   News & Articles
                 </Link>
               </li>
+
               <li className="nav-item">
-                <Link className="nav-link" to="/aboutuspage">
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/aboutuspage" ? "fw-bold" : ""
+                  }`}
+                  to="/aboutuspage"
+                >
                   About Us
                 </Link>
               </li>
+
               <li className="nav-item">
-                <Link className="nav-link" to="/contactuspage">
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/contactuspage" ? "fw-bold" : ""
+                  }`}
+                  to="/contactuspage"
+                >
                   Contact Us
                 </Link>
               </li>

@@ -1,6 +1,7 @@
 import React from "react";
 import "./message.css";
 import Logo from "../logo/logo";
+import { Link } from "react-router-dom";
 
 export default function CookiePopup({ show, onClose, onAccept, onManage }) {
   if (!show) return null; // Gösterilmeyecekse hiç render etme
@@ -12,16 +13,12 @@ export default function CookiePopup({ show, onClose, onAccept, onManage }) {
           <Logo />
           <div className="messagetitle d-md-flex flex-column d-none">
             <span className="fw-bold ">KUDÜS HILALI</span>
-            <span className="fw-light">Association</span>
+            <span className="fw-light">Organization</span>
           </div>
         </div>
         <p className="description">
           Thank you for your donation. Our team will contact you as soon as
-          possible.{" "}
-          <a href="#" target="_blank" rel="noopener noreferrer">
-            Read our policies
-          </a>
-          .
+          possible. <Link to="/aboutuspage">Read more about us</Link>.
         </p>
         <div className="actions">
           <button

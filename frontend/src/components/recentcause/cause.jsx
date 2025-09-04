@@ -1,8 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./cause.css";
 import { useNavigate } from "react-router-dom";
-
+const categoryColors = {
+  All: "bg-secondary",
+  "Relief & Food Aid": "bg-danger",
+  "Health & Medical Support": "bg-success",
+  "Shelter & Emergency Response": "bg-warning",
+  "Education & Community Development": "bg-primary",
+  "Economic & Social Support": "bg-info",
+};
 const CauseCard = ({ value }) => {
+  const colorClass = categoryColors[value.category] || "bg-dark";
   const percent = Math.min((value.raised / value.goal) * 100, 100);
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -57,17 +65,17 @@ const CauseCard = ({ value }) => {
         className="image-area"
         style={{ backgroundImage: `url(${value.image})` }}
       >
-        <span className="badge bg-danger">{value.category}</span>
+        <span className={`badge ${colorClass}`}>{value.category}</span>
       </div>
-      <div className="p-3">
+      <div className="p-3 ">
         <strong>{value.title}</strong>
-        <div className="d-flex justify-content-between small mt-5">
+        <div className="d-flex justify-content-between small mt-5 d-none">
           <span>${value.raised.toLocaleString()}</span>
           <span className="text-muted">
             ${value.goal.toLocaleString()} Goal
           </span>
         </div>
-        <div className="progress mt-1">
+        <div className="progress mt-1 d-none">
           <div
             className="progress-bar"
             role="progressbar"

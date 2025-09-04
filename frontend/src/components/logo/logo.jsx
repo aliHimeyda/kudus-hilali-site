@@ -1,9 +1,18 @@
 import React from "react";
 import "./logo.css";
+import { useNavigate } from "react-router-dom";
 
 const Logo = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/`);
+  };
   return (
-    <div className="logocontainer d-flex flex-column align-items-center ">
+    <div
+      className="logocontainer d-flex flex-column align-items-center "
+      onClick={handleClick}
+      style={{ cursor: "pointer" }}
+    >
       <div className="logohead rounded-circle"></div>
       <div className="logobody rounded-circle position-relative">
         <img src="/assets/hilal.svg" alt="" />

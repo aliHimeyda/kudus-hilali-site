@@ -15,17 +15,17 @@ const Hero = () => {
     // const hasVisited = sessionStorage.getItem("hasVisited");
     // console.log(hasVisited);
     // if (!hasVisited) {
-      preloadImages(backgroundImages);
-      const interval = setInterval(() => {
-        setStep((prev) => {
-          if (prev === 3) {
-            clearInterval(interval);
-          }
-          return prev + 1;
-        });
-      }, 500); // her 0.5 saniyede bir ilerle
+    preloadImages(backgroundImages);
+    const interval = setInterval(() => {
+      setStep((prev) => {
+        if (prev === 3) {
+          clearInterval(interval);
+        }
+        return prev + 1;
+      });
+    }, 500); // her 0.5 saniyede bir ilerle
 
-      return () => clearInterval(interval);
+    return () => clearInterval(interval);
     // } else {
     //   setShowimages(true);
     // }
@@ -65,7 +65,6 @@ const Hero = () => {
 
   return (
     <div className="image-wrapper">
-      
       {step <= 3 && step > 0 && (
         <img
           key={step}

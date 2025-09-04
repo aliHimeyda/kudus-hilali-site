@@ -4,14 +4,15 @@ import CauseCard from "../../components/recentcause/cause";
 import Bottomline from "../../components/bottomline/bottomline";
 import axios from "axios";
 import Logo from "../../components/logo/logo";
+import { Link } from "react-router-dom";
 
 const categories = [
-  'All',
-  'Relief & Food Aid',
-  'Health & Medical Support',
-  'Shelter & Emergency Response',
-  'Education & Community Development',
-  'Economic & Social Support'
+  "All",
+  "Relief & Food Aid",
+  "Health & Medical Support",
+  "Shelter & Emergency Response",
+  "Education & Community Development",
+  "Economic & Social Support",
 ];
 
 const Projects = () => {
@@ -26,7 +27,9 @@ const Projects = () => {
       const url =
         category === "All"
           ? "http://kudushilali.org/backend/projects/projects_CRUD.php"
-          : `http://kudushilali.org/backend/projects/projects_CRUD.php?category=${encodeURIComponent(category)}`;
+          : `http://kudushilali.org/backend/projects/projects_CRUD.php?category=${encodeURIComponent(
+              category
+            )}`;
       const res = await axios.get(url);
       if (res.data.status === "success") {
         setCauses(res.data.data);
@@ -67,7 +70,9 @@ const Projects = () => {
         {categories.map((category, index) => (
           <div
             key={index}
-            className={`category-btn btn ${catActive === category ? "active" : ""}`}
+            className={`category-btn btn ${
+              catActive === category ? "active" : ""
+            }`}
             onClick={() => GetProjectsByCategory(category)}
           >
             {category}
@@ -82,9 +87,25 @@ const Projects = () => {
         {causes.length > 0 ? (
           causes.map((cause) => <CauseCard key={cause.id} value={cause} />)
         ) : (
-          <p>No projects found.</p>
+          <div className="text-center">
+            <div className="d-flex flex-row gap-1 align-items-center justify-content-center mb-3">
+              <Logo />
+              <div className="messagetitle d-md-flex flex-column d-none">
+                <span className="fw-bold">KUDÜS HILALI</span>
+                <span className="fw-light">Organization</span>
+              </div>
+            </div>
+
+            <p className="description">
+              Unfortunately, there is no information available. <br />
+              Thank you for visiting this area. <br />
+              We will add new information as soon as possible. <br />
+              If you wish, <Link to="/aboutuspage">Read more about us</Link>.
+            </p>
+          </div>
         )}
       </div>
+
       <div
         className={`loading ${
           isloading ? "visible" : ""

@@ -65,7 +65,18 @@ const ProjectDetailsPage = () => {
       console.error("İlgili projeler alınırken hata:", err);
     }
   };
-
+  const openpopupmetod = () => {
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.Phonenumber ||
+      !formData.city
+    ) {
+      alert("Lütfen tüm zorunlu alanları doldurun!");
+      return; // Popup açılmasın
+    }
+    openPopup();
+  };
   useEffect(() => {
     fetchProjectDetails();
   }, [projectid]);
@@ -123,17 +134,13 @@ const ProjectDetailsPage = () => {
           backgroundImage: `url(${project.image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "300px",
           borderRadius: "10px",
         }}
       ></div>
 
       <div className="title-section mb-2 fw-bold fs-4">{project.title}</div>
 
-      <div
-        className="desc-section mb-4 text-secondary"
-        style={{ fontSize: "14px" }}
-      >
+      <div className="desc-section mb-4 text-secondary">
         {project.explanation}
       </div>
 
@@ -167,7 +174,7 @@ const ProjectDetailsPage = () => {
 
       <div className="payment-section mb-4 d-flex flex-column w-100 mt-4">
         <h4 className="fw-bold fs-5">Join Our Efforts</h4>
-        <h5>
+        <h5 className="fw-bold">
           If you are interested in knowing more about our activities and
           projects, please fill out this form and we will get in touch with you
         </h5>
@@ -258,7 +265,11 @@ const ProjectDetailsPage = () => {
 
           {/* {error && <div className="text-danger mb-2">{error}</div>} */}
 
-          <button onClick={openPopup} type="submit" className="btn btn-success">
+          <button
+            onClick={openpopupmetod}
+            type="submit"
+            className="btn btn-success"
+          >
             Learn More
           </button>
         </form>
@@ -270,9 +281,9 @@ const ProjectDetailsPage = () => {
         <p className="text-secondary">{project.objective}</p>
       </div>
 
-      <div className="more-section mb-4">
-        <h4 className="fw-bold fs-5">More Related Projects</h4>
-        <div className="d-flex flex-wrap gap-4 mt-3">
+      <div className="more-section mb-4 ">
+        <h4 className="fw-bold fs-5 text-center">More Related Projects</h4>
+        <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mt-3">
           {relatedProjects.map((cause) => (
             <CauseCard key={cause.id} value={cause} />
           ))}
