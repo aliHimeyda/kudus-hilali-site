@@ -11,9 +11,9 @@
   }
 }
 .image-section {
-  width: 100%;
+  width: 80%;
   height: 70vh;
-  background: #c1c1c1;
+  background: #dea60d4b;
   border-radius: 20px;
 }
 .circle-progress {

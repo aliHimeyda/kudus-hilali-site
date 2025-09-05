@@ -132,9 +132,10 @@ const ProjectDetailsPage = () => {
         className="image-section mb-4 d-flex w-100"
         style={{
           backgroundImage: `url(${project.image})`,
-          backgroundSize: "cover",
+          backgroundSize: "contain",
           backgroundPosition: "center",
           borderRadius: "10px",
+          backgroundRepeat: "no-repeat",
         }}
       ></div>
 

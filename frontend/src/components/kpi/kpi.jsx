@@ -40,10 +40,16 @@ const KPIS = () => {
         { value: kpi.partners, label: "Partners" },
         { value: parseInt(kpi.budget), suffix: "M", label: "Budget" },
       ];
-      statRefs.current.forEach((el, i) => {
-        const { value, suffix } = dynamicStats[i];
-        animateCount(el, value, suffix);
-      });
+
+      // 3200 ms bekle sonra animasyonu başlat
+      const timer = setTimeout(() => {
+        statRefs.current.forEach((el, i) => {
+          const { value, suffix } = dynamicStats[i];
+          animateCount(el, value, suffix);
+        });
+      }, 3200);
+
+      return () => clearTimeout(timer);
     }
   }, [kpi]);
 

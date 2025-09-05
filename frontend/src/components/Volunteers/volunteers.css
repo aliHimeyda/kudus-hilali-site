@@ -127,10 +127,13 @@
 }
 
 .socialSvg path {
-  fill: black;
+  fill: black !important;
 }
 .socialContainer:hover .socialSvg {
   animation: slide-in-top 0.3s both;
+}
+.socialContainer:hover .socialSvg path {
+  fill: white !important;
 }
 
 @keyframes slide-in-top {
