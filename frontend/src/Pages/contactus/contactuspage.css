@@ -2,10 +2,11 @@
 .earthcontainer{
     width: 100vw;
     height: 100vh;
-    background-image: url('/public/assets/sky1.webp' );
-    background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+}
+.earthcontainer img{
+  position: absolute;
+  z-index: 1;
+  
 }
 .section-banner {
   height: 30vw;
@@ -17,6 +18,7 @@
   background-position: left;
   bottom: 0px;
   border-radius: 50%;
+  z-index: 2;
   animation: earthRotate 30s linear 0s infinite,earthgrowth 1s ease-in;
   box-shadow: 0px 0 20px RGBA(255, 255, 255, 0.2), -5px 0px 8px #F6A428 inset,
     15px 2px 25px #000 inset, -24px -2px 34px #F6A428 inset,

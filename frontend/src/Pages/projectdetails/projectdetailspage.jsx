@@ -174,10 +174,10 @@ const ProjectDetailsPage = () => {
 
       <div className="payment-section mb-4 d-flex flex-column w-100 mt-4">
         <h4 className="fw-bold fs-5">Join Our Efforts</h4>
-        <h5 className="fw-bold">
+        <h6 className="fw-bold">
           If you are interested in knowing more about our activities and
           projects, please fill out this form and we will get in touch with you
-        </h5>
+        </h6>
         <form onSubmit={handleSubmit} className="d-flex flex-column w-100 mt-3">
           <div className="row g-2 mb-3">
             <div className="col-md-6">

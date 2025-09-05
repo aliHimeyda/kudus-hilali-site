@@ -104,7 +104,7 @@
 .mission-section p,
 .desc-section,
 .text-danger {
-  font-size: 1.25rem !important;
+  font-size: 1.05rem !important;
 }
 
 .text-danger {
@@ -132,7 +132,6 @@
   border-radius: 100px;
   transition: width 0.4s ease-in-out;
 }
-
 .donate-btn {
   background-color: var(--color-green);
   color: #f4f5f8;

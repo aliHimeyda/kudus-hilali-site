@@ -41,8 +41,7 @@ const Aboutus = () => {
     <div className="container-fluid p-0">
       <div className="hero-section position-relative text-center">
         <img
-          decoding="async"
-          loading="lazy"
+        loading="eager"
           src="/assets/2000.webp"
           alt="Hero"
         />

@@ -58,6 +58,12 @@ const Contactuspage = () => {
   return (
     <div className="contactuspage">
       <div className="earthcontainer d-flex justify-content-center align-items-center position-relative">
+        <img
+          loading="eager"
+          src="/assets/sky1.webp"
+          alt=""
+          className="w-100 h-100"
+        />
         <div class="section-banner">
           <div id="star-1">
             <div class="curved-corner-star">

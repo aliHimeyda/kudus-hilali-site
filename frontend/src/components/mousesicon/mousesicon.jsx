@@ -7,19 +7,20 @@ import React, { useEffect, useRef, useState } from "react";
  * daire büyür ve içi şeffaf olur.
  */
 export default function CustomCursor({
-  normalSize = 12,
-  hoverSize = 50,
+  normalSize = 15,
+  hoverSize = 70,
   borderColor = "#dea50d",
   fillColor = "#dea60d9a",
 } = {}) {
   const dotRef = useRef(null);
-  const [enabled, setEnabled] = useState(false);        // touch cihazlarda devre dışı
-  const [isPointer, setIsPointer] = useState(false);    // tıklanabilir üstünde mi?
+  const [enabled, setEnabled] = useState(false); // touch cihazlarda devre dışı
+  const [isPointer, setIsPointer] = useState(false); // tıklanabilir üstünde mi?
 
   useEffect(() => {
     // Touch (coarse) ise göstermeyelim
     if (typeof window === "undefined") return;
-    const coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    const coarse =
+      window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
     if (!coarse) setEnabled(true);
   }, []);
 
@@ -82,8 +83,8 @@ export default function CustomCursor({
         borderRadius: "50%",
         background: bg,
         border: `1px solid ${borderColor}`,
-        pointerEvents: "none",              // tıklamayı engellemesin
-        zIndex: 2147483647,                 // her şeyin üstünde
+        pointerEvents: "none", // tıklamayı engellemesin
+        zIndex: 2147483647, // her şeyin üstünde
         transition:
           "width 120ms ease, height 120ms ease, margin 120ms ease, background-color 120ms ease, border-color 120ms ease",
         willChange: "transform, width, height",
