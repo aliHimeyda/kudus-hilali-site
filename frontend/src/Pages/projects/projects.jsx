@@ -5,6 +5,7 @@ import Bottomline from "../../components/bottomline/bottomline";
 import axios from "axios";
 import Logo from "../../components/logo/logo";
 import { Link } from "react-router-dom";
+import Preloader from "../../components/preloader/preloader";
 
 const categories = [
   "All",
@@ -21,6 +22,13 @@ const Projects = () => {
   const [isloading, setIsLoading] = useState(false);
   const [causes, setCauses] = useState([]);
   const [catActive, setActive] = useState("All");
+   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Örnek: 2.5 sn sonra kapat
+    const t = setTimeout(() => setLoading(false), 0);
+    return () => clearTimeout(t);
+  }, []);
   const fetchProjects = async (category = "All") => {
     setIsLoading(true);
     try {
@@ -61,6 +69,8 @@ const Projects = () => {
   }, [isloading]);
 
   return (
+    <>
+    <Preloader show={loading}  />
     <div
       className="projectspage d-flex flex-column align-items-center justify-content-center"
       ref={elementRef}
@@ -114,6 +124,7 @@ const Projects = () => {
         <Logo />
       </div>
     </div>
+    </>
   );
 };
 

@@ -16,7 +16,7 @@
   opacity: 0;
   transform: translateY(100px);
   transition: all 1s ease-in-out;
-  padding: 0px 40px;
+  padding: 0px 70px;
   width: 100%;
 }
 
@@ -37,6 +37,7 @@
 }
 .bdescription{
   color: white;
+  text-align: justify;
 }
 .right {
   display: flex;
@@ -72,6 +73,9 @@ align-items: center;
 /* Gray Colors/White 4 */
 background: #FFFFFF;
 
+}
+.card p{
+  text-align: justify;
 }
 .witemtitle{
   font-size: 70%;

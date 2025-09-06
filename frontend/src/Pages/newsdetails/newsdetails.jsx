@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './newsdetails.css';
 import Customnewscard from '../../components/newscard/customnewscard';
 import { useParams } from 'react-router-dom';
 import Comments from '../../components/commentarea/commentarea';
+import Preloader from '../../components/preloader/preloader';
 
 const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
 
@@ -13,7 +13,13 @@ const NewsDetails = () => {
   const [newsDetail, setNewsDetail] = useState(null);
   const [moreNews, setMoreNews] = useState([]);
   const animatedRefs = useRef([]);
+ const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    // Örnek: 2.5 sn sonra kapat
+    const t = setTimeout(() => setLoading(false), 0);
+    return () => clearTimeout(t);
+  }, []);
   useEffect(() => {
     const fetchDetail = async () => {
       try {
@@ -58,6 +64,8 @@ const NewsDetails = () => {
   if (!newsDetail) return <div>Loading...</div>;
 
   return (
+    <>
+    <Preloader show={loading}/>
     <div className="newsdetailspage d-flex flex-column flex-md-row justify-content-center gap-4">
       <div className='news-wrapper d-flex flex-column align-items-center gap-4'>
 
@@ -156,6 +164,7 @@ const NewsDetails = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

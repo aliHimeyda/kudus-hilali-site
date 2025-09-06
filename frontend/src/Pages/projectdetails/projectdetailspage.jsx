@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./projectdetailspage.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import CauseCard from "../../components/recentcause/cause";
 import CookiePopup from "../../components/message/message";
+import Preloader from "../../components/preloader/preloader";
 
 const ProjectDetailsPage = () => {
   const { projectid } = useParams();
@@ -25,7 +25,13 @@ const ProjectDetailsPage = () => {
 
   const openPopup = () => setShowPopup(true);
   const closePopup = () => setShowPopup(false);
+ const [preloading, setPreLoading] = useState(true);
 
+  useEffect(() => {
+    // Örnek: 2.5 sn sonra kapat
+    const t = setTimeout(() => setPreLoading(false), 0);
+    return () => clearTimeout(t);
+  }, []);
   const handleAccept = () => {
     console.log("Cookies accepted!");
   };
@@ -118,6 +124,8 @@ const ProjectDetailsPage = () => {
   );
 
   return (
+    <>
+    <Preloader show={preloading} />
     <div
       className="project-details-container d-flex flex-column justify-content-center mt-5"
       style={{ width: "90vw" }}
@@ -291,6 +299,7 @@ const ProjectDetailsPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

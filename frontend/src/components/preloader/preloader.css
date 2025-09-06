@@ -1,0 +1,92 @@
+/* Preloader
+-----------------------------------------------------------------*/
+body.loaded {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+.loader-wrap {
+  position: fixed;
+  z-index: 10;
+  height: 100vh;
+  width: 100%;
+  left: 0;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 99999999999999;
+  /* background-color: black; */
+}
+
+.loader-wrap svg {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 110vh;
+  fill: #e2efd8; /* Soluk yeşilimsi gri */
+}
+
+.loader-wrap .loader-wrap-heading .load-text {
+  font-size: 20px;
+  font-weight: 200;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  z-index: 20;
+}
+.loaderanimatedimage {
+  position: relative;
+  width: 30vw;
+  height: 30vw;
+  animation: spin 20s linear infinite;
+}
+.center-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  display: block;
+  pointer-events: none;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes loading {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes loading {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (width < 800px) {
+  .loaderanimatedimage {
+    width: 90vw;
+    height: 90vw;
+  }
+}

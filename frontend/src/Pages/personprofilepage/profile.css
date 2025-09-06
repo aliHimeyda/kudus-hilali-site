@@ -64,10 +64,30 @@
   height: 32px;
   border-radius: 50%;
 }
-.fb { background-image: url('/public/assets/Facebook.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
-.linkedin { background-image: url('/public/assets/linkdin.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
-.twitter { background-image: url('/public/assets/twitter.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
-.insta { background-image: url('/public/assets/instagram.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
+.fb {
+  background-image: url("/public/assets/Facebook.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.linkedin {
+  background-image: url("/public/assets/linkdin.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.twitter {
+  background-image: url("/public/assets/twitter.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.insta {
+  background-image: url("/public/assets/instagram.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
 /* Bio Section */
 .bio-box {
@@ -98,7 +118,7 @@
   color: var(--color-block);
 }
 .info-box {
-  width: 250px;
+  width: auto;
   height: 85px;
   background: #ebebeb;
   border: 1.5px solid #c1c1c1;

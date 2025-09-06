@@ -20,7 +20,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <p className="text-center small">
+            <p className="text-center small text-justify">
               Kudüs Hilali Organization is a non-profit working in relief and
               community development to support vulnerable communities and
               promote dignity, hope, and sustainability.{" "}

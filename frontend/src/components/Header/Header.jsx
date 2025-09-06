@@ -41,8 +41,8 @@ const Header = () => {
         isScrolled ? "scrolled-header" : "transparent-header"
       }`}
     >
-      <nav className="navbar navbar-expand-lg d-none d-md-block px-4 py-3 fontsize ">
-        <div className="container-fluid d-flex justify-content-between align-items-center">
+      <nav className="navbar navbar-expand-lg d-none d-md-block  py-3 fontsize ">
+        <div className="container-fluid d-flex justify-content-between align-items-center px-5">
           <div className="d-flex align-items-end gap-2">
             <Logo />
             <div className="logostext d-md-flex flex-column d-none">

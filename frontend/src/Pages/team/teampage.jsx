@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./team.css";
 import Volunteer from "../../components/Volunteers/volunteer";
 import axios from "axios";
+import Preloader from "../../components/preloader/preloader";
 
 const Teampage = () => {
   const [team, setTeam] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setPreLoading] = useState(true);
 
+  useEffect(() => {
+    const t = setTimeout(() => setPreLoading(false), 0);
+    return () => clearTimeout(t);
+  }, []);
   useEffect(() => {
     const fetchTeam = async () => {
       setIsLoading(true);
@@ -26,24 +32,27 @@ const Teampage = () => {
   }, []);
 
   return (
-    <div className="teampage d-flex flex-column align-items-center justify-content-center">
-      <h4 className="h4">TEAM</h4>
-      <h2 className="h2">OUR TEAM</h2>
-      <div className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5">
-        {team.length === 0 ? (
-          <p>Takım bulunamadı.</p>
-        ) : (
-          team.map((person) => (
-            <Volunteer key={person.id} volunteerdata={person} />
-          ))
+    <>
+      <Preloader show={loading} />
+      <div className="teampage d-flex flex-column align-items-center justify-content-center">
+        <h4 className="h4">TEAM</h4>
+        <h2 className="h2">OUR TEAM</h2>
+        <div className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5">
+          {team.length === 0 ? (
+            <p>Takım bulunamadı.</p>
+          ) : (
+            team.map((person) => (
+              <Volunteer key={person.id} volunteerdata={person} />
+            ))
+          )}
+        </div>
+        {isLoading && (
+          <div className="loading d-flex justify-content-center align-items-center">
+            <p>Yükleniyor...</p>
+          </div>
         )}
       </div>
-      {isLoading && (
-        <div className="loading d-flex justify-content-center align-items-center">
-          <p>Yükleniyor...</p>
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 

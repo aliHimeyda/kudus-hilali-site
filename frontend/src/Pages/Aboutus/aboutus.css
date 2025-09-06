@@ -4,12 +4,14 @@
   transition: all 0.8s ease-out;
 }
 .hero-section {
+  aspect-ratio: 2000 / 1200;
   width: 100vw;
   height: 80vh;
   clip-path: ellipse(90% 95% at 50% 0%);
 }
 .hero-section img {
-  width: 100vw;
+  display: block;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
@@ -116,13 +118,13 @@
   }
 
   .shape-1 {
-    left: 20px;
+    left: 50px;
     top: 128px;
   }
 
   .shape-2 {
-    left: 284px;
-    top: 256px;
+    left: 214px;
+    top: 156px;
   }
 
   .shape-3 {

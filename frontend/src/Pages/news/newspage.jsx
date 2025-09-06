@@ -5,6 +5,7 @@ import Newscard from "../../components/newscard/newscard";
 import Bottomline from "../../components/bottomline/bottomline";
 import Logo from "../../components/logo/logo";
 import { Link } from "react-router-dom";
+import Preloader from "../../components/preloader/preloader";
 
 const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
 const categories = [
@@ -22,6 +23,13 @@ const Newspage = () => {
   const [isloading, setIsLoading] = useState(false);
   const [news, setNews] = useState([]);
   const [catActive, setActive] = useState("All");
+ const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Örnek: 2.5 sn sonra kapat
+    const t = setTimeout(() => setLoading(false), 0);
+    return () => clearTimeout(t);
+  }, []);
 
   const fetchNews = async (category = "All") => {
     setIsLoading(true);
@@ -61,6 +69,8 @@ const Newspage = () => {
   }, [isloading]);
 
   return (
+    <>
+    <Preloader show={loading} />
     <div
       className="newspage d-flex flex-column align-items-center justify-content-center"
       ref={elementRef}
@@ -114,6 +124,7 @@ const Newspage = () => {
         } d-flex justify-content-center align-items-center mt-5`}
       ><Logo/></div>
     </div>
+    </>
   );
 };
 
