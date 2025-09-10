@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import "./HowToContribute.css";
 import Bottomline from "../bottomline/bottomline";
 import Morebtn from "../btns/morebtn";
-import Paths from "../../router/Paths";
 
 const HowToContribute = () => {
   const [visible, setVisible] = useState(false);
