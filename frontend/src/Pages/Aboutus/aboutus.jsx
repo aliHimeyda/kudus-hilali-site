@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Preloader from "../../components/preloader/preloader";
 
+const files = [
+  "abdulrahman-alshayeb",
+  "ammar-alhalabi",
+  "azmi-moroglu",
+];
 const AnimatedSection = ({
   children,
   className = "",
@@ -262,7 +267,7 @@ const Aboutus = () => {
               <button className="btn btn-outline-danger">Meet our team</button>
             </Link>
           </div>
-          <div className="shape-container">
+          {/* <div className="shape-container">
             {[...Array(3)].map((_, i) => (
               <div key={i} className={`shape-box shape-${i + 1}`}>
                 <img
@@ -279,7 +284,29 @@ const Aboutus = () => {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
+          <div className="shape-container">
+            {files.map((name, i) => (
+              <div key={name} className={`shape-box shape-${i + 1}`}>
+                <img
+                  decoding="async"
+                  loading="lazy"
+                  src={`/assets/${name}.avif`}
+                  alt={name
+                    .split("-")
+                    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+                    .join(" ")
+                  }
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px",
+                  }}
+                />
+              </div>
+            ))}
+          </div>          
         </AnimatedSection>
       </div>
     </>
