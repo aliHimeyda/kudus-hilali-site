@@ -291,7 +291,7 @@ const Aboutus = () => {
                 <img
                   decoding="async"
                   loading="lazy"
-                  src={`/assets/${name}.avif`}
+                  src={`/team/${name}.avif`}
                   alt={name
                     .split("-")
                     .map(w => w.charAt(0).toUpperCase() + w.slice(1))
