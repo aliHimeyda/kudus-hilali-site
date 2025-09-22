@@ -6,15 +6,9 @@ import axios from "axios";
 import Logo from "../../components/logo/logo";
 import { Link } from "react-router-dom";
 import Preloader from "../../components/preloader/preloader";
+import { useTranslation } from "react-i18next";
 
-const categories = [
-  "All",
-  "Relief & Food Aid",
-  "Health & Medical Support",
-  "Shelter & Emergency Response",
-  "Education & Community Development",
-  "Economic & Social Support",
-];
+
 
 const Projects = () => {
   const sectionRef = useRef(null);
@@ -23,7 +17,9 @@ const Projects = () => {
   const [causes, setCauses] = useState([]);
   const [catActive, setActive] = useState("All");
    const [loading, setLoading] = useState(true);
-
+const { t } = useTranslation();
+const categories = t("project_categories", { returnObjects: true });
+const { i18n } = useTranslation();
   useEffect(() => {
     // Örnek: 2.5 sn sonra kapat
     const t = setTimeout(() => setLoading(false), 0);
@@ -68,14 +64,15 @@ const Projects = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isloading]);
 
-  return (
-    <>
-    <Preloader show={loading}  />
+ return (
+  <>
+    <Preloader show={loading} />
     <div
       className="projectspage d-flex flex-column align-items-center justify-content-center"
       ref={elementRef}
     >
-      <h2 className="h2">What We Do ?</h2>
+      <h2 className="h2">{t("whatwedo_title")}</h2>
+
       <div className="categoriescontainer justify-content-md-center justify-content-start d-flex mt-5">
         {categories.map((category, index) => (
           <div
@@ -89,7 +86,9 @@ const Projects = () => {
           </div>
         ))}
       </div>
+
       <Bottomline />
+
       <div
         className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5"
         ref={sectionRef}
@@ -101,16 +100,25 @@ const Projects = () => {
             <div className="d-flex flex-row gap-1 align-items-center justify-content-center mb-3">
               <Logo />
               <div className="messagetitle d-md-flex flex-column d-none">
-                <span className="fw-bold">KUDÜS HILALI</span>
-                <span className="fw-light">Organization</span>
+                {i18n.language === "ar" ? (
+                  <>
+                    <span className="fw-light">{t("logo_subtitle")}</span>
+                    <span className="fw-bold">{t("logo_title")}</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="fw-bold">{t("logo_title")}</span>
+                    <span className="fw-light">{t("logo_subtitle")}</span>
+                  </>
+                )}
               </div>
             </div>
 
             <p className="description">
-              Unfortunately, there is no information available. <br />
-              Thank you for visiting this area. <br />
-              We will add new information as soon as possible. <br />
-              If you wish, <Link to="/aboutuspage">Read more about us</Link>.
+              {t("news_empty_line1")} <br />
+              {t("news_empty_line2")} <br />
+              {t("news_empty_line3")} <br />
+              <Link to="/aboutuspage">{t("read_more_about")}</Link>.
             </p>
           </div>
         )}
@@ -124,8 +132,9 @@ const Projects = () => {
         <Logo />
       </div>
     </div>
-    </>
-  );
+  </>
+);
+
 };
 
 export default Projects;

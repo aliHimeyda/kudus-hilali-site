@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./kpi.css";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const animateCount = (el, to, suffix = "", duration = 2000) => {
   let start = 0;
@@ -15,7 +16,7 @@ const animateCount = (el, to, suffix = "", duration = 2000) => {
 const KPIS = () => {
   const [kpi, setKpi] = useState(null);
   const statRefs = useRef([]);
-
+const { t } = useTranslation();
   useEffect(() => {
     const fetchKPI = async () => {
       try {

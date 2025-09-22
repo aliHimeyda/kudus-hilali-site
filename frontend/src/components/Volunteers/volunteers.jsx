@@ -4,11 +4,13 @@ import Bottomline from "../bottomline/bottomline";
 import Allsbtn from "../btns/allsbtn";
 import Volunteer from "./volunteer";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const Volunteers = () => {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
   const [volunteers, setVolunteers] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchVolunteers = async () => {
@@ -36,27 +38,30 @@ const Volunteers = () => {
   }, []);
 
   return (
-    <>
-      <div
-        ref={sectionRef}
-        className={`volunteers-section container text-center py-5 mt-5 ${visible ? "fade-in-up" : ""}`}
-      >
-        <h4 className="h4">MEET US</h4>
-        <h2 className="h2">Our Team</h2>
-        <div className="d-flex flex-column flex-md-row flex-wrap justify-content-center align-items-center p-5 mt-5 gap-4">
-          {volunteers.length === 0 ? (
-            <p>Hiç gönüllü bulunamadı.</p>
-          ) : (
-            volunteers.map((vol) => (
-              <Volunteer key={vol.id} volunteerdata={vol} />
-            ))
-          )}
-        </div>
-        <Allsbtn title={'ALL TEAM'} path={'/teampage'} />
+  <>
+    <div
+      ref={sectionRef}
+      className={`volunteers-section container text-center py-5 mt-5 ${
+        visible ? "fade-in-up" : ""
+      }`}
+    >
+      <h4 className="h4">{t("volunteers_meet_us")}</h4>
+      <h2 className="h2">{t("volunteers_our_team")}</h2>
+      <div className="d-flex flex-column flex-md-row flex-wrap justify-content-center align-items-center p-5 mt-5 gap-4">
+        {volunteers.length === 0 ? (
+          <p>{t("volunteers_none")}</p>
+        ) : (
+          volunteers.map((vol) => (
+            <Volunteer key={vol.id} volunteerdata={vol} />
+          ))
+        )}
       </div>
-      <Bottomline />
-    </>
-  );
+      <Allsbtn title={t("volunteers_all_team")} path={"/teampage"} />
+    </div>
+    <Bottomline />
+  </>
+);
+
 };
 
 export default Volunteers;

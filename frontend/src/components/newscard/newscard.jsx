@@ -1,8 +1,10 @@
 import React from "react";
 import "./newscard.css";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Newscard = ({ newsvalue }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -28,9 +30,10 @@ const Newscard = ({ newsvalue }) => {
           <p className="text-center m-0 fs-6">{newsvalue.admin_name || newsvalue.admin}</p>
         </div>
       </div>
-      <div className="ellipse" >
-        <p>Read More</p>
-      </div>
+      <div className="ellipse">
+  <p>{t("read_more")}</p>
+</div>
+
     </div>
   );
 };

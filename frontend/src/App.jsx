@@ -1,5 +1,6 @@
 import { useEffect,  useState } from "react";
 import "./App.css";
+import "./i18n";
 import MyRouter from "./router/router";
 import CustomCursor from "./components/mousesicon/mousesicon";
 

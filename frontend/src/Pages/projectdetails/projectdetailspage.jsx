@@ -5,12 +5,14 @@ import axios from "axios";
 import CauseCard from "../../components/recentcause/cause";
 import CookiePopup from "../../components/message/message";
 import Preloader from "../../components/preloader/preloader";
+import { useTranslation } from "react-i18next";
 
 const ProjectDetailsPage = () => {
   const { projectid } = useParams();
   const [project, setProject] = useState(null);
   const [relatedProjects, setRelatedProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -124,7 +126,7 @@ const ProjectDetailsPage = () => {
   );
 
   return (
-    <>
+  <>
     <Preloader show={preloading} />
     <div
       className="project-details-container d-flex flex-column justify-content-center mt-5"
@@ -154,7 +156,7 @@ const ProjectDetailsPage = () => {
       </div>
 
       <div className="target-section mb-4 d-none flex-column w-100">
-        <h4 className="fw-bold fs-5">Target</h4>
+        <h4 className="fw-bold fs-5">{t("project_target")}</h4>
         <div className="target-value d-flex align-items-center justify-content-center my-2">
           <div
             className="circle-progress border border-danger rounded-circle me-3 d-flex align-items-center justify-content-center"
@@ -164,17 +166,17 @@ const ProjectDetailsPage = () => {
           </div>
           <div className="d-flex flex-row align-items-end gap-4">
             <div className="d-flex flex-column">
-              <p>Goal:</p>
+              <p>{t("project_goal")}</p>
               <span>${project.goal}</span>
             </div>
             <p>-</p>
             <div className="d-flex flex-column">
-              <p>Raised:</p>
+              <p>{t("project_raised")}</p>
               <span>${project.raised}</span>
             </div>
             <p>-</p>
             <div className="d-flex flex-column">
-              <p>To Go:</p>
+              <p>{t("project_togo")}</p>
               <span>${remaining}</span>
             </div>
           </div>
@@ -182,18 +184,15 @@ const ProjectDetailsPage = () => {
       </div>
 
       <div className="payment-section mb-4 d-flex flex-column w-100 mt-4">
-        <h4 className="fw-bold fs-5">Join Our Efforts</h4>
-        <h6 className="fw-bold">
-          If you are interested in knowing more about our activities and
-          projects, please fill out this form and we will get in touch with you
-        </h6>
+        <h4 className="fw-bold fs-5">{t("project_join_efforts")}</h4>
+        <h6 className="fw-bold">{t("project_join_intro")}</h6>
         <form onSubmit={handleSubmit} className="d-flex flex-column w-100 mt-3">
           <div className="row g-2 mb-3">
             <div className="col-md-6">
               <input
                 type="text"
                 className="form-control"
-                placeholder="Full Name"
+                placeholder={t("form_fullname")}
                 value={formData.fullName}
                 onChange={(e) =>
                   setFormData({ ...formData, fullName: e.target.value })
@@ -205,7 +204,7 @@ const ProjectDetailsPage = () => {
               <input
                 type="email"
                 className="form-control"
-                placeholder="Email"
+                placeholder={t("form_email")}
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -220,7 +219,7 @@ const ProjectDetailsPage = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Phone"
+                placeholder={t("form_phone")}
                 value={formData.Phonenumber}
                 onChange={(e) =>
                   setFormData({ ...formData, Phonenumber: e.target.value })
@@ -231,7 +230,7 @@ const ProjectDetailsPage = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="City"
+                placeholder={t("form_city")}
                 value={formData.city}
                 onChange={(e) =>
                   setFormData({ ...formData, city: e.target.value })
@@ -248,13 +247,13 @@ const ProjectDetailsPage = () => {
               onChange={() => setCheck(!ischecked)}
             />
             <label className="form-check-label" htmlFor="dedicateCheck">
-              Dedicate my donation in honor or in memory of someone
+              {t("form_dedicate")}
             </label>
             {ischecked && (
               <input
                 type="text"
                 className="form-control mt-2"
-                placeholder="Type Honor or Someone's Name"
+                placeholder={t("form_dedicate_placeholder")}
                 value={formData.honor}
                 onChange={(e) =>
                   setFormData({ ...formData, honor: e.target.value })
@@ -272,26 +271,24 @@ const ProjectDetailsPage = () => {
             required
           />
 
-          {/* {error && <div className="text-danger mb-2">{error}</div>} */}
-
           <button
             onClick={openpopupmetod}
             type="submit"
             className="btn btn-success"
           >
-            Learn More
+            {t("form_learn_more")}
           </button>
         </form>
       </div>
 
       <div className="mission-section mb-4 d-none">
-        <h4 className="fw-bold fs-5">Our Mission & Objective</h4>
+        <h4 className="fw-bold fs-5">{t("project_mission_objective")}</h4>
         <p className="text-secondary">{project.mission}</p>
         <p className="text-secondary">{project.objective}</p>
       </div>
 
       <div className="more-section mb-4 ">
-        <h4 className="fw-bold fs-5 text-center">More Related Projects</h4>
+        <h4 className="fw-bold fs-5 text-center">{t("project_more_related")}</h4>
         <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mt-3">
           {relatedProjects.map((cause) => (
             <CauseCard key={cause.id} value={cause} />
@@ -299,8 +296,9 @@ const ProjectDetailsPage = () => {
         </div>
       </div>
     </div>
-    </>
-  );
+  </>
+);
+
 };
 
 export default ProjectDetailsPage;

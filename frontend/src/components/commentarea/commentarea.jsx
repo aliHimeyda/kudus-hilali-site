@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './commentarea.css'; // External CSS file
+import { useTranslation } from 'react-i18next';
 
 const defaultComments = [
   {
@@ -20,6 +21,7 @@ const defaultComments = [
 ];
 
 const Comments = () => {
+  const { t } = useTranslation();
   const [comments, setComments] = useState(defaultComments);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,47 +36,50 @@ const Comments = () => {
     setMessage('');
   };
 
-  return (
-    <div className="comments-wrapper">
-      <h2 className="comments-title">(0{comments.length}) Comments</h2>
-      {comments.map((comment, index) => (
-        <div className="comment-box" key={index}>
-          <div className="avatar" />
-          <div className="comment-content">
-            <span className="comment-name">{comment.name}</span>
-            <span className="comment-date">{comment.date}</span>
-            <p className="comment-text">{comment.text}</p>
-          </div>
+ return (
+  <div className="comments-wrapper">
+    <h2 className="comments-title">
+      ({comments.length}) {t("comments_title")}
+    </h2>
+    {comments.map((comment, index) => (
+      <div className="comment-box" key={index}>
+        <div className="avatar" />
+        <div className="comment-content">
+          <span className="comment-name">{comment.name}</span>
+          <span className="comment-date">{comment.date}</span>
+          <p className="comment-text">{comment.text}</p>
         </div>
-      ))}
-
-      <div className="post-comment-wrapper">
-        <h3 className="post-comment-title">Post Comments</h3>
-        <div className="input-row">
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <textarea
-          placeholder="What Would You Like To Discuss?"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        ></textarea>
-        <button className="submit-btn" onClick={handleSubmit}>
-          Submit Now →
-        </button>
       </div>
+    ))}
+
+    <div className="post-comment-wrapper">
+      <h3 className="post-comment-title">{t("post_comment_title")}</h3>
+      <div className="input-row">
+        <input
+          type="text"
+          placeholder={t("input_name")}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="email"
+          placeholder={t("input_email")}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <textarea
+        placeholder={t("input_message")}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      ></textarea>
+      <button className="submit-btn" onClick={handleSubmit}>
+        {t("submit_button")}
+      </button>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default Comments;

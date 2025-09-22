@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import Comments from "../../components/commentarea/commentarea";
 import Preloader from "../../components/preloader/preloader";
 import DOMPurify from "dompurify";
+import { useTranslation } from "react-i18next";
 
 const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
 
@@ -15,7 +16,7 @@ const NewsDetails = () => {
   const [moreNews, setMoreNews] = useState([]);
   const animatedRefs = useRef([]);
   const [loading, setLoading] = useState(true);
-
+const { t } = useTranslation();
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 0);
     return () => clearTimeout(t);
@@ -105,91 +106,91 @@ const NewsDetails = () => {
 
   if (!newsDetail) return <div>Loading...</div>;
 
-  return (
-    <>
-      <Preloader show={loading} />
-      <div className="newsdetailspage d-flex flex-column flex-md-row justify-content-center gap-4">
-        <div className="news-wrapper d-flex flex-column align-items-center gap-4">
+ return (
+  <>
+    <Preloader show={loading} />
+    <div className="newsdetailspage d-flex flex-column flex-md-row justify-content-center gap-4">
+      <div className="news-wrapper d-flex flex-column align-items-center gap-4">
+        <div
+          className="news-image fade-section"
+          ref={(el) => (animatedRefs.current[0] = el)}
+          style={{ overflow: "hidden", position: "relative" }}
+        >
+          <img
+            decoding="async"
+            loading="lazy"
+            src={newsDetail.detail_image_url || newsDetail.image}
+            alt={newsDetail.title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "20px",
+            }}
+          />
           <div
-            className="news-image fade-section"
-            ref={(el) => (animatedRefs.current[0] = el)}
-            style={{ overflow: "hidden", position: "relative" }}
+            className="news-d-meta d-flex gap-3 fade-section"
+            ref={(el) => (animatedRefs.current[1] = el)}
           >
-            <img
-              decoding="async"
-              loading="lazy"
-              src={newsDetail.detail_image_url || newsDetail.image}
-              alt={newsDetail.title}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: "20px",
-              }}
-            />
-            <div
-              className="news-d-meta d-flex gap-3 fade-section"
-              ref={(el) => (animatedRefs.current[1] = el)}
-            >
-              <div className="lesson">
-                <img
-                  decoding="async"
-                  loading="lazy"
-                  src="/assets/dateicon.svg"
-                  alt=""
-                />{" "}
-                {newsDetail.publish_date}
-              </div>
+            <div className="lesson">
+              <img decoding="async" loading="lazy" src="/assets/dateicon.svg" alt="" />{" "}
+              {newsDetail.publish_date}
             </div>
           </div>
-
-          <div className="d-flex flex-column">
-            <h2
-              className="news-title fade-section"
-              ref={(el) => (animatedRefs.current[2] = el)}
-            >
-              {newsDetail.title}
-            </h2>
-
-            {/* Tüm HTML biçimi güvenli şekilde render */}
-            <div
-              className="news-text fade-section"
-              ref={(el) => (animatedRefs.current[3] = el)}
-              dangerouslySetInnerHTML={{ __html: safeHtml }}
-            />
-          </div>
         </div>
 
-        <div
-          className="side-panel fade-section d-flex flex-column pt-5"
-          ref={(el) => (animatedRefs.current[6] = el)}
-        >
-          <h4>More News</h4>
-          <div className="morenews d-flex flex-column gap-2 mt-2 mb-4">
-            {moreNews.map((item) => (
-              <Customnewscard news={item} key={item.id} />
-            ))}
-          </div>
-          <h5>Contact Info?</h5>
-          <div className="contact-email">
-            Email: <u>kudushilali@gmail.com</u>
-          </div>
-          <div className="contact-phone">Phone: +90 505 878 50 40</div>
-          <div className="map-box">
-            <iframe
-              title="Google Map"
-              src="https://www.google.com/maps?q=Arabacıalanı,605%20nolu%20sokak%20No:%201/1,%2054100%20Serdivan/Sakarya&output=embed"
-              width="100%"
-              height="100%"
-              style={{ border: 0, borderRadius: "10px" }}
-              allowFullScreen
-              loading="lazy"
-            ></iframe>
-          </div>
+        <div className="d-flex flex-column">
+          <h2
+            className="news-title fade-section"
+            ref={(el) => (animatedRefs.current[2] = el)}
+          >
+            {newsDetail.title}
+          </h2>
+
+          {/* Tüm HTML biçimi güvenli şekilde render */}
+          <div
+            className="news-text fade-section"
+            ref={(el) => (animatedRefs.current[3] = el)}
+            dangerouslySetInnerHTML={{ __html: safeHtml }}
+          />
         </div>
       </div>
-    </>
-  );
+
+      <div
+        className="side-panel fade-section d-flex flex-column pt-5"
+        ref={(el) => (animatedRefs.current[6] = el)}
+      >
+        <h4>{t("more_news")}</h4>
+        <div className="morenews d-flex flex-column gap-2 mt-2 mb-4">
+          {moreNews.map((item) => (
+            <Customnewscard news={item} key={item.id} />
+          ))}
+        </div>
+
+        <h5>{t("contact_info_q")}</h5>
+        <div className="contact-email">
+          {t("email_label")}: <u>kudushilali@gmail.com</u>
+        </div>
+        <div className="contact-phone">
+          {t("phone_label")}: +90 505 878 50 40
+        </div>
+
+        <div className="map-box">
+          <iframe
+            title={t("map_title")}
+            src="https://www.google.com/maps?q=Arabacıalanı,605%20nolu%20sokak%20No:%201/1,%2054100%20Serdivan/Sakarya&output=embed"
+            width="100%"
+            height="100%"
+            style={{ border: 0, borderRadius: "10px" }}
+            allowFullScreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </>
+);
+
 };
 
 export default NewsDetails;

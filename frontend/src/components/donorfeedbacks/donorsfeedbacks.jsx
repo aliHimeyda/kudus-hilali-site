@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import DonorFeedback from "./donorsfeedback";
 import "./donorfeedback.css";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const DonorFeedbacks = () => {
+  const { t } = useTranslation();
   const [feedbackData, setFeedbackData] = useState([]);
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(false);
@@ -59,53 +61,62 @@ const DonorFeedbacks = () => {
     direction === "right" ? "feedback-animate-right" : "feedback-animate-left";
 
   return (
-    <section
-      ref={sectionRef}
-      className={`feedback-section d-flex flex-column align-items-center justify-content-center ${
-        visible ? "animate" : ""
-      } ${feedbackData.length===0?"d-none":""}`}
+  <section
+    ref={sectionRef}
+    className={`feedback-section d-flex flex-column align-items-center justify-content-center ${
+      visible ? "animate" : ""
+    } ${feedbackData.length === 0 ? "d-none" : ""}`}
+  >
+    <h4 className="h4">{t("feedback_section_title")}</h4>
+    <h2 className="h2" dangerouslySetInnerHTML={{ __html: t("feedback_section_subtitle") }} />
+
+    <div
+      className={`feedback-cards d-flex flex-md-row flex-column justify-content-center align-items-center gap-0 gap-md-4 mt-5 ${animationClass}`}
     >
-      <h4 className="h4">TESTIMONIALS</h4>
-      <h2 className="h2">
-        What Our Donor <span>Say ?</span>
-      </h2>
-
-      <div
-        className={`feedback-cards d-flex flex-md-row flex-column justify-content-center align-items-center gap-0 gap-md-4 mt-5 ${animationClass}`}
-      >
-        {feedbackData.length > 0 ? (
-          feedbackData.slice(index, index + 3).map((item, i) => (
-            <DonorFeedback key={i} {...item} />
-          ))
-        ) : (
-          <p className="text-center">No feedbacks available.</p>
-        )}
-      </div>
-
-      {feedbackData.length > 3 && (
-        <div className="feedback-controls mt-5 d-flex justify-content-center align-items-center gap-5">
-          <div className="arrow-btn" onClick={prev}>
-            <img decoding="async" loading="lazy" src="/assets/leftslider.svg" alt="Previous" />
-          </div>
-
-          <div className="dots d-flex gap-2">
-            {Array.from({ length: Math.ceil(feedbackData.length / 3) }).map(
-              (_, i) => (
-                <div
-                  key={i}
-                  className={`dot ${currentPage === i ? "active" : ""}`}
-                ></div>
-              )
-            )}
-          </div>
-
-          <div className="arrow-btn" onClick={next}>
-            <img decoding="async" loading="lazy" src="/assets/rightslider.svg" alt="Next" />
-          </div>
-        </div>
+      {feedbackData.length > 0 ? (
+        feedbackData.slice(index, index + 3).map((item, i) => (
+          <DonorFeedback key={i} {...item} />
+        ))
+      ) : (
+        <p className="text-center">{t("feedback_none")}</p>
       )}
-    </section>
-  );
+    </div>
+
+    {feedbackData.length > 3 && (
+      <div className="feedback-controls mt-5 d-flex justify-content-center align-items-center gap-5">
+        <div className="arrow-btn" onClick={prev}>
+          <img
+            decoding="async"
+            loading="lazy"
+            src="/assets/leftslider.svg"
+            alt={t("feedback_prev_alt")}
+          />
+        </div>
+
+        <div className="dots d-flex gap-2">
+          {Array.from({ length: Math.ceil(feedbackData.length / 3) }).map(
+            (_, i) => (
+              <div
+                key={i}
+                className={`dot ${currentPage === i ? "active" : ""}`}
+              ></div>
+            )
+          )}
+        </div>
+
+        <div className="arrow-btn" onClick={next}>
+          <img
+            decoding="async"
+            loading="lazy"
+            src="/assets/rightslider.svg"
+            alt={t("feedback_next_alt")}
+          />
+        </div>
+      </div>
+    )}
+  </section>
+);
+
 };
 
 export default DonorFeedbacks;

@@ -6,16 +6,10 @@ import Bottomline from "../../components/bottomline/bottomline";
 import Logo from "../../components/logo/logo";
 import { Link } from "react-router-dom";
 import Preloader from "../../components/preloader/preloader";
+import { useTranslation } from "react-i18next";
 
 const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
-const categories = [
-  "All",
-  "Projects & Initiatives",
-  "Impact Stories",
-  "Events & Campaigns",
-  "Research & Insights",
-  "Organizational Updates",
-];
+
 
 const Newspage = () => {
   const sectionRef = useRef(null);
@@ -24,7 +18,9 @@ const Newspage = () => {
   const [news, setNews] = useState([]);
   const [catActive, setActive] = useState("All");
  const [loading, setLoading] = useState(true);
-
+const { t } = useTranslation();
+const categories = t("news_categories", { returnObjects: true });
+const { i18n } = useTranslation();
   useEffect(() => {
     // Örnek: 2.5 sn sonra kapat
     const t = setTimeout(() => setLoading(false), 0);
@@ -69,14 +65,14 @@ const Newspage = () => {
   }, [isloading]);
 
   return (
-    <>
+  <>
     <Preloader show={loading} />
     <div
       className="newspage d-flex flex-column align-items-center justify-content-center"
       ref={elementRef}
     >
-      <h2 className="h2">Latest News & Articles</h2>
-      <div className="categoriescontainer justify-content-md-center justify-content-start  d-flex mt-5">
+      <h2 className="h2">{t("news_latest_n")}</h2>
+      <div className="categoriescontainer justify-content-md-center justify-content-start d-flex mt-5">
         {categories.map((category, index) => (
           <div
             key={index}
@@ -91,41 +87,53 @@ const Newspage = () => {
       </div>
       <Bottomline />
       <div
-  className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5"
-  ref={sectionRef}
->
-  {news.length > 0 ? (
-    news.map((newvalue) => (
-      <Newscard newsvalue={newvalue} key={newvalue.id} />
-    ))
-  ) : (
-    <div className="text-center">
-      <div className="d-flex flex-row gap-1 align-items-center justify-content-center mb-3">
-        <Logo />
-        <div className="messagetitle d-md-flex flex-column d-none">
-          <span className="fw-bold">KUDÜS HILALI</span>
-          <span className="fw-light">Organization</span>
-        </div>
-      </div>
+        className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5"
+        ref={sectionRef}
+      >
+        {news.length > 0 ? (
+          news.map((newvalue) => (
+            <Newscard newsvalue={newvalue} key={newvalue.id} />
+          ))
+        ) : (
+          <div className="text-center">
+            <div className="d-flex flex-row gap-1 align-items-center justify-content-center mb-3">
+              <Logo />
+              <div className="messagetitle d-md-flex flex-column d-none">
+                {i18n.language === "ar" ? (
+                <>
+                  <span className="fw-light">{t("logo_subtitle")}</span>
+                  <span className="fw-bold">{t("logo_title")}</span>
+                </>
+              ) : (
+                <>
+                  <span className="fw-bold">{t("logo_title")}</span>
+                  <span className="fw-light">{t("logo_subtitle")}</span>
+                </>
+              )}
+              </div>
+            </div>
 
-      <p className="description">
-        Unfortunately, there is no information available. <br /> 
-        Thank you for visiting this area. <br /> 
-        We will add new information as soon as possible. <br /> 
-        If you wish, <Link to="/aboutuspage">Read more about us</Link>.
-      </p>
-    </div>
-  )}
-</div>
+            <p className="description">
+              {t("news_empty_line1")} <br />
+              {t("news_empty_line2")} <br />
+              {t("news_empty_line3")} <br />
+              <Link to="/aboutuspage">{t("read_more_about")}</Link>.
+            </p>
+          </div>
+        )}
+      </div>
 
       <div
         className={`loading ${
           isloading ? "visible" : ""
         } d-flex justify-content-center align-items-center mt-5`}
-      ><Logo/></div>
+      >
+        <Logo />
+      </div>
     </div>
-    </>
-  );
+  </>
+);
+
 };
 
 export default Newspage;

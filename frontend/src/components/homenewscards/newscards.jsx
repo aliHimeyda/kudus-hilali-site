@@ -4,6 +4,7 @@ import "./newscards.css";
 import Newscard from "../newscard/newscard";
 import Bottomline from "../bottomline/bottomline";
 import Allsbtn from "../btns/allsbtn";
+import { useTranslation } from "react-i18next";
 
 const BASE_URL =
   "http://kudushilali.org/backend/news/news_CRUD.php";
@@ -12,7 +13,7 @@ const NewsCards = () => {
   const [cards, setCards] = useState([]);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
-
+const { t } = useTranslation();
   useEffect(() => {
     const fetchNews = async () => {
       try {

@@ -1,9 +1,13 @@
 // Header.jsx
 import React, { useEffect, useState } from "react";
+
 import "./Header.css";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "../logo/logo";
+import { useTranslation } from "react-i18next";
 const Header = () => {
+  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const height = window.innerHeight - 300;
   const location = useLocation();
@@ -35,6 +39,9 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [location.pathname]);
 
+  function changeLanguage(lang) {
+    i18n.changeLanguage(lang);
+  }
   return (
     <header
       className={`main-header ${
@@ -46,36 +53,44 @@ const Header = () => {
           <div className="d-flex align-items-end gap-2">
             <Logo />
             <div className="logostext d-md-flex flex-column d-none">
-              <span className="fw-bold ">KUDÜS HİLALİ</span>
-              <span className="fw-light">Organization</span>
+              {i18n.language === "ar" ? (
+                <>
+                  <span className="fw-light">{t("logo_subtitle")}</span>
+                  <span className="fw-bold">{t("logo_title")}</span>
+                </>
+              ) : (
+                <>
+                  <span className="fw-bold">{t("logo_title")}</span>
+                  <span className="fw-light">{t("logo_subtitle")}</span>
+                </>
+              )}
             </div>
           </div>
 
           <ul className="navbar-nav d-md-flex d-none flex-row gap-4 mb-0 ">
             <li className="nav-item" id="home-item">
               <Link className="nav-link" to="/">
-                Home
+                {t("nav_home")}
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/projects">
-                Projects
+                {t("nav_projects")}
               </Link>
             </li>
-
             <li className="nav-item">
               <Link className="nav-link" to="/teampage">
-                Our Team
+                {t("nav_team")}
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/newspage">
-                News & Articles
+                {t("nav_news")}
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/aboutuspage">
-                About Us
+                {t("nav_about")}
               </Link>
             </li>
           </ul>
@@ -84,7 +99,7 @@ const Header = () => {
             to="/contactuspage"
             className="btn contact-btn ms-3 d-md-block d-none fontsize"
           >
-            Contact Us
+            {t("nav_contact")}
           </Link>
         </div>
       </nav>
@@ -95,7 +110,7 @@ const Header = () => {
             <Logo />
           </div>
 
-          {/* Üç çizgi buton */}
+          {/* Mobil Menü */}
           <div className="menu-toggle ">
             <div className="navbar-toggler border-0">
               <span className="navbar-toggler-icon"></span>
@@ -108,10 +123,9 @@ const Header = () => {
                   }`}
                   to="/Projects"
                 >
-                  Projects
+                  {t("nav_projects")}
                 </Link>
               </li>
-
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
@@ -119,10 +133,9 @@ const Header = () => {
                   }`}
                   to="/teampage"
                 >
-                  Our Team
+                  {t("nav_team")}
                 </Link>
               </li>
-
               <li className="nav-item">
                 <Link
                   className={`nav-link text-uppercase ${
@@ -130,10 +143,9 @@ const Header = () => {
                   }`}
                   to="/newspage"
                 >
-                  News & Articles
+                  {t("nav_news")}
                 </Link>
               </li>
-
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
@@ -141,10 +153,9 @@ const Header = () => {
                   }`}
                   to="/aboutuspage"
                 >
-                  About Us
+                  {t("nav_about")}
                 </Link>
               </li>
-
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
@@ -152,7 +163,7 @@ const Header = () => {
                   }`}
                   to="/contactuspage"
                 >
-                  Contact Us
+                  {t("nav_contact")}
                 </Link>
               </li>
             </ul>

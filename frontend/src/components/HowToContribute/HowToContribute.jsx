@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import "./HowToContribute.css";
 import Bottomline from "../bottomline/bottomline";
 import Morebtn from "../btns/morebtn";
+import { useTranslation } from "react-i18next";
 
 const HowToContribute = () => {
   const [visible, setVisible] = useState(false);
   const contributeRef = useRef(null);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -35,23 +36,35 @@ const HowToContribute = () => {
         }`}
       >
         {/* Başlıklar */}
-        <h4 className="h4">DO SOMETHING</h4>
-        <h2 className="h2">How To Contribute ?</h2>
+        <h4 className="h4">{t("contribute_do_something")}</h4>
+        <h2 className="h2">{t("contribute_how")}</h2>
 
         <div className="contribute-container">
           {/* Sol Görseller */}
           <div className="imagesection">
             <div className="playiconshadow">
               <div className="play-icon">
-                <img decoding="async" loading="lazy" src="/assets/playVector.svg" alt="Play" />
+                <img
+                  decoding="async"
+                  loading="lazy"
+                  src="/assets/playVector.svg"
+                  alt={t("contribute_play_alt")}
+                />
               </div>
             </div>
-            <img decoding="async" loading="lazy" src="/assets/4000.webp" alt="Scene" className="img-top" />
-            <div className="img-boxed">
-              <img decoding="async"
+            <img
+              decoding="async"
               loading="lazy"
+              src="/assets/4000.webp"
+              alt={t("contribute_scene_alt")}
+              className="img-top"
+            />
+            <div className="img-boxed">
+              <img
+                decoding="async"
+                loading="lazy"
                 src="/assets/200.webp"
-                alt="Helping Hands"
+                alt={t("contribute_helping_alt")}
                 className="img-bottom"
               />
             </div>
@@ -63,32 +76,30 @@ const HowToContribute = () => {
           {/* Sağ İçerik */}
           <div className="content-section text-center text-md-start">
             <h3 className="headline">
-              Be a Part of the <span>Change</span>
+              {t("contribute_headline")}{" "}
+              <span>{t("contribute_headline_span")}</span>
             </h3>
-            <p className="desc">
-              Together, we can bring hope to those in need. 
-            </p>
-            <p className="desc">Your contribution helps us provide food, clean water, healthcare, and aid to struggling families in Gaza and beyond.
-            
-            </p>
-            <p className="icon-title ">Ways You Can Help:</p> <br />
+            <p className="desc">{t("contribute_desc1")}</p>
+            <p className="desc">{t("contribute_desc2")}</p>
+            <p className="icon-title ">{t("contribute_ways")}</p> <br />
             <div className="donationcontainer d-flex justify-content-center align-items-center gap-4">
               <div className="icon-card d-flex flex-row gap-2 ">
                 <div className="icon-bg " />
                 <div className="d-flex flex-row justify-content-center align-items-center gap-4">
                   <div className="image-container">
-                    <img decoding="async"
-                    loading="lazy"
+                    <img
+                      decoding="async"
+                      loading="lazy"
                       src="/assets/DonationVector.webp"
-                      alt="Donation"
+                      alt={t("contribute_donation_alt")}
                       className="icon-img"
                     />
                   </div>
                   <div>
-                    <p className="icon-title ">Contact Us</p>
-                    <p className="icon-text">
-                      Contact us to find out how you can help us.
+                    <p className="icon-title ">
+                      {t("contribute_contact_title")}
                     </p>
+                    <p className="icon-text">{t("contribute_contact_text")}</p>
                   </div>
                 </div>
               </div>
@@ -96,24 +107,24 @@ const HowToContribute = () => {
                 <div className="icon-bg" />
                 <div className="d-flex flex-row justify-content-center align-items-center gap-4">
                   <div className="image-container">
-                    <img decoding="async"
-                    loading="lazy"
+                    <img
+                      decoding="async"
+                      loading="lazy"
                       src="/assets/Volunteerector.webp"
-                      alt="Donation"
+                      alt={t("contribute_volunteer_alt")}
                       className="icon-img"
                     />
                   </div>
                   <div>
-                    <p className="icon-title ">Spread the Word</p>
-                    <p className="icon-text">
-                     Share with your friends and loved ones to raise awareness and expand our reach.
+                    <p className="icon-title ">
+                      {t("contribute_spread_title")}
                     </p>
+                    <p className="icon-text">{t("contribute_spread_text")}</p>
                   </div>
                 </div>
               </div>
             </div>
-
-            <Morebtn title={"Find Out More !"} path={"/Projects"} />
+            <Morebtn title={t("contribute_find_more")} path={"/Projects"} />
           </div>
         </div>
       </div>
