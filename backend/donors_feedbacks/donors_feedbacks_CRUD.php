@@ -13,19 +13,28 @@ if ($method === 'OPTIONS') {
     exit();
 }
 
+// güvenlik için izinli diller
+function get_feedback_column($lang) {
+    $allowed = ['tr','en','ar'];
+    $lang = strtolower(trim($lang ?? ''));
+    return in_array($lang, $allowed, true) ? $lang . "_feedback" : "feedback";
+}
+
 switch ($method) {
 
     case 'GET':
-        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        $id   = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        $lang = isset($_GET['lang']) ? $_GET['lang'] : '';
+        $feedback_col = get_feedback_column($lang);
 
         if ($id > 0) {
-            $sql = "SELECT id, donor_name, feedback, stars, image_url, isDeleted, created_at 
-                    FROM donors_feedbacks 
+            $sql = "SELECT id, donor_name, $feedback_col AS feedback, stars, image_url, isDeleted, created_at
+                    FROM donors_feedbacks
                     WHERE id=$id AND isDeleted=0";
         } else {
-            $sql = "SELECT id, donor_name, feedback, stars, image_url, isDeleted, created_at 
-                    FROM donors_feedbacks 
-                    WHERE isDeleted=0 
+            $sql = "SELECT id, donor_name, $feedback_col AS feedback, stars, image_url, isDeleted, created_at
+                    FROM donors_feedbacks
+                    WHERE isDeleted=0
                     ORDER BY created_at DESC";
         }
 
@@ -42,13 +51,15 @@ switch ($method) {
 
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
+        $lang = $data['lang'] ?? '';
+        $feedback_col = get_feedback_column($lang);
 
         $donor_name = mysqli_real_escape_string($conn, $data['donor_name']);
-        $feedback = mysqli_real_escape_string($conn, $data['feedback']);
-        $stars = intval($data['stars']);
-        $image_url = mysqli_real_escape_string($conn, $data['image_url']);
+        $feedback   = mysqli_real_escape_string($conn, $data['feedback']);
+        $stars      = intval($data['stars']);
+        $image_url  = mysqli_real_escape_string($conn, $data['image_url']);
 
-        $sql = "INSERT INTO donors_feedbacks (donor_name, feedback, stars, image_url) 
+        $sql = "INSERT INTO donors_feedbacks (donor_name, $feedback_col, stars, image_url)
                 VALUES ('$donor_name', '$feedback', $stars, '$image_url')";
 
         if ($conn->query($sql)) {
@@ -60,17 +71,19 @@ switch ($method) {
 
     case 'PUT':
         parse_str($_SERVER['QUERY_STRING'], $params);
-        $id = intval($params['id']);
+        $id   = intval($params['id']);
         $data = json_decode(file_get_contents("php://input"), true);
+        $lang = $data['lang'] ?? '';
+        $feedback_col = get_feedback_column($lang);
 
         $donor_name = mysqli_real_escape_string($conn, $data['donor_name']);
-        $feedback = mysqli_real_escape_string($conn, $data['feedback']);
-        $stars = intval($data['stars']);
-        $image_url = mysqli_real_escape_string($conn, $data['image_url']);
+        $feedback   = mysqli_real_escape_string($conn, $data['feedback']);
+        $stars      = intval($data['stars']);
+        $image_url  = mysqli_real_escape_string($conn, $data['image_url']);
 
         $sql = "UPDATE donors_feedbacks SET
                 donor_name='$donor_name',
-                feedback='$feedback',
+                $feedback_col='$feedback',
                 stars=$stars,
                 image_url='$image_url'
                 WHERE id=$id";
@@ -84,7 +97,7 @@ switch ($method) {
 
     case 'DELETE':
         parse_str($_SERVER['QUERY_STRING'], $params);
-        $id = intval($params['id']);
+        $id   = intval($params['id']);
         $soft = isset($params['soft']) ? intval($params['soft']) : 1;
 
         if ($soft === 1) {

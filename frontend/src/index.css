@@ -17,6 +17,7 @@ body {
   display: flex;
   justify-content: center;
   overflow-x: hidden;
+  
   background-image: url("../public/assets/Sideicons.svg"),
     url("../public/assets/Sideicon2.svg");
   background-position: 30px top, calc(100% - 30px) top;

@@ -12,13 +12,14 @@ const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
 
 
 const Newspage = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const elementRef = useRef(null);
   const [isloading, setIsLoading] = useState(false);
   const [news, setNews] = useState([]);
-  const [catActive, setActive] = useState("All");
+  const [catActive, setActive] = useState(t("news_categories", { returnObjects: true })[0]);
  const [loading, setLoading] = useState(true);
-const { t } = useTranslation();
+
 const categories = t("news_categories", { returnObjects: true });
 const { i18n } = useTranslation();
   useEffect(() => {
@@ -34,7 +35,11 @@ const { i18n } = useTranslation();
         category === "All"
           ? `${BASE_URL}?action=view`
           : `${BASE_URL}?action=view&category=${encodeURIComponent(category)}`;
-      const res = await axios.get(url);
+      const res = await axios.get(url, {
+        params: {
+          lang: i18n.language
+        }
+      });
       setNews(res.data.data);
     } catch (err) {
       console.error(err);

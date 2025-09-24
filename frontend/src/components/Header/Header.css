@@ -20,7 +20,7 @@
   color: var(--color-orange) !important;
 }
 .scrolled-header .nav-link:hover {
-  color: var(--color-orange) !important;
+  color: var(--color-gray) !important;
 }
 .fontsize {
   font-size: 1.3vw;
@@ -153,7 +153,17 @@
   padding: 0.5rem 0;
   border-radius: 4px;
 }
-
+.mobile-navbar.bg-transparent .navbar-toggler.n-top{
+  top: 0;
+}
+.navbar-toggler{
+  bottom: -20px;
+  left: 44%;
+}
+.navbar-toggler-icon{
+  width: 20px;
+  height: 20px;
+}
 .menu-toggle:hover .hover-menu {
   display: inline-block;
 }

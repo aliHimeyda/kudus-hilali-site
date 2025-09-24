@@ -3,7 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import KPIS from "../kpi/kpi";
 import "./herospace.css";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 const Hero = () => {
+  const { t } = useTranslation();
   const [step, setStep] = useState(0);
   const [showimages, setShowimages] = useState(false);
   // const location = useLocation();
@@ -94,7 +96,7 @@ const Hero = () => {
       ></img>
       <div className={`gradient-overlay ${showimages ? "visible" : ""}`}></div>
       <div className="hero-title-wrapper">
-        <h1 className="hero-title">KUDÜS HİLALİ</h1>
+        <h1 className="hero-title">{t("hero_space_title")}</h1>
       </div>
     </div>
   );

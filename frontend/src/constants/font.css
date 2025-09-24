@@ -3,3 +3,10 @@
   src: url('Alexandria[wght].ttf') format('truetype');
   font-weight: 100 900; /* variable font aralığı */
 }
+
+@font-face {
+  font-family: "DejaVuSans";
+  src: url("../dejavu-sans/DejaVuSans.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

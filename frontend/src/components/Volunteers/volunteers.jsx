@@ -10,12 +10,12 @@ const Volunteers = () => {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
   const [volunteers, setVolunteers] = useState([]);
-  const { t } = useTranslation();
+  const { t,i18n } = useTranslation();
 
   useEffect(() => {
     const fetchVolunteers = async () => {
       try {
-        const res = await axios.get("http://kudushilali.org/backend/teams/teams_CRUD.php?limit=3");
+        const res = await axios.get("http://kudushilali.org/backend/teams/teams_CRUD.php?limit=3", { params: { lang: i18n.language } });
         if (res.data.status === "success" && Array.isArray(res.data.data)) {
           setVolunteers(res.data.data);
         }

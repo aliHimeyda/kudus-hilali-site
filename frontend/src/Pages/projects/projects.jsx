@@ -11,13 +11,14 @@ import { useTranslation } from "react-i18next";
 
 
 const Projects = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const elementRef = useRef(null);
   const [isloading, setIsLoading] = useState(false);
   const [causes, setCauses] = useState([]);
-  const [catActive, setActive] = useState("All");
+  const [catActive, setActive] = useState(t("project_categories", { returnObjects: true })[0]);
    const [loading, setLoading] = useState(true);
-const { t } = useTranslation();
+
 const categories = t("project_categories", { returnObjects: true });
 const { i18n } = useTranslation();
   useEffect(() => {
@@ -34,7 +35,13 @@ const { i18n } = useTranslation();
           : `http://kudushilali.org/backend/projects/projects_CRUD.php?category=${encodeURIComponent(
               category
             )}`;
-      const res = await axios.get(url);
+      const res = await axios.get(url,
+  {
+    params: {
+      lang: i18n.language
+    }
+  }
+);
       if (res.data.status === "success") {
         setCauses(res.data.data);
       }

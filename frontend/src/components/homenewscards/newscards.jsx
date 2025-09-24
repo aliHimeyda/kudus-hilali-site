@@ -13,11 +13,15 @@ const NewsCards = () => {
   const [cards, setCards] = useState([]);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
-const { t } = useTranslation();
+const { t,i18n } = useTranslation();
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}?action=view`);
+        const res = await axios.get(`${BASE_URL}?action=view` ,{
+        params: {
+          lang: i18n.language,             
+        }
+      });
         setCards(res.data.data.slice(0, 3)); // Dikkat: .data.data
       } catch (err) {
         console.error("News fetch error:", err);
@@ -45,16 +49,16 @@ const { t } = useTranslation();
           visible ? "animate" : ""
         } mt-5 pt-5 `}
       >
-        <h4 className="h4">KEEP UP</h4>
+        <h4 className="h4">{t("news_keep_up")}</h4>
         <h2 className="h2">
-          Latest News & <span>Articles</span>
+          {t("news_latest")} <span>{t("news_articles")}</span>
         </h2>
         <div className="cards-container mt-5  ">
           {cards.map((card, index) => (
             <Newscard key={card.id || index} newsvalue={card} />
           ))}
         </div>
-        <Allsbtn title={"VIEW ALL"} path={"/newspage"} />
+        <Allsbtn title={t("news_view_all")} path={"/newspage"} />
       </section>
       <Bottomline />
     </div>

@@ -13,26 +13,62 @@ if ($method === 'OPTIONS') {
     exit();
 }
 
+// Sadece title/explanation/mission/objective için dil bazlı kolon seçimi
+function get_lang_col($base, $lang) {
+    // $base: title | explanation | mission | objective
+    $allowed = ['tr','en','ar'];
+    $lang = strtolower(trim($lang ?? ''));
+    if (in_array($lang, $allowed, true)) {
+        return $lang . "_" . $base; // örn: tr_title, en_mission
+    }
+    return $base; // fallback: base kolon
+}
+
 switch ($method) {
 
     case 'GET':
         $category = isset($_GET['category']) ? mysqli_real_escape_string($conn, $_GET['category']) : '';
-        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        $id       = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        $lang     = isset($_GET['lang']) ? $_GET['lang'] : '';
+
+        $title_col       = get_lang_col('title', $lang);
+        $explanation_col = get_lang_col('explanation', $lang);
+        $mission_col     = get_lang_col('mission', $lang);
+        $objective_col   = get_lang_col('objective', $lang);
 
         if ($id > 0) {
-            $sql = "SELECT id, title, explanation, mission, objective, category, image, 
-                           goal_amount AS goal, raised_amount AS raised, status, created_at
+            $sql = "SELECT id,
+                           $title_col       AS title,
+                           $explanation_col AS explanation,
+                           $mission_col     AS mission,
+                           $objective_col   AS objective,
+                           category, image,
+                           goal_amount AS goal, raised_amount AS raised,
+                           status, created_at
                     FROM projects
                     WHERE id=$id AND isDeleted=0";
         } elseif ($category && $category !== 'All') {
-            $sql = "SELECT id, title, explanation, mission, objective, category, image, 
-                           goal_amount AS goal, raised_amount AS raised, status, created_at
+            // Kategori filtresi her zaman base 'category' kolonu üzerinden
+            $sql = "SELECT id,
+                           $title_col       AS title,
+                           $explanation_col AS explanation,
+                           $mission_col     AS mission,
+                           $objective_col   AS objective,
+                           category, image,
+                           goal_amount AS goal, raised_amount AS raised,
+                           status, created_at
                     FROM projects
                     WHERE category='$category' AND isDeleted=0
                     ORDER BY created_at DESC";
         } else {
-            $sql = "SELECT id, title, explanation, mission, objective, category, image, 
-                           goal_amount AS goal, raised_amount AS raised, status, created_at
+            $sql = "SELECT id,
+                           $title_col       AS title,
+                           $explanation_col AS explanation,
+                           $mission_col     AS mission,
+                           $objective_col   AS objective,
+                           category, image,
+                           goal_amount AS goal, raised_amount AS raised,
+                           status, created_at
                     FROM projects
                     WHERE isDeleted=0
                     ORDER BY created_at DESC";
@@ -52,17 +88,24 @@ switch ($method) {
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $title = mysqli_real_escape_string($conn, $data['title']);
-        $explanation = mysqli_real_escape_string($conn, $data['explanation']);
-        $mission = mysqli_real_escape_string($conn, $data['mission']);
-        $objective = mysqli_real_escape_string($conn, $data['objective']);
-        $category = mysqli_real_escape_string($conn, $data['category']);
-        $image = mysqli_real_escape_string($conn, $data['image']);
-        $goal = floatval($data['goal']);
-        $raised = isset($data['raised']) ? floatval($data['raised']) : 0;
-        $status = mysqli_real_escape_string($conn, $data['status']);
+        $lang           = $data['lang'] ?? '';
+        $title_col       = get_lang_col('title', $lang);
+        $explanation_col = get_lang_col('explanation', $lang);
+        $mission_col     = get_lang_col('mission', $lang);
+        $objective_col   = get_lang_col('objective', $lang);
 
-        $sql = "INSERT INTO projects (title, explanation, mission, objective, category, image, goal_amount, raised_amount, status)
+        $title       = mysqli_real_escape_string($conn, $data['title'] ?? '');
+        $explanation = mysqli_real_escape_string($conn, $data['explanation'] ?? '');
+        $mission     = mysqli_real_escape_string($conn, $data['mission'] ?? '');
+        $objective   = mysqli_real_escape_string($conn, $data['objective'] ?? '');
+        $category    = mysqli_real_escape_string($conn, $data['category'] ?? '');
+        $image       = mysqli_real_escape_string($conn, $data['image'] ?? '');
+        $goal        = floatval($data['goal'] ?? 0);
+        $raised      = isset($data['raised']) ? floatval($data['raised']) : 0;
+        $status      = mysqli_real_escape_string($conn, $data['status'] ?? '');
+
+        // Sadece dil-değişken alanlar seçilen dil kolonlarına yazılır; category tek kolonda kalır
+        $sql = "INSERT INTO projects ($title_col, $explanation_col, $mission_col, $objective_col, category, image, goal_amount, raised_amount, status)
                 VALUES ('$title', '$explanation', '$mission', '$objective', '$category', '$image', $goal, $raised, '$status')";
 
         if ($conn->query($sql)) {
@@ -74,24 +117,30 @@ switch ($method) {
 
     case 'PUT':
         parse_str($_SERVER['QUERY_STRING'], $params);
-        $id = intval($params['id']);
+        $id   = intval($params['id'] ?? 0);
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $title = mysqli_real_escape_string($conn, $data['title']);
-        $explanation = mysqli_real_escape_string($conn, $data['explanation']);
-        $mission = mysqli_real_escape_string($conn, $data['mission']);
-        $objective = mysqli_real_escape_string($conn, $data['objective']);
-        $category = mysqli_real_escape_string($conn, $data['category']);
-        $image = mysqli_real_escape_string($conn, $data['image']);
-        $goal = floatval($data['goal']);
-        $raised = floatval($data['raised']);
-        $status = mysqli_real_escape_string($conn, $data['status']);
+        $lang           = $data['lang'] ?? '';
+        $title_col       = get_lang_col('title', $lang);
+        $explanation_col = get_lang_col('explanation', $lang);
+        $mission_col     = get_lang_col('mission', $lang);
+        $objective_col   = get_lang_col('objective', $lang);
+
+        $title       = mysqli_real_escape_string($conn, $data['title'] ?? '');
+        $explanation = mysqli_real_escape_string($conn, $data['explanation'] ?? '');
+        $mission     = mysqli_real_escape_string($conn, $data['mission'] ?? '');
+        $objective   = mysqli_real_escape_string($conn, $data['objective'] ?? '');
+        $category    = mysqli_real_escape_string($conn, $data['category'] ?? '');
+        $image       = mysqli_real_escape_string($conn, $data['image'] ?? '');
+        $goal        = floatval($data['goal'] ?? 0);
+        $raised      = floatval($data['raised'] ?? 0);
+        $status      = mysqli_real_escape_string($conn, $data['status'] ?? '');
 
         $sql = "UPDATE projects SET
-                title='$title',
-                explanation='$explanation',
-                mission='$mission',
-                objective='$objective',
+                $title_col='$title',
+                $explanation_col='$explanation',
+                $mission_col='$mission',
+                $objective_col='$objective',
                 category='$category',
                 image='$image',
                 goal_amount=$goal,
@@ -108,7 +157,7 @@ switch ($method) {
 
     case 'DELETE':
         parse_str($_SERVER['QUERY_STRING'], $params);
-        $id = intval($params['id']);
+        $id   = intval($params['id']);
         $soft = isset($params['soft']) ? intval($params['soft']) : 1;
 
         if ($soft === 1) {
