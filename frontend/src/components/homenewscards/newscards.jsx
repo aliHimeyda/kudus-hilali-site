@@ -6,22 +6,21 @@ import Bottomline from "../bottomline/bottomline";
 import Allsbtn from "../btns/allsbtn";
 import { useTranslation } from "react-i18next";
 
-const BASE_URL =
-  "http://kudushilali.org/backend/news/news_CRUD.php";
+const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
 
 const NewsCards = () => {
   const [cards, setCards] = useState([]);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
-const { t,i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}?action=view` ,{
-        params: {
-          lang: i18n.language,             
-        }
-      });
+        const res = await axios.get(`${BASE_URL}?action=view`, {
+          params: {
+            lang: i18n.language,
+          },
+        });
         setCards(res.data.data.slice(0, 3)); // Dikkat: .data.data
       } catch (err) {
         console.error("News fetch error:", err);
@@ -42,7 +41,7 @@ const { t,i18n } = useTranslation();
   }, []);
 
   return (
-    <div className={`${cards.length===0?"d-none":""}`}>
+    <div className={`${cards.length === 0 ? "d-none" : ""}`}>
       <section
         ref={sectionRef}
         className={`news-section d-flex flex-column align-items-center ${

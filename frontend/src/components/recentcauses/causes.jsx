@@ -5,14 +5,13 @@ import Bottomline from "../bottomline/bottomline";
 import Allsbtn from "../btns/allsbtn";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import i18n from "../../i18n";
 
 const RecentCauses = () => {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { t } = useTranslation();
+  const { t,i18n } = useTranslation();
   const fetchLatestProjects = async () => {
     try {
       const res = await axios.get(

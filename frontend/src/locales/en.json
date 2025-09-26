@@ -192,5 +192,10 @@
    "team_section_title": "TEAM",
   "team_our_team": "OUR TEAM",
   "team_not_found": "No team members found.",
-  "loading_text": "Loading..."
+  "loading_text": "Loading...",
+  "month": "Month",
+  "partners": "Partners",
+  "projects": "Projects",
+  "budget": "Budget"
+
 }

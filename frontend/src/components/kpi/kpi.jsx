@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./kpi.css";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const animateCount = (el, to, suffix = "", duration = 2000) => {
   let start = 0;
@@ -16,7 +17,7 @@ const animateCount = (el, to, suffix = "", duration = 2000) => {
 const KPIS = () => {
   const [kpi, setKpi] = useState(null);
   const statRefs = useRef([]);
-const { t ,i18n } = useTranslation();
+  const { i18n } = useTranslation();
   useEffect(() => {
     const fetchKPI = async () => {
       try {
@@ -36,10 +37,10 @@ const { t ,i18n } = useTranslation();
   useEffect(() => {
     if (kpi) {
       const dynamicStats = [
-        { value: kpi.months, label: "Months" },
-        { value: kpi.projects, label: "Projects" },
-        { value: kpi.partners, label: "Partners" },
-        { value: parseInt(kpi.budget), suffix: "M", label: "Budget" },
+        { value: kpi.months, label: t("month") },
+        { value: kpi.projects, label: t("projects") },
+        { value: kpi.partners, label: t("partners") },
+        { value: parseInt(kpi.budget), suffix: "M", label: t("budget") },
       ];
 
       // 3200 ms bekle sonra animasyonu başlat
@@ -58,14 +59,17 @@ const { t ,i18n } = useTranslation();
     return <p className="text-center text-light mt-3">Loading KPIs...</p>;
 
   const stats = [
-    { value: kpi.months, label: "Months" },
-    { value: kpi.projects, label: "Projects" },
-    { value: kpi.partners, label: "Partners" },
-    { value: parseInt(kpi.budget), suffix: "M", label: "Budget" },
+    { value: kpi.months, label: t("month") },
+    { value: kpi.projects, label: t("projects") },
+    { value: kpi.partners, label: t("partners") },
+    { value: parseInt(kpi.budget), suffix: "M", label: t("budget") },
   ];
 
   return (
-    <div className="stats-container animate-stats p-3 p-md-4 rounded-4" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+    <div
+      className="stats-container animate-stats p-3 p-md-4 rounded-4"
+      dir={i18n.language === "ar" ? "rtl" : "ltr"}
+    >
       <div className="row text-center text-white">
         {stats.map((stat, idx) => (
           <div key={idx} className="col-6 col-md-3">

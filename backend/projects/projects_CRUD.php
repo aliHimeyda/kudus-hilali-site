@@ -13,15 +13,14 @@ if ($method === 'OPTIONS') {
     exit();
 }
 
-// Sadece title/explanation/mission/objective için dil bazlı kolon seçimi
+// Dil-bazlı kolon seçici: base = title|explanation|mission|objective|category
 function get_lang_col($base, $lang) {
-    // $base: title | explanation | mission | objective
     $allowed = ['tr','en','ar'];
     $lang = strtolower(trim($lang ?? ''));
     if (in_array($lang, $allowed, true)) {
-        return $lang . "_" . $base; // örn: tr_title, en_mission
+        return $lang . "_" . $base; // örn: tr_title, en_mission, ar_category
     }
-    return $base; // fallback: base kolon
+    return $base; // fallback tekil kolon
 }
 
 switch ($method) {
@@ -35,6 +34,7 @@ switch ($method) {
         $explanation_col = get_lang_col('explanation', $lang);
         $mission_col     = get_lang_col('mission', $lang);
         $objective_col   = get_lang_col('objective', $lang);
+        $category_col    = get_lang_col('category', $lang);
 
         if ($id > 0) {
             $sql = "SELECT id,
@@ -42,23 +42,25 @@ switch ($method) {
                            $explanation_col AS explanation,
                            $mission_col     AS mission,
                            $objective_col   AS objective,
-                           category, image,
+                           $category_col    AS category,
+                           image,
                            goal_amount AS goal, raised_amount AS raised,
                            status, created_at
                     FROM projects
                     WHERE id=$id AND isDeleted=0";
         } elseif ($category && $category !== 'All') {
-            // Kategori filtresi her zaman base 'category' kolonu üzerinden
+            // Kategori filtresi seçilen dil kolonuna uygulanır
             $sql = "SELECT id,
                            $title_col       AS title,
                            $explanation_col AS explanation,
                            $mission_col     AS mission,
                            $objective_col   AS objective,
-                           category, image,
+                           $category_col    AS category,
+                           image,
                            goal_amount AS goal, raised_amount AS raised,
                            status, created_at
                     FROM projects
-                    WHERE category='$category' AND isDeleted=0
+                    WHERE $category_col='$category' AND isDeleted=0
                     ORDER BY created_at DESC";
         } else {
             $sql = "SELECT id,
@@ -66,7 +68,8 @@ switch ($method) {
                            $explanation_col AS explanation,
                            $mission_col     AS mission,
                            $objective_col   AS objective,
-                           category, image,
+                           $category_col    AS category,
+                           image,
                            goal_amount AS goal, raised_amount AS raised,
                            status, created_at
                     FROM projects
@@ -88,11 +91,12 @@ switch ($method) {
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $lang           = $data['lang'] ?? '';
+        $lang            = $data['lang'] ?? '';
         $title_col       = get_lang_col('title', $lang);
         $explanation_col = get_lang_col('explanation', $lang);
         $mission_col     = get_lang_col('mission', $lang);
         $objective_col   = get_lang_col('objective', $lang);
+        $category_col    = get_lang_col('category', $lang);
 
         $title       = mysqli_real_escape_string($conn, $data['title'] ?? '');
         $explanation = mysqli_real_escape_string($conn, $data['explanation'] ?? '');
@@ -104,8 +108,7 @@ switch ($method) {
         $raised      = isset($data['raised']) ? floatval($data['raised']) : 0;
         $status      = mysqli_real_escape_string($conn, $data['status'] ?? '');
 
-        // Sadece dil-değişken alanlar seçilen dil kolonlarına yazılır; category tek kolonda kalır
-        $sql = "INSERT INTO projects ($title_col, $explanation_col, $mission_col, $objective_col, category, image, goal_amount, raised_amount, status)
+        $sql = "INSERT INTO projects ($title_col, $explanation_col, $mission_col, $objective_col, $category_col, image, goal_amount, raised_amount, status)
                 VALUES ('$title', '$explanation', '$mission', '$objective', '$category', '$image', $goal, $raised, '$status')";
 
         if ($conn->query($sql)) {
@@ -120,11 +123,12 @@ switch ($method) {
         $id   = intval($params['id'] ?? 0);
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $lang           = $data['lang'] ?? '';
+        $lang            = $data['lang'] ?? '';
         $title_col       = get_lang_col('title', $lang);
         $explanation_col = get_lang_col('explanation', $lang);
         $mission_col     = get_lang_col('mission', $lang);
         $objective_col   = get_lang_col('objective', $lang);
+        $category_col    = get_lang_col('category', $lang);
 
         $title       = mysqli_real_escape_string($conn, $data['title'] ?? '');
         $explanation = mysqli_real_escape_string($conn, $data['explanation'] ?? '');
@@ -141,7 +145,7 @@ switch ($method) {
                 $explanation_col='$explanation',
                 $mission_col='$mission',
                 $objective_col='$objective',
-                category='$category',
+                $category_col='$category',
                 image='$image',
                 goal_amount=$goal,
                 raised_amount=$raised,

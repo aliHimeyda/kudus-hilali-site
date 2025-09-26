@@ -13,55 +13,55 @@ if ($method === 'OPTIONS') {
     exit();
 }
 
-// Sadece title/content için dil bazlı kolon seçimi
-function get_lang_col($base, $lang) {
-    // $base: 'title' veya 'content'
-    $allowed = ['tr','en','ar'];
+// Dil-bazlı kolon seçimi: base = title | content | category
+function get_lang_col($base, $lang)
+{
     $lang = strtolower(trim($lang ?? ''));
-    if (in_array($lang, $allowed, true)) {
-        return $lang . "_" . $base; // örn: tr_title, en_content
-    }
-    return $base; // fallback: title / content
+    if (strlen($lang) > 2) {
+        $lang = substr($lang, 0, 2);
+    } // tr-TR -> tr
+    $allowed = ['tr', 'en', 'ar'];
+    return in_array($lang, $allowed, true) ? ($lang . "_" . $base) : $base;
 }
 
 switch ($method) {
-
     case 'GET':
         $categoryParam = isset($_GET['category']) ? mysqli_real_escape_string($conn, $_GET['category']) : '';
-        $id            = isset($_GET['id']) ? intval($_GET['id']) : 0;
-        $lang          = isset($_GET['lang']) ? $_GET['lang'] : '';
+        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        $lang = $_GET['lang'] ?? '';
 
-        $title_col   = get_lang_col('title', $lang);
+        $title_col = get_lang_col('title', $lang);
         $content_col = get_lang_col('content', $lang);
+        $category_col = get_lang_col('category', $lang);
 
         if ($id > 0) {
             $sql = "SELECT id,
-                           $title_col   AS title,
-                           $content_col AS content,
-                           category,
+                           $title_col    AS title,
+                           $content_col  AS content,
+                           $category_col AS category,
                            admin_name, admin_image,
                            image_url AS image,
                            publish_date, created_at
                     FROM news
                     WHERE id=$id AND isDeleted=0";
         } elseif ($categoryParam && $categoryParam !== 'All') {
-            // Kategori filtresi her zaman base 'category' kolonundan
+            // Kategori filtresi dil kolonu üzerinden
             $sql = "SELECT id,
-                           $title_col   AS title,
-                           $content_col AS content,
-                           category,
+                           $title_col    AS title,
+                           $content_col  AS content,
+                           $category_col AS category,
                            admin_name, admin_image,
                            image_url AS image,
                            publish_date, created_at
                     FROM news
-                    WHERE category='" . $categoryParam . "'
+                    WHERE $category_col='$categoryParam'
                       AND isDeleted=0
                     ORDER BY created_at DESC";
         } else {
             $sql = "SELECT id,
-                           $title_col   AS title,
-                           $content_col AS content,
-                           category,
+                           $title_col    AS title,
+                           $content_col  AS content,
+                           $category_col AS category,
                            admin_name, admin_image,
                            image_url AS image,
                            publish_date, created_at
@@ -85,50 +85,52 @@ switch ($method) {
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $lang         = $data['lang'] ?? ''; // body ile gelen dil (title/content için)
-        $title_col    = get_lang_col('title', $lang);
-        $content_col  = get_lang_col('content', $lang);
+        $lang = $data['lang'] ?? '';
+        $title_col = get_lang_col('title', $lang);
+        $content_col = get_lang_col('content', $lang);
+        $category_col = get_lang_col('category', $lang);
 
-        $title        = mysqli_real_escape_string($conn, $data['title'] ?? '');
-        $content      = mysqli_real_escape_string($conn, $data['content'] ?? '');
-        $category     = mysqli_real_escape_string($conn, $data['category'] ?? '');
-        $admin_name   = mysqli_real_escape_string($conn, $data['admin_name'] ?? '');
-        $admin_image  = mysqli_real_escape_string($conn, $data['admin_image'] ?? '');
-        $image_url    = mysqli_real_escape_string($conn, $data['image_url'] ?? '');
+        $title = mysqli_real_escape_string($conn, $data['title'] ?? '');
+        $content = mysqli_real_escape_string($conn, $data['content'] ?? '');
+        $category = mysqli_real_escape_string($conn, $data['category'] ?? '');
+        $admin_name = mysqli_real_escape_string($conn, $data['admin_name'] ?? '');
+        $admin_image = mysqli_real_escape_string($conn, $data['admin_image'] ?? '');
+        $image_url = mysqli_real_escape_string($conn, $data['image_url'] ?? '');
         $publish_date = mysqli_real_escape_string($conn, $data['publish_date'] ?? '');
 
-        // title/content seçili dil kolonlarına; category tek kolona
-        $sql = "INSERT INTO news ($title_col, $content_col, category, admin_name, admin_image, image_url, publish_date)
+        // title/content/category seçili dil kolonlarına yazılır
+        $sql = "INSERT INTO news ($title_col, $content_col, $category_col, admin_name, admin_image, image_url, publish_date)
                 VALUES ('$title', '$content', '$category', '$admin_name', '$admin_image', '$image_url', '$publish_date')";
 
         if ($conn->query($sql)) {
             echo json_encode(["status" => "success", "message" => "News added successfully"]);
         } else {
-            echo json_encode("error");
+            echo json_encode(["status" => "error", "message" => $conn->error]);
         }
         break;
 
     case 'PUT':
         parse_str($_SERVER['QUERY_STRING'], $params);
-        $id   = intval($params['id'] ?? 0);
+        $id = intval($params['id'] ?? 0);
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $lang         = $data['lang'] ?? '';
-        $title_col    = get_lang_col('title', $lang);
-        $content_col  = get_lang_col('content', $lang);
+        $lang = $data['lang'] ?? '';
+        $title_col = get_lang_col('title', $lang);
+        $content_col = get_lang_col('content', $lang);
+        $category_col = get_lang_col('category', $lang);
 
-        $title        = mysqli_real_escape_string($conn, $data['title'] ?? '');
-        $content      = mysqli_real_escape_string($conn, $data['content'] ?? '');
-        $category     = mysqli_real_escape_string($conn, $data['category'] ?? '');
-        $admin_name   = mysqli_real_escape_string($conn, $data['admin_name'] ?? '');
-        $admin_image  = mysqli_real_escape_string($conn, $data['admin_image'] ?? '');
-        $image_url    = mysqli_real_escape_string($conn, $data['image_url'] ?? '');
+        $title = mysqli_real_escape_string($conn, $data['title'] ?? '');
+        $content = mysqli_real_escape_string($conn, $data['content'] ?? '');
+        $category = mysqli_real_escape_string($conn, $data['category'] ?? '');
+        $admin_name = mysqli_real_escape_string($conn, $data['admin_name'] ?? '');
+        $admin_image = mysqli_real_escape_string($conn, $data['admin_image'] ?? '');
+        $image_url = mysqli_real_escape_string($conn, $data['image_url'] ?? '');
         $publish_date = mysqli_real_escape_string($conn, $data['publish_date'] ?? '');
 
         $sql = "UPDATE news SET
                 $title_col='$title',
                 $content_col='$content',
-                category='$category',
+                $category_col='$category',
                 admin_name='$admin_name',
                 admin_image='$admin_image',
                 image_url='$image_url',
@@ -144,7 +146,7 @@ switch ($method) {
 
     case 'DELETE':
         parse_str($_SERVER['QUERY_STRING'], $params);
-        $id   = intval($params['id']);
+        $id = intval($params['id']);
         $soft = isset($params['soft']) ? intval($params['soft']) : 1;
 
         if ($soft === 1) {

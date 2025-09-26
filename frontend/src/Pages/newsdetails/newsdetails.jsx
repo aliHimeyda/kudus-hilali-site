@@ -16,7 +16,7 @@ const NewsDetails = () => {
   const [moreNews, setMoreNews] = useState([]);
   const animatedRefs = useRef([]);
   const [loading, setLoading] = useState(true);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 0);
     return () => clearTimeout(t);
@@ -25,7 +25,11 @@ const NewsDetails = () => {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}?action=view&id=${newsid}`);
+        const res = await axios.get(`${BASE_URL}?action=view&id=${newsid}`, {
+          params: {
+            lang: i18n.language,
+          },
+        });
         setNewsDetail(res.data.data[0]);
       } catch (err) {
         console.error(err);
@@ -33,7 +37,11 @@ const NewsDetails = () => {
     };
     const fetchMore = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}?action=view`);
+        const res = await axios.get(`${BASE_URL}?action=view`, {
+          params: {
+            lang: i18n.language,
+          },
+        });
         const others = res.data.data.filter(
           (item) => item.id !== parseInt(newsid, 10)
         );
@@ -110,7 +118,10 @@ const NewsDetails = () => {
     <>
       <Preloader show={loading} />
       <div className="newsdetailspage d-flex flex-column flex-md-row justify-content-center gap-4">
-        <div className="news-wrapper d-flex flex-column align-items-center gap-4">
+        <div
+          className="news-wrapper d-flex flex-column align-items-center gap-4"
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+        >
           <div
             className="news-image fade-section"
             ref={(el) => (animatedRefs.current[0] = el)}
@@ -164,6 +175,7 @@ const NewsDetails = () => {
         <div
           className="side-panel fade-section d-flex flex-column pt-5"
           ref={(el) => (animatedRefs.current[6] = el)}
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
         >
           <h4>{t("more_news")}</h4>
           <div className="morenews d-flex flex-column gap-2 mt-2 mb-4">

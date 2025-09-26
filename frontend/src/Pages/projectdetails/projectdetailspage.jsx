@@ -12,7 +12,7 @@ const ProjectDetailsPage = () => {
   const [project, setProject] = useState(null);
   const [relatedProjects, setRelatedProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { t } = useTranslation();
+  const { t,i18n } = useTranslation();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -44,7 +44,9 @@ const ProjectDetailsPage = () => {
   const fetchProjectDetails = async () => {
     try {
       const res = await axios.get(
-        `http://kudushilali.org/backend/projects/projects_CRUD.php?id=${projectid}`
+        `http://kudushilali.org/backend/projects/projects_CRUD.php?id=${projectid}`,{ params: {
+          lang: i18n.language
+        }}
       );
       if (res.data.status === "success" && res.data.data.length > 0) {
         setProject(res.data.data[0]);
@@ -61,7 +63,9 @@ const ProjectDetailsPage = () => {
       const res = await axios.get(
         `http://kudushilali.org/backend/projects/projects_CRUD.php?category=${encodeURIComponent(
           category
-        )}`
+        )}`,{ params: {
+          lang: i18n.language
+        }}
       );
       if (res.data.status === "success") {
         const filtered = res.data.data.filter(
