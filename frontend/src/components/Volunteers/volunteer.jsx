@@ -1,6 +1,7 @@
 import React from "react";
 import "./volunteers.css";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Volunteer = ({ volunteerdata }) => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ const Volunteer = ({ volunteerdata }) => {
   const handleClick = () => {
     navigate(`/profilepage/${volunteerdata.id}`);
   };
-
+  const {i18n}=useTranslation();
   return (
     <div key={volunteerdata.id} onClick={handleClick}>
       <div className="vol-card d-flex flex-column ">
@@ -28,7 +29,7 @@ const Volunteer = ({ volunteerdata }) => {
               <div className="dark-line"></div>
               <div className="light-line"></div>
             </div>
-            <p className="vol-role">{volunteerdata.role}</p>
+            <p className="vol-role"dir={i18n.language === "ar" ? "rtl" : "ltr"}>{volunteerdata.role}</p>
           </div>
           <div className="scard">
             {volunteerdata.instagram && (

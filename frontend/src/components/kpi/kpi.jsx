@@ -16,7 +16,7 @@ const animateCount = (el, to, suffix = "", duration = 2000) => {
 const KPIS = () => {
   const [kpi, setKpi] = useState(null);
   const statRefs = useRef([]);
-const { t } = useTranslation();
+const { t ,i18n } = useTranslation();
   useEffect(() => {
     const fetchKPI = async () => {
       try {
@@ -65,7 +65,7 @@ const { t } = useTranslation();
   ];
 
   return (
-    <div className="stats-container animate-stats p-3 p-md-4 rounded-4">
+    <div className="stats-container animate-stats p-3 p-md-4 rounded-4" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
       <div className="row text-center text-white">
         {stats.map((stat, idx) => (
           <div key={idx} className="col-6 col-md-3">

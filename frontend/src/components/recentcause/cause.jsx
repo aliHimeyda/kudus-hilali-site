@@ -14,7 +14,7 @@ const CauseCard = ({ value }) => {
   const colorClass = categoryColors[value.category] || "bg-dark";
   const percent = Math.min((value.raised / value.goal) * 100, 100);
   const sectionRef = useRef(null);
-  const { t } = useTranslation();
+  const { t,i18n } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const [width, setWidth] = useState(0);
 
@@ -69,8 +69,8 @@ const CauseCard = ({ value }) => {
     >
       <span className={`badge ${colorClass}`}>{value.category}</span>
     </div>
-    <div className="p-3 ">
-      <strong>{value.title}</strong>
+    <div className="p-3 " dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+      <strong dir={i18n.language === "ar" ? "rtl" : "ltr"}>{value.title}</strong>
       <div className="d-flex justify-content-between small mt-5 d-none">
         <span>${value.raised.toLocaleString()}</span>
         <span className="text-muted">

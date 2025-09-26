@@ -11,7 +11,7 @@ const Contactuspage = () => {
   const imageCacheRef = useRef();
   const [loading, setLoading] = useState(true);
   const [earthanimation, setEarthanimation] = useState(false);
-const { t } = useTranslation();
+const { t ,i18n} = useTranslation();
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 0);
     return () => clearTimeout(t);
@@ -167,6 +167,7 @@ const { t } = useTranslation();
           <span
             className=" h2 follow-text text-center text-wrap"
             ref={(el) => (animatedRefs.current[0] = el)}
+            dir={i18n.language === "ar" ? "rtl" : "ltr"}
           >
             {t("contact_follow_text")}
           </span>
@@ -178,7 +179,7 @@ const { t } = useTranslation();
             ref={(el) => (animatedRefs.current[1] = el)}
           >
             <span className=" h2 text-wrap">{t("nav_contact")}</span>
-            <span className="text-center text-wrap fw-bold w-50 mt-2">
+            <span className="text-center text-wrap fw-bold w-50 mt-2" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
               {t("contact_intro")}
             </span>
 
@@ -222,7 +223,7 @@ const { t } = useTranslation();
                   src="/assets/LocationVector.svg"
                   alt=""
                 />
-                <span className="fw-bold">
+                <span className="fw-bold" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
                   {t("footer_address_line1")} <br />
                   {t("footer_address_line2")}
                 </span>

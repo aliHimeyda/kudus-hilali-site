@@ -95,7 +95,7 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <div className="lang-switcher">
+    <div className="lang-switcher" >
       <button
         ref={btnRef}
         className="lang-btn"

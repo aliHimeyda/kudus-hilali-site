@@ -42,7 +42,7 @@ const Teampage = () => {
 
         <div className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5">
           {team.length === 0 ? (
-            <p>{t("team_not_found")}</p>
+            <p dir={i18n.language === "ar" ? "rtl" : "ltr"}>{t("team_not_found")}</p>
           ) : (
             team.map((person) => (
               <Volunteer key={person.id} volunteerdata={person} />

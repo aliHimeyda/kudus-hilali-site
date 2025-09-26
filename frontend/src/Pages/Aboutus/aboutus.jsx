@@ -46,7 +46,8 @@ const AnimatedSection = ({
 
 const Aboutus = () => {
   const [loading, setLoading] = useState(true);
-const { t } = useTranslation();
+const { t ,i18n} = useTranslation();
+ const isAr = i18n.language === "ar";
   useEffect(() => {
     // Örnek: 2 sn sonra kapat
     const t = setTimeout(() => setLoading(false), 0);
@@ -71,12 +72,13 @@ const { t } = useTranslation();
         <div className="container d-flex flex-column gap-3 p-5 mt-0">
           <h6
             className="h4 text-uppercase text-danger mb-3"
+            dir={i18n.language === "ar" ? "rtl" : "ltr"}
             style={{ fontSize: "11px" }}
           >
             {t("about_label")}
           </h6>
 
-          <div className="w-100 d-flex flex-md-row flex-column gap-5 ">
+          <div className="w-100 d-flex flex-md-row flex-column gap-5 " dir={i18n.language === "ar" ? "rtl" : "ltr"}>
             <h2 className="fw-bold " style={{ fontSize: "33px" }}>
               {t("about_heading")}
             </h2>
@@ -147,19 +149,19 @@ const { t } = useTranslation();
       <br />
       <br />
 
-      <AnimatedSection className="py-5 mt-5 d-flex flex-column align-items-center text-center">
+      <AnimatedSection className="py-5 mt-5 d-flex flex-column align-items-center text-center" >
         <h6
           className="h4 text-uppercase text-danger mb-3"
           style={{ fontSize: "11px" }}
         >
           {t("values_label")}
         </h6>
-        <h2 className="fw-bold mb-4 " style={{ width: "100%", fontSize: "33px" }}>
+        <h2 className="fw-bold mb-4 " style={{ width: "100%", fontSize: "33px" }} dir={i18n.language === "ar" ? "rtl" : "ltr"}>
           {t("values_heading")}
         </h2>
 
-        <div className="d-flex flex-column flex-md-row justify-content-center w-50">
-          <div>
+        <div className="d-flex flex-column flex-md-row justify-content-center w-50" >
+          <div dir={i18n.language === "ar" ? "rtl" : "ltr"}>
             <div className="d-flex flex-column">
               <div className="value-card p-3">
                 <div className="icon-box mb-2">
@@ -199,7 +201,7 @@ const { t } = useTranslation();
             </div>
           </div>
 
-          <div>
+          <div dir={i18n.language === "ar" ? "rtl" : "ltr"}>
             <div className="d-flex flex-column">
               <div className="value-card p-3">
                 <div className="icon-box mb-2">
@@ -241,44 +243,52 @@ const { t } = useTranslation();
         </div>
       </AnimatedSection>
 
-      <AnimatedSection className="our-team-container container py-5 text-start d-flex flex-row justify-content-around align-items-center">
-        <div className="team-container d-flex flex-column">
-          <h6 className="text-uppercase text-danger mb-3" style={{ fontSize: "11px" }}>
-            {t("team_label")}
-          </h6>
-          <h2 className="fw-bold" style={{ fontSize: "33px" }}>
-            {t("team_heading")}
-          </h2>
-          <p className="text-muted" style={{ fontSize: "15px" }}>
-            {t("team_text")}
-          </p>
-          <Link to="/teampage">
-            <button className="btn btn-outline-danger">{t("team_button")}</button>
-          </Link>
-        </div>
+       <AnimatedSection
+      className="our-team-container container py-5 d-flex flex-row justify-content-around align-items-center"
+      dir={isAr ? "rtl" : "ltr"}
+    >
+      <div
+        className={`team-container d-flex flex-column ${isAr ? "text-end" : "text-start"}`}
+      >
+        <h6
+          className="text-uppercase text-danger mb-3"
+          style={{ fontSize: "11px" }}
+        >
+          {t("team_label")}
+        </h6>
+        <h2 className="fw-bold" style={{ fontSize: "33px" }}>
+          {t("team_heading")}
+        </h2>
+        <p className="text-muted" style={{ fontSize: "15px" }} dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+          {t("team_text")}
+        </p>
+        <Link to="/teampage">
+          <button className="btn btn-outline-danger">{t("team_button")}</button>
+        </Link>
+      </div>
 
-        <div className="shape-container">
-          {files.map((name, i) => (
-            <div key={name} className={`shape-box shape-${i + 1}`}>
-              <img
-                decoding="async"
-                loading="lazy"
-                src={`/team/${name}.avif`}
-                alt={name
-                  .split("-")
-                  .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                  .join(" ")}
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "10px",
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      </AnimatedSection>
+      <div className="shape-container">
+        {files.map((name, i) => (
+          <div key={name} className={`shape-box shape-${i + 1}`}>
+            <img
+              decoding="async"
+              loading="lazy"
+              src={`/team/${name}.avif`}
+              alt={name
+                .split("-")
+                .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                .join(" ")}
+              style={{
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+                borderRadius: "10px",
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </AnimatedSection>
     </div>
   </>
 );

@@ -1,10 +1,11 @@
 import React from "react";
 import "./newscard.css";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Customnewscard = ({ news }) => {
   const navigate = useNavigate();
-
+const {i18n} = useTranslation();
   const handleClick = () => {
     navigate(`/newsdetailspage/${news.id}`);
   };
@@ -30,9 +31,9 @@ const Customnewscard = ({ news }) => {
       <div className="newsdata d-flex flex-column gap-2">
         <div className="newsmeta d-flex flex-row align-items-center gap-1">
           <img decoding="async" loading="lazy" src="/assets/dateicon.svg" alt="" />
-          <p className="m-0">{news.publish_date || news.date}</p>
+          <p className="m-0" dir={i18n.language === "ar" ? "rtl" : "ltr"}>{news.publish_date || news.date}</p>
         </div>
-        <p className="newstitle m-0">{news.title}</p>
+        <p className="newstitle m-0" dir={i18n.language === "ar" ? "rtl" : "ltr"}>{news.title}</p>
       </div>
     </div>
   );

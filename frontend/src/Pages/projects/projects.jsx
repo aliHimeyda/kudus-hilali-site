@@ -80,7 +80,7 @@ const { i18n } = useTranslation();
     >
       <h2 className="h2">{t("whatwedo_title")}</h2>
 
-      <div className="categoriescontainer justify-content-md-center justify-content-start d-flex mt-5">
+      <div className="categoriescontainer justify-content-md-center justify-content-start d-flex mt-5" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
         {categories.map((category, index) => (
           <div
             key={index}
@@ -98,6 +98,7 @@ const { i18n } = useTranslation();
 
       <div
         className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5"
+        dir={i18n.language === "ar" ? "rtl" : "ltr"}
         ref={sectionRef}
       >
         {causes.length > 0 ? (

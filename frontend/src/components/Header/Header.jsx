@@ -48,8 +48,9 @@ const Header = () => {
       className={`main-header ${
         isScrolled ? "scrolled-header" : "transparent-header"
       }`}
+      
     >
-      <nav className="navbar navbar-expand-lg d-none d-md-block  py-3 fontsize ">
+      <nav className="navbar navbar-expand-lg d-none d-md-block  py-3 fontsize " dir={i18n.language === "ar" ? "rtl" : "ltr"}>
         <div className="container-fluid d-flex justify-content-between align-items-center px-5">
           <div className="d-flex align-items-end gap-2">
             <Logo />
@@ -110,6 +111,7 @@ const Header = () => {
 
       <nav
         className={`mobile-navbar navbar-light bg-transparent d-md-none position-relative p-2`}
+        
       >
         <div className="container-fluid d-flex justify-content-between align-items-center ">
           <div className="d-flex align-items-center">
@@ -124,14 +126,17 @@ const Header = () => {
                   isScrolled ? "" : "n-top"
                 } border-0 `}
               >
-               <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-  
-  <circle cx="20" cy="12" r="2" fill="white" />
- 
-  <circle cx="20" cy="20" r="2" fill="white" />
-  <circle cx="20" cy="28" r="2" fill="white" />
-</svg>
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="20" cy="12" r="2" fill="white" />
 
+                  <circle cx="20" cy="20" r="2" fill="white" />
+                  <circle cx="20" cy="28" r="2" fill="white" />
+                </svg>
               </div>
               <ul className="hover-menu navbar-nav text-center w-100">
                 <li className="nav-item">
@@ -186,7 +191,6 @@ const Header = () => {
                 </li>
               </ul>
             </div>
-            
           </div>
         </div>
       </nav>

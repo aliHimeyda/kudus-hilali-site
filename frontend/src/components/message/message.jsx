@@ -10,7 +10,7 @@ export default function CookiePopup({ show, onClose, onAccept, onManage }) {
   if (!show) return null; // Gösterilmeyecekse hiç render etme
 
   return (
-  <div className="popup-overlay">
+  <div className="popup-overlay" >
     <div className="cookie-card">
       <div className="d-flex flex-row gap-1 align-items-center">
         <Logo />
@@ -29,14 +29,15 @@ export default function CookiePopup({ show, onClose, onAccept, onManage }) {
         </div>
       </div>
 
-      <p className="description">
+      <p className="description" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
         {t("popup_thanks")}{" "}
-        <Link to="/aboutuspage">{t("popup_read_more")}</Link>.
+        <Link to="/aboutuspage">{t("popup_read_more")}</Link>
       </p>
 
       <div className="actions">
         <button
           className="accept"
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
           onClick={() => {
             if (onAccept) onAccept();
             if (onClose) onClose();

@@ -60,7 +60,7 @@ const WhatWeDo = () => {
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
   const leftRef = useRef(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const itemsMeta = [
     { id: 1, color: "var(--color-red)", icon: "/assets/healthcare.webp" },
     { id: 2, color: "var(--color-orange)", icon: "/assets/partners.webp" },
@@ -71,7 +71,6 @@ const WhatWeDo = () => {
   // 2) Çeviriden metinleri çek (returnObjects ile)
   const i18nItems = t("whatwedo.items", { returnObjects: true });
 
-  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -117,7 +116,7 @@ const WhatWeDo = () => {
               ],
             }}
           />
-          <p className="description text-center">
+          <p className="description text-center" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
             {t("whatwedo.descriptions", { returnObjects: true })[selected - 1]}
           </p>
           <Morebtn title={t("read_more")} path={"/aboutuspage"} />
@@ -166,7 +165,7 @@ const WhatWeDo = () => {
                   </strong>
                   <p
                     className="d-none d-md-block"
-                    style={{ fontSize: "0.8rem" }}
+                    style={{ fontSize: "0.8rem" }} dir={i18n.language === "ar" ? "rtl" : "ltr"}
                   >
                     {item.description}
                   </p>
@@ -183,6 +182,7 @@ const WhatWeDo = () => {
                       }}
                     />
                     <p
+                      dir={i18n.language === "ar" ? "rtl" : "ltr"}
                       dangerouslySetInnerHTML={{
                         __html: t("whatwedo.descriptions", {
                           returnObjects: true,
@@ -237,6 +237,7 @@ const WhatWeDo = () => {
                   <p
                     className="d-none d-md-block"
                     style={{ fontSize: "0.8rem" }}
+                    dir={i18n.language === "ar" ? "rtl" : "ltr"}
                   >
                     {item.description}
                   </p>
@@ -252,7 +253,7 @@ const WhatWeDo = () => {
                         })[selected - 1],
                       }}
                     />
-                    <p className="bdescription">
+                    <p className="bdescription" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
                       {
                         t("whatwedo.descriptions", {
                           returnObjects: true,

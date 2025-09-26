@@ -77,7 +77,7 @@ const { i18n } = useTranslation();
       ref={elementRef}
     >
       <h2 className="h2">{t("news_latest_n")}</h2>
-      <div className="categoriescontainer justify-content-md-center justify-content-start d-flex mt-5">
+      <div className="categoriescontainer justify-content-md-center justify-content-start d-flex mt-5" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
         {categories.map((category, index) => (
           <div
             key={index}
@@ -94,6 +94,7 @@ const { i18n } = useTranslation();
       <div
         className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5"
         ref={sectionRef}
+        dir={i18n.language === "ar" ? "rtl" : "ltr"}
       >
         {news.length > 0 ? (
           news.map((newvalue) => (

@@ -32,7 +32,7 @@ return (
               </div>
             </div>
           </div>
-          <p className="text-center small text-justify">
+          <p className="text-center small text-justify" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
             {t("footer_about")}
           </p>
         </div>
@@ -91,7 +91,7 @@ return (
               />{" "}
               +90 505 878 50 40
             </li>
-            <li>
+            <li >
               <img
                 decoding="async"
                 loading="lazy"
@@ -104,7 +104,7 @@ return (
             </li>
           </ul>
 
-          <div className="d-flex align-items-center mt-3">
+          <div className="d-flex align-items-center mt-3" >
             <Link to="/contactuspage" className="btn contact-btn me-3">
               {t("nav_contact")}
             </Link>
