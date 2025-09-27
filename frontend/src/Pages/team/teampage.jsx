@@ -31,7 +31,7 @@ const Teampage = () => {
       setIsLoading(false);
     };
     fetchTeam();
-  }, []);
+  }, );
 
   return (
     <>

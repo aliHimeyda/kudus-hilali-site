@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 import {
   Container,
   Spinner,
@@ -9,7 +9,7 @@ import {
   Badge,
   Modal,
   Form,
-} from 'react-bootstrap';
+} from "react-bootstrap";
 
 export default class FeedbacksTab extends Component {
   state = {
@@ -17,16 +17,20 @@ export default class FeedbacksTab extends Component {
     isLoading: false,
     showAddModal: false,
     showUpdateModal: false,
+    editLang: "en",
     selectedFeedback: null,
     newFeedback: {
-      donor_name: '',
-      feedback: '',
+      donor_name: "",
+      en_feedback: "",
+      tr_feedback: "",
+      ar_feedback: "",
       stars: 0,
-      image_url: '',
+      image_url: "",
     },
   };
 
-  apiUrl = 'http://kudushilali.org/backend/donors_feedbacks/donors_feedbacks_CRUD.php';
+  apiUrl =
+    "http://kudushilali.org/backend/donors_feedbacks/donors_feedbacks_CRUD.php";
 
   componentDidMount() {
     this.fetchFeedbacks();
@@ -37,7 +41,7 @@ export default class FeedbacksTab extends Component {
     axios
       .get(this.apiUrl)
       .then((res) => {
-        if (res.data.status === 'success') {
+        if (res.data.status === "success") {
           this.setState({ feedbacks: res.data.data, isLoading: false });
         } else {
           this.setState({ isLoading: false });
@@ -47,17 +51,33 @@ export default class FeedbacksTab extends Component {
   };
 
   handleAddOpen = () =>
-    this.setState({ showAddModal: true, newFeedback: { donor_name: '', feedback: '', stars: 0, image_url: '' } });
+    this.setState({
+      showAddModal: true,
+      newFeedback: {
+        donor_name: "",
+        en_feedback: "",
+        tr_feedback: "",
+        ar_feedback: "",
+        stars: 0,
+        image_url: "",
+      },
+    });
 
   handleAddSave = () => {
+    const { newFeedback } = this.state;
     this.setState({ isLoading: true });
+
     axios
-      .post(this.apiUrl, this.state.newFeedback, { headers: { 'Content-Type': 'application/json' } })
+      .post(this.apiUrl, newFeedback, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then((res) => {
-        if (res.data.status === 'success') {
+        if (res.data.status === "success") {
           this.setState({ showAddModal: false });
           this.fetchFeedbacks();
-        } else this.setState({ isLoading: false });
+        } else {
+          this.setState({ isLoading: false });
+        }
       })
       .catch(() => this.setState({ isLoading: false }));
   };
@@ -69,13 +89,11 @@ export default class FeedbacksTab extends Component {
     const { selectedFeedback } = this.state;
     this.setState({ isLoading: true });
     axios
-      .put(
-        `${this.apiUrl}?id=${selectedFeedback.id}`,
-        selectedFeedback,
-        { headers: { 'Content-Type': 'application/json' } }
-      )
+      .put(`${this.apiUrl}?id=${selectedFeedback.id}`, selectedFeedback, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then((res) => {
-        if (res.data.status === 'success') {
+        if (res.data.status === "success") {
           this.setState({ showUpdateModal: false, selectedFeedback: null });
           this.fetchFeedbacks();
         } else this.setState({ isLoading: false });
@@ -84,12 +102,12 @@ export default class FeedbacksTab extends Component {
   };
 
   handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this feedback?')) {
+    if (window.confirm("Are you sure you want to delete this feedback?")) {
       this.setState({ isLoading: true });
       axios
         .delete(this.apiUrl, { params: { id, soft: 1 } })
         .then((res) => {
-          if (res.data.status === 'success') this.fetchFeedbacks();
+          if (res.data.status === "success") this.fetchFeedbacks();
           else this.setState({ isLoading: false });
         })
         .catch(() => this.setState({ isLoading: false }));
@@ -97,7 +115,7 @@ export default class FeedbacksTab extends Component {
   };
 
   handleChange = ({ target: { name, value } }, update = false) => {
-    const key = update ? 'selectedFeedback' : 'newFeedback';
+    const key = update ? "selectedFeedback" : "newFeedback";
     this.setState((prev) => ({ [key]: { ...prev[key], [name]: value } }));
   };
 
@@ -130,96 +148,179 @@ export default class FeedbacksTab extends Component {
               <tr>
                 <th>Photo</th>
                 <th>Donor Name</th>
-                <th>Feedback</th>
+                <th>EN Feedback</th>
+                <th>TR Feedback</th>
+                <th>AR Feedback</th>
                 <th>Stars</th>
                 <th>Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {feedbacks.filter((f) => f.isDeleted !== '1').map((f) => (
-                <tr key={f.id}>
-                  <td>
-                    <Image src={f.image_url} roundedCircle width={50} height={50} alt={f.donor_name} />
-                  </td>
-                  <td>{f.donor_name}</td>
-                  <td>{f.feedback}</td>
-                  <td><Badge bg="warning" text="dark">{f.stars} ★</Badge></td>
-                  <td>{new Date(f.created_at).toLocaleDateString()}</td>
-                  <td>
-                    <Button variant="warning" size="sm" className="me-2" onClick={() => this.handleUpdateOpen(f)}>
-                      Update
-                    </Button>
-                    <Button variant="danger" size="sm" onClick={() => this.handleDelete(f.id)}>
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))}
+              {feedbacks
+                .filter((f) => f.isDeleted !== "1")
+                .map((f) => (
+                  <tr key={f.id}>
+                    <td>
+                      <Image
+                        src={f.image_url}
+                        roundedCircle
+                        width={50}
+                        height={50}
+                        alt={f.donor_name}
+                      />
+                    </td>
+                    <td>{f.donor_name}</td>
+                    <td>{f.en_feedback}</td>
+                    <td>{f.tr_feedback}</td>
+                    <td dir="rtl">{f.ar_feedback}</td>
+                    <td>
+                      <Badge bg="warning" text="dark">
+                        {f.stars} ★
+                      </Badge>
+                    </td>
+                    <td>{new Date(f.created_at).toLocaleDateString()}</td>
+                    <td>
+                      <Button
+                        variant="warning"
+                        size="sm"
+                        className="me-2"
+                        onClick={() => this.handleUpdateOpen(f)}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => this.handleDelete(f.id)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         )}
 
         {/* Add Modal */}
-        <Modal show={showAddModal} onHide={() => this.setState({ showAddModal: false })} centered>
-          <Modal.Header closeButton><Modal.Title>Add Feedback</Modal.Title></Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>Donor Name</Form.Label>
-                <Form.Control type="text" name="donor_name" value={newFeedback.donor_name} onChange={(e) => this.handleChange(e)} />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Feedback</Form.Label>
-                <Form.Control as="textarea" rows={3} name="feedback" value={newFeedback.feedback} onChange={(e) => this.handleChange(e)} />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Stars</Form.Label>
-                <Form.Control type="number" name="stars" min={1} max={5} value={newFeedback.stars} onChange={(e) => this.handleChange(e)} />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Photo URL</Form.Label>
-                <Form.Control type="text" name="image_url" value={newFeedback.image_url} onChange={(e) => this.handleChange(e)} />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
+        <Modal
+          show={showAddModal}
+          onHide={() => this.setState({ showAddModal: false })}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Add Feedback</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{this.renderForm(newFeedback)}</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => this.setState({ showAddModal: false })}>Cancel</Button>
-            <Button variant="success" onClick={this.handleAddSave}>Add</Button>
+            <Button
+              variant="secondary"
+              onClick={() => this.setState({ showAddModal: false })}
+            >
+              Cancel
+            </Button>
+            <Button variant="success" onClick={this.handleAddSave}>
+              Add
+            </Button>
           </Modal.Footer>
         </Modal>
 
         {/* Update Modal */}
-        <Modal show={showUpdateModal} onHide={() => this.setState({ showUpdateModal: false })} centered>
-          <Modal.Header closeButton><Modal.Title>Update Feedback</Modal.Title></Modal.Header>
+        <Modal
+          show={showUpdateModal}
+          onHide={() => this.setState({ showUpdateModal: false })}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Update Feedback</Modal.Title>
+          </Modal.Header>
           <Modal.Body>
-            {selectedFeedback && (
-              <Form>
-                <Form.Group className="mb-3">
-                  <Form.Label>Donor Name</Form.Label>
-                  <Form.Control type="text" name="donor_name" value={selectedFeedback.donor_name} onChange={(e) => this.handleChange(e, true)} />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Feedback</Form.Label>
-                  <Form.Control as="textarea" rows={3} name="feedback" value={selectedFeedback.feedback} onChange={(e) => this.handleChange(e, true)} />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Stars</Form.Label>
-                  <Form.Control type="number" name="stars" min={1} max={5} value={selectedFeedback.stars} onChange={(e) => this.handleChange(e, true)} />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Photo URL</Form.Label>
-                  <Form.Control type="text" name="image_url" value={selectedFeedback.image_url} onChange={(e) => this.handleChange(e, true)} />
-                </Form.Group>
-              </Form>
-            )}
+            {selectedFeedback && this.renderForm(selectedFeedback, true)}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => this.setState({ showUpdateModal: false })}>Cancel</Button>
-            <Button variant="primary" onClick={this.handleUpdateSave}>Save</Button>
+            <Button
+              variant="secondary"
+              onClick={() => this.setState({ showUpdateModal: false })}
+            >
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={this.handleUpdateSave}>
+              Save
+            </Button>
           </Modal.Footer>
         </Modal>
       </Container>
     );
   }
+
+  renderForm = (fb, update = false) => (
+    <Form>
+      <Form.Group className="mb-3">
+        <Form.Label>Donor Name</Form.Label>
+        <Form.Control
+          type="text"
+          name="donor_name"
+          value={fb.donor_name}
+          onChange={(e) => this.handleChange(e, update)}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>English Feedback</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={2}
+          name="en_feedback"
+          value={fb.en_feedback}
+          onChange={(e) => this.handleChange(e, update)}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Türkçe Feedback</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={2}
+          name="tr_feedback"
+          value={fb.tr_feedback}
+          onChange={(e) => this.handleChange(e, update)}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Arabic Feedback</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={2}
+          dir="rtl"
+          name="ar_feedback"
+          value={fb.ar_feedback}
+          onChange={(e) => this.handleChange(e, update)}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Stars</Form.Label>
+        <Form.Control
+          type="number"
+          name="stars"
+          min={1}
+          max={5}
+          value={fb.stars}
+          onChange={(e) => this.handleChange(e, update)}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Photo URL</Form.Label>
+        <Form.Control
+          type="text"
+          name="image_url"
+          value={fb.image_url}
+          onChange={(e) => this.handleChange(e, update)}
+        />
+      </Form.Group>
+    </Form>
+  );
 }

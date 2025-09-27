@@ -84,7 +84,7 @@ const UserProfile = () => {
           ></div>
         )}
 
-        <div className="ms-5">
+        <div className="m-5">
           {person.name && <h2 className="username">{person.name}</h2>}
           {person.role && <h5 className="charity-title">{person.role}</h5>}
 

@@ -3,6 +3,9 @@
   padding-top: 150px;
     width: 100vw;
 }
+.news-container{
+  width: 100%;
+}
 
 .loading {
   background-color:transparent;

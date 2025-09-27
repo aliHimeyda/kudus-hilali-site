@@ -40,9 +40,6 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [location.pathname]);
 
-  function changeLanguage(lang) {
-    i18n.changeLanguage(lang);
-  }
   return (
     <header
       className={`main-header ${

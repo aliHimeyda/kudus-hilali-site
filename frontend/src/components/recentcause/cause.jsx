@@ -71,7 +71,7 @@ const CauseCard = ({ value }) => {
       >
         <span className={`badge ${colorClass}`}>{value.category}</span>
       </div>
-       <div className={`p-3 ${isAr ? "text-end rtl-text" : ""}`} dir={isAr ? "rtl" : "ltr"}>
+       <div className={`p-3 d-flex flex-column ${isAr ? "text-end rtl-text" : ""}`} dir={isAr ? "rtl" : "ltr"} >
       <strong>{value.title}</strong>
 
       <div className="d-flex justify-content-between small mt-5 d-none">

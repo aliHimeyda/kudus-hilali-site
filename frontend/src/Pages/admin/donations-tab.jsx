@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 import {
   Container,
   Navbar,
@@ -10,7 +10,7 @@ import {
   Form,
   Row,
   Col,
-} from 'react-bootstrap';
+} from "react-bootstrap";
 
 export default class DonationsTab extends Component {
   state = {
@@ -21,19 +21,19 @@ export default class DonationsTab extends Component {
     showEdit: false,
     selected: null,
     form: {
-      project_id: '',
-      donor_name: '',
-      donor_email: '',
-      phone: '',
-      city: '',
-      honor_name: '',
-      amount: '',
-      donation_date: '',
+      project_id: "",
+      donor_name: "",
+      donor_email: "",
+      phone: "",
+      city: "",
+      honor_name: "",
+      amount: "",
+      donation_date: "",
     },
   };
 
-  donationsUrl = 'http://kudushilali.org/backend/donations/donations_CRUD.php';
-  projectsUrl = 'http://kudushilali.org/backend/projects/projects_CRUD.php';
+  donationsUrl = "http://kudushilali.org/backend/donations/donations_CRUD.php";
+  projectsUrl = "http://kudushilali.org/backend/projects/projects_CRUD.php";
 
   componentDidMount() {
     this.loadProjects();
@@ -42,7 +42,7 @@ export default class DonationsTab extends Component {
 
   loadProjects = async () => {
     const res = await axios.get(this.projectsUrl);
-    if (res.data.status === 'success') {
+    if (res.data.status === "success") {
       this.setState({ projects: res.data.data });
     }
   };
@@ -50,7 +50,7 @@ export default class DonationsTab extends Component {
   loadDonations = async () => {
     this.setState({ loading: true });
     const res = await axios.get(this.donationsUrl);
-    if (res.data.status === 'success') {
+    if (res.data.status === "success") {
       this.setState({ donations: res.data.data });
     }
     this.setState({ loading: false });
@@ -60,14 +60,14 @@ export default class DonationsTab extends Component {
     this.setState({
       showAdd: true,
       form: {
-        project_id: '',
-        donor_name: '',
-        donor_email: '',
-        phone: '',
-        city: '',
-        honor_name: '',
-        amount: '',
-        donation_date: '',
+        project_id: "",
+        donor_name: "",
+        donor_email: "",
+        phone: "",
+        city: "",
+        honor_name: "",
+        amount: "",
+        donation_date: "",
       },
     });
   };
@@ -75,28 +75,33 @@ export default class DonationsTab extends Component {
   saveAdd = async () => {
     this.setState({ loading: true });
     await axios.post(this.donationsUrl, this.state.form, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
     this.setState({ showAdd: false });
     await this.loadDonations();
   };
 
   openEdit = (donation) => {
-    this.setState({ showEdit: true, selected: donation, form: { ...donation } });
+    this.setState({
+      showEdit: true,
+      selected: donation,
+      form: { ...donation },
+    });
   };
 
   saveEdit = async () => {
     const { selected, form } = this.state;
     this.setState({ loading: true });
     await axios.put(`${this.donationsUrl}?id=${selected.id}`, form, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
     this.setState({ showEdit: false, selected: null });
     await this.loadDonations();
   };
 
   deleteDonation = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this donation?')) return;
+    if (!window.confirm("Are you sure you want to delete this donation?"))
+      return;
     this.setState({ loading: true });
     await axios.delete(this.donationsUrl, { params: { id, soft: 1 } });
     await this.loadDonations();
@@ -108,7 +113,8 @@ export default class DonationsTab extends Component {
   };
 
   render() {
-    const { donations, projects, loading, showAdd, showEdit, form } = this.state;
+    const { donations, projects, loading, showAdd, showEdit, form } =
+      this.state;
 
     return (
       <Container fluid className="p-3">
@@ -139,12 +145,13 @@ export default class DonationsTab extends Component {
             </thead>
             <tbody>
               {donations
-                .filter((d) => d.isDeleted !== '1')
+                .filter((d) => d.isDeleted !== "1")
                 .map((d) => (
                   <tr key={d.id}>
                     <td>{d.id}</td>
                     <td>
-                      {projects.find((p) => p.id === d.project_id)?.title || '—'}
+                      {projects.find((p) => p.id === d.project_id)?.title ||
+                        "—"}
                     </td>
                     <td>{d.donor_name}</td>
                     <td>{d.donor_email}</td>
@@ -162,7 +169,11 @@ export default class DonationsTab extends Component {
                       >
                         Update
                       </Button>
-                      <Button size="sm" variant="danger" onClick={() => this.deleteDonation(d.id)}>
+                      <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => this.deleteDonation(d.id)}
+                      >
                         Delete
                       </Button>
                     </td>
@@ -172,7 +183,11 @@ export default class DonationsTab extends Component {
           </Table>
         )}
 
-        <Modal show={showAdd} onHide={() => this.setState({ showAdd: false })} centered>
+        <Modal
+          show={showAdd}
+          onHide={() => this.setState({ showAdd: false })}
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title>Add Donation</Modal.Title>
           </Modal.Header>
@@ -182,10 +197,14 @@ export default class DonationsTab extends Component {
                 <Col>
                   <Form.Group>
                     <Form.Label>Project</Form.Label>
-                    <Form.Select name="project_id" value={form.project_id} onChange={this.handleChange}>
+                    <Form.Select
+                      name="project_id"
+                      value={form.project_id}
+                      onChange={this.handleChange}
+                    >
                       <option value="">Select project</option>
                       {projects
-                        .filter((p) => p.isDeleted !== '1')
+                        .filter((p) => p.isDeleted !== "1")
                         .map((p) => (
                           <option key={p.id} value={p.id}>
                             {p.title}
@@ -280,7 +299,10 @@ export default class DonationsTab extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => this.setState({ showAdd: false })}>
+            <Button
+              variant="secondary"
+              onClick={() => this.setState({ showAdd: false })}
+            >
               Cancel
             </Button>
             <Button variant="success" onClick={this.saveAdd}>
@@ -289,8 +311,11 @@ export default class DonationsTab extends Component {
           </Modal.Footer>
         </Modal>
 
-
-        <Modal show={showEdit} onHide={() => this.setState({ showEdit: false })} centered>
+        <Modal
+          show={showEdit}
+          onHide={() => this.setState({ showEdit: false })}
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title>Update Donation</Modal.Title>
           </Modal.Header>
@@ -300,10 +325,14 @@ export default class DonationsTab extends Component {
                 <Col>
                   <Form.Group>
                     <Form.Label>Project</Form.Label>
-                    <Form.Select name="project_id" value={form.project_id} onChange={this.handleChange}>
+                    <Form.Select
+                      name="project_id"
+                      value={form.project_id}
+                      onChange={this.handleChange}
+                    >
                       <option value="">Select project</option>
                       {projects
-                        .filter((p) => p.isDeleted !== '1')
+                        .filter((p) => p.isDeleted !== "1")
                         .map((p) => (
                           <option key={p.id} value={p.id}>
                             {p.title}
@@ -326,7 +355,8 @@ export default class DonationsTab extends Component {
 
               <Row className="mb-3">
                 <Col>
-                  <Form.Group><Form.Label>Email</Form.Label>
+                  <Form.Group>
+                    <Form.Label>Email</Form.Label>
                     <Form.Control
                       type="email"
                       name="donor_email"
@@ -397,7 +427,10 @@ export default class DonationsTab extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => this.setState({ showEdit: false })}>
+            <Button
+              variant="secondary"
+              onClick={() => this.setState({ showEdit: false })}
+            >
               Cancel
             </Button>
             <Button variant="primary" onClick={this.saveEdit}>

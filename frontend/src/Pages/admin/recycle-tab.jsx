@@ -1,43 +1,61 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Container, Navbar, Nav, Button, Spinner, Table, Modal } from 'react-bootstrap';
+import React, { Component } from "react";
+import axios from "axios";
+import {
+  Container,
+  Navbar,
+  Nav,
+  Button,
+  Spinner,
+  Table,
+  Modal,
+} from "react-bootstrap";
 
 const RESOURCES = {
-  projects: { label: 'Projects', columns: ['id', 'title', 'category'] },
-  news: { label: 'News & Articles', columns: ['id', 'title', 'category'] },
-  donations: { label: 'Donations', columns: ['id', 'donor_name', 'amount'] },
-  teams: { label: 'Our Teams', columns: ['id', 'name', 'role'] },
-  feedbacks: { label: 'Donors Feedbacks', columns: ['id', 'donor_name', 'stars'] },
+  projects: { label: "Projects", columns: ["id", "title", "category"] },
+  news: { label: "News & Articles", columns: ["id", "title", "category"] },
+  donations: { label: "Donations", columns: ["id", "donor_name", "amount"] },
+  teams: { label: "Our Teams", columns: ["id", "name", "role"] },
+  feedbacks: {
+    label: "Donors Feedbacks",
+    columns: ["id", "donor_name", "stars"],
+  },
 };
 
 export default class RecycleTab extends Component {
   state = {
-    active: 'projects',
+    active: "projects",
     items: [],
     loading: false,
     showModal: false,
-    modalType: '', // 'delete' or 'empty'
+    modalType: "", // 'delete' or 'empty'
     deleteId: null,
   };
 
-  baseUrl = 'http://kudushilali.org/backend/recycle/recycle_CRUD.php';
+  baseUrl = "http://kudushilali.org/backend/recycle/recycle_CRUD.php";
 
-  componentDidMount() { this.loadItems(); }
+  componentDidMount() {
+    this.loadItems();
+  }
 
   loadItems = async () => {
     const { active } = this.state;
     this.setState({ loading: true });
     const res = await axios.get(`${this.baseUrl}?resource=${active}`);
-    if (res.data.status === 'success') this.setState({ items: res.data.data });
+    if (res.data.status === "success") this.setState({ items: res.data.data });
     this.setState({ loading: false });
   };
 
-  switchTab = (tab) => { this.setState({ active: tab, items: [] }, this.loadItems); };
+  switchTab = (tab) => {
+    this.setState({ active: tab, items: [] }, this.loadItems);
+  };
 
-  askDelete = (id) => this.setState({ showModal: true, modalType: 'delete', deleteId: id });
-  askEmptyTrash = () => this.setState({ showModal: true, modalType: 'empty', deleteId: null });
+  askDelete = (id) =>
+    this.setState({ showModal: true, modalType: "delete", deleteId: id });
+  askEmptyTrash = () =>
+    this.setState({ showModal: true, modalType: "empty", deleteId: null });
 
-  handleModalClose = () => this.setState({ showModal: false, modalType: '', deleteId: null });
+  handleModalClose = () =>
+    this.setState({ showModal: false, modalType: "", deleteId: null });
 
   confirmDelete = async () => {
     const { deleteId, active } = this.state;
@@ -60,28 +78,40 @@ export default class RecycleTab extends Component {
 
   render() {
     const { active, items, loading, showModal, modalType } = this.state;
-    const { label, columns } = RESOURCES[active];
+    const { columns } = RESOURCES[active];
     return (
       <Container fluid className="p-3">
         <Navbar bg="light" className="mb-3">
           <Navbar.Brand>Recycle Bin</Navbar.Brand>
           <Nav activeKey={active} onSelect={this.switchTab} className="me-auto">
             {Object.entries(RESOURCES).map(([key, { label }]) => (
-              <Nav.Link key={key} eventKey={key}>{label}</Nav.Link>
+              <Nav.Link key={key} eventKey={key}>
+                {label}
+              </Nav.Link>
             ))}
           </Nav>
-          <Button variant="danger" onClick={this.askEmptyTrash}>Empty Trash</Button>
+          <Button variant="danger" onClick={this.askEmptyTrash}>
+            Empty Trash
+          </Button>
         </Navbar>
-        {loading ? <Spinner animation="border" /> : (
+        {loading ? (
+          <Spinner animation="border" />
+        ) : (
           <Table responsive bordered hover>
-            <thead><tr>
-              {columns.map(col => <th key={col}>{col.replace(/_/g, ' ')}</th>)}
-              <th>Actions</th>
-            </tr></thead>
+            <thead>
+              <tr>
+                {columns.map((col) => (
+                  <th key={col}>{col.replace(/_/g, " ")}</th>
+                ))}
+                <th>Actions</th>
+              </tr>
+            </thead>
             <tbody>
-              {items.map(item => (
+              {items.map((item) => (
                 <tr key={item.id}>
-                  {columns.map(col => <td key={col}>{item[col]}</td>)}
+                  {columns.map((col) => (
+                    <td key={col}>{item[col]}</td>
+                  ))}
                   <td>
                     <Button
                       size="sm"
@@ -107,19 +137,29 @@ export default class RecycleTab extends Component {
         <Modal show={showModal} onHide={this.handleModalClose} centered>
           <Modal.Header closeButton>
             <Modal.Title>
-              {modalType === 'delete' ? 'Confirm Permanent Deletion' : 'Empty Trash?'}
+              {modalType === "delete"
+                ? "Confirm Permanent Deletion"
+                : "Empty Trash?"}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {modalType === 'delete'
-              ? 'Are you sure you want to permanently delete this record? This cannot be undone.'
-              : 'Are you sure you want to permanently delete ALL deleted items in this section? This cannot be undone!'}
+            {modalType === "delete"
+              ? "Are you sure you want to permanently delete this record? This cannot be undone."
+              : "Are you sure you want to permanently delete ALL deleted items in this section? This cannot be undone!"}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleModalClose}>Cancel</Button>
-            {modalType === 'delete'
-              ? <Button variant="danger" onClick={this.confirmDelete}>Delete</Button>
-              : <Button variant="danger" onClick={this.confirmEmptyTrash}>Empty Trash</Button>}
+            <Button variant="secondary" onClick={this.handleModalClose}>
+              Cancel
+            </Button>
+            {modalType === "delete" ? (
+              <Button variant="danger" onClick={this.confirmDelete}>
+                Delete
+              </Button>
+            ) : (
+              <Button variant="danger" onClick={this.confirmEmptyTrash}>
+                Empty Trash
+              </Button>
+            )}
           </Modal.Footer>
         </Modal>
       </Container>

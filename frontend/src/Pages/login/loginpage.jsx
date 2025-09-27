@@ -14,31 +14,35 @@ const Loginpage = () => {
     setError("");
 
     try {
-      const response = await fetch("http://kudushilali.org/backend/login.php", {
+      const response = await fetch("/backend/login.php", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      // Önce OK mi bak
+      const text = await response.text(); // ham metni al
+      let data;
+      try {
+        data = JSON.parse(text); // JSON parse dene
+      } catch {
+        throw new Error("Geçersiz sunucu yanıtı: " + text?.slice(0, 200));
+      }
 
-      if (data.success) {
+      if (response.ok && data.success) {
         localStorage.setItem("userSession", JSON.stringify(data.user));
         navigate("/admin");
       } else {
-        setError(data.message);
+        setError(data.message || "Giriş başarısız.");
       }
     } catch (err) {
       setError("Sunucuya bağlanırken bir hata oluştu.");
+      // console.error(err); // debug için aç
     }
   };
 
   return (
-    <section
-      className="lsf-section bg-home d-flex align-items-center position-relative w-100"
-    >
+    <section className="lsf-section bg-home d-flex align-items-center position-relative w-100">
       <div className="bg-overlay"></div>
       <div className="container-login">
         <div className="row">
@@ -51,7 +55,7 @@ const Loginpage = () => {
                   </Link>
                 </div>
                 <h5 className="card-title">Please sign in</h5>
-                
+
                 {error && <div className="alert alert-danger">{error}</div>}
 
                 <div className="form-floating mb-2">

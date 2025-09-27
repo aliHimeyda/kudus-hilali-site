@@ -10,35 +10,38 @@ import { useTranslation } from "react-i18next";
 
 const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
 
-
 const Newspage = () => {
   const { t } = useTranslation();
   const sectionRef = useRef(null);
   const elementRef = useRef(null);
   const [isloading, setIsLoading] = useState(false);
   const [news, setNews] = useState([]);
-  const [catActive, setActive] = useState(t("news_categories", { returnObjects: true })[0]);
- const [loading, setLoading] = useState(true);
+  const [catActive, setActive] = useState(
+    t("news_categories", { returnObjects: true })[0]
+  );
+  const [loading, setLoading] = useState(true);
 
-const categories = t("news_categories", { returnObjects: true });
-const { i18n } = useTranslation();
+  const categories = t("news_categories", { returnObjects: true });
+  const { i18n } = useTranslation();
   useEffect(() => {
     // Örnek: 2.5 sn sonra kapat
     const t = setTimeout(() => setLoading(false), 0);
     return () => clearTimeout(t);
   }, []);
 
-  const fetchNews = async (category = "All") => {
+  const fetchNews = async (
+    category = t("news_categories", { returnObjects: true })[0]
+  ) => {
     setIsLoading(true);
     try {
       const url =
-        category === "All"
+        category === t("news_categories", { returnObjects: true })[0]
           ? `${BASE_URL}?action=view`
           : `${BASE_URL}?action=view&category=${encodeURIComponent(category)}`;
       const res = await axios.get(url, {
         params: {
-          lang: i18n.language
-        }
+          lang: i18n.language,
+        },
       });
       setNews(res.data.data);
     } catch (err) {
@@ -49,7 +52,7 @@ const { i18n } = useTranslation();
 
   useEffect(() => {
     fetchNews();
-  }, []);
+  }, );
 
   const GetNewsByCategory = (category) => {
     setActive(category);
@@ -70,76 +73,78 @@ const { i18n } = useTranslation();
   }, [isloading]);
 
   return (
-  <>
-    <Preloader show={loading} />
-    <div
-      className="newspage d-flex flex-column align-items-center justify-content-center"
-      ref={elementRef}
-    >
-      <h2 className="h2">{t("news_latest_n")}</h2>
-      <div className="categoriescontainer justify-content-md-center justify-content-start d-flex mt-5" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
-        {categories.map((category, index) => (
-          <div
-            key={index}
-            className={`category-btn ${
-              catActive === category ? "active" : ""
-            }`}
-            onClick={() => GetNewsByCategory(category)}
-          >
-            {category}
-          </div>
-        ))}
-      </div>
-      <Bottomline />
+    <>
+      <Preloader show={loading} />
       <div
-        className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5"
-        ref={sectionRef}
-        dir={i18n.language === "ar" ? "rtl" : "ltr"}
+        className="newspage d-flex flex-column align-items-center justify-content-center"
+        ref={elementRef}
       >
-        {news.length > 0 ? (
-          news.map((newvalue) => (
-            <Newscard newsvalue={newvalue} key={newvalue.id} />
-          ))
-        ) : (
-          <div className="text-center">
-            <div className="d-flex flex-row gap-1 align-items-center justify-content-center mb-3">
-              <Logo />
-              <div className="messagetitle d-md-flex flex-column d-none">
-                {i18n.language === "ar" ? (
-                <>
-                  <span className="fw-light">{t("logo_subtitle")}</span>
-                  <span className="fw-bold">{t("logo_title")}</span>
-                </>
-              ) : (
-                <>
-                  <span className="fw-bold">{t("logo_title")}</span>
-                  <span className="fw-light">{t("logo_subtitle")}</span>
-                </>
-              )}
-              </div>
+        <h2 className="h2">{t("news_latest_n")}</h2>
+        <div
+          className="categoriescontainer justify-content-md-center justify-content-start d-flex mt-5"
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+        >
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              className={`category-btn ${
+                catActive === category ? "active" : ""
+              }`}
+              onClick={() => GetNewsByCategory(category)}
+            >
+              {category}
             </div>
+          ))}
+        </div>
+        <Bottomline />
+        <div
+          className="news-container d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5"
+          ref={sectionRef}
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+        >
+          {news.length > 0 ? (
+            news.map((newvalue) => (
+              <Newscard newsvalue={newvalue} key={newvalue.id} />
+            ))
+          ) : (
+            <div className="text-center">
+              <div className="d-flex flex-row gap-1 align-items-center justify-content-center mb-3">
+                <Logo />
+                <div className="messagetitle d-md-flex flex-column d-none">
+                  {i18n.language === "ar" ? (
+                    <>
+                      <span className="fw-light">{t("logo_subtitle")}</span>
+                      <span className="fw-bold">{t("logo_title")}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="fw-bold">{t("logo_title")}</span>
+                      <span className="fw-light">{t("logo_subtitle")}</span>
+                    </>
+                  )}
+                </div>
+              </div>
 
-            <p className="description">
-              {t("news_empty_line1")} <br />
-              {t("news_empty_line2")} <br />
-              {t("news_empty_line3")} <br />
-              <Link to="/aboutuspage">{t("read_more_about")}</Link>.
-            </p>
-          </div>
-        )}
+              <p className="description">
+                {t("news_empty_line1")} <br />
+                {t("news_empty_line2")} <br />
+                {t("news_empty_line3")} <br />
+                <Link to="/aboutuspage">{t("read_more_about")}</Link>.
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div
+          className={`loading ${
+            isloading ? "visible" : ""
+          } d-flex justify-content-center align-items-center mt-5`}
+        >
+          <Logo />
+        </div>
       </div>
-
-      <div
-        className={`loading ${
-          isloading ? "visible" : ""
-        } d-flex justify-content-center align-items-center mt-5`}
-      >
-        <Logo />
-      </div>
-    </div>
-  </>
-);
-
+    </>
+  );
 };
 
 export default Newspage;

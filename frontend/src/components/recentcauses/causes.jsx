@@ -71,7 +71,7 @@ const RecentCauses = () => {
         </div>
       )}
 
-      <Allsbtn title={"EXPLORE ALL"} path={"/Projects"} />
+      <Allsbtn title={t("projects_explore_all")} path={"/Projects"} />
       <Bottomline />
     </div>
   );

@@ -26,11 +26,11 @@ const { i18n } = useTranslation();
     const t = setTimeout(() => setLoading(false), 0);
     return () => clearTimeout(t);
   }, []);
-  const fetchProjects = async (category = "All") => {
+  const fetchProjects = async (category = t("project_categories", { returnObjects: true })[0]) => {
     setIsLoading(true);
     try {
       const url =
-        category === "All"
+        category === t("project_categories", { returnObjects: true })[0]
           ? "http://kudushilali.org/backend/projects/projects_CRUD.php"
           : `http://kudushilali.org/backend/projects/projects_CRUD.php?category=${encodeURIComponent(
               category

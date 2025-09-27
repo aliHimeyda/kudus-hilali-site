@@ -3,7 +3,6 @@ import axios from "axios";
 import "./newsdetails.css";
 import Customnewscard from "../../components/newscard/customnewscard";
 import { useParams } from "react-router-dom";
-import Comments from "../../components/commentarea/commentarea";
 import Preloader from "../../components/preloader/preloader";
 import DOMPurify from "dompurify";
 import { useTranslation } from "react-i18next";
@@ -62,7 +61,7 @@ const NewsDetails = () => {
         ([entry]) => {
           if (entry.isIntersecting) entry.target.classList.add("show");
         },
-        { threshold: 0.3 }
+        { threshold: 0.1 }
       );
       obs.observe(ref);
       return obs;
@@ -76,41 +75,7 @@ const NewsDetails = () => {
     return DOMPurify.sanitize(raw);
   }, [newsDetail]);
 
-  // visit-experience için ilk ve son "blok"u (p/h*/ul/ol/blockquote/figure/table/img vb.) DOMPurify ile çıkar
-  const { firstBlockHTML, lastBlockHTML } = useMemo(() => {
-    const out = { firstBlockHTML: "", lastBlockHTML: "" };
-    if (typeof window === "undefined" || !newsDetail?.content) return out;
-
-    // DOMPurify ile DOM fragment üret (DOMParser kullanmadan)
-    const frag = DOMPurify.sanitize(newsDetail.content, { RETURN_DOM: true });
-    const container = document.createElement("div");
-    container.appendChild(frag);
-
-    // anlamlı çocukları topla
-    const kids = Array.from(container.childNodes).filter((n) => {
-      if (n.nodeType === 1) return n.outerHTML?.trim();
-      if (n.nodeType === 3) return (n.textContent || "").trim();
-      return false;
-    });
-
-    if (kids.length > 0) {
-      const first = kids[0];
-      out.firstBlockHTML =
-        first.nodeType === 1
-          ? first.outerHTML
-          : DOMPurify.sanitize(first.textContent || "");
-    }
-    if (kids.length > 1) {
-      const last = kids[kids.length - 1];
-      out.lastBlockHTML =
-        last.nodeType === 1
-          ? last.outerHTML
-          : DOMPurify.sanitize(last.textContent || "");
-      // ilk ve son aynıysa yinelenmesin
-      if (out.lastBlockHTML === out.firstBlockHTML) out.lastBlockHTML = "";
-    }
-    return out;
-  }, [newsDetail]);
+  
 
   if (!newsDetail) return <div>Loading...</div>;
 
@@ -186,7 +151,7 @@ const NewsDetails = () => {
 
           <h5>{t("contact_info_q")}</h5>
           <div className="contact-email">
-            {t("email_label")}: <u>kudushilali@gmail.com</u>
+            {t("email_label")}: <u>info@kudushilali.org</u>
           </div>
           <div className="contact-phone">
             {t("phone_label")}: +90 505 878 50 40

@@ -12,7 +12,7 @@ const ProjectDetailsPage = () => {
   const [project, setProject] = useState(null);
   const [relatedProjects, setRelatedProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { t,i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -21,13 +21,13 @@ const ProjectDetailsPage = () => {
     honor: "",
     amount: "",
   });
-  const [error, setError] = useState("");
+  const [setError] = useState("");
   const [ischecked, setCheck] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
   const openPopup = () => setShowPopup(true);
   const closePopup = () => setShowPopup(false);
- const [preloading, setPreLoading] = useState(true);
+  const [preloading, setPreLoading] = useState(true);
 
   useEffect(() => {
     // Örnek: 2.5 sn sonra kapat
@@ -44,9 +44,12 @@ const ProjectDetailsPage = () => {
   const fetchProjectDetails = async () => {
     try {
       const res = await axios.get(
-        `http://kudushilali.org/backend/projects/projects_CRUD.php?id=${projectid}`,{ params: {
-          lang: i18n.language
-        }}
+        `http://kudushilali.org/backend/projects/projects_CRUD.php?id=${projectid}`,
+        {
+          params: {
+            lang: i18n.language,
+          },
+        }
       );
       if (res.data.status === "success" && res.data.data.length > 0) {
         setProject(res.data.data[0]);
@@ -63,9 +66,12 @@ const ProjectDetailsPage = () => {
       const res = await axios.get(
         `http://kudushilali.org/backend/projects/projects_CRUD.php?category=${encodeURIComponent(
           category
-        )}`,{ params: {
-          lang: i18n.language
-        }}
+        )}`,
+        {
+          params: {
+            lang: i18n.language,
+          },
+        }
       );
       if (res.data.status === "success") {
         const filtered = res.data.data.filter(
@@ -108,10 +114,6 @@ const ProjectDetailsPage = () => {
     setFormData({ ...formData, amount: val });
   };
 
-  const handleCustomFocus = () => {
-    setFormData({ ...formData, amount: "" });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Donation submitted:", formData);
@@ -130,179 +132,184 @@ const ProjectDetailsPage = () => {
   );
 
   return (
-  <>
-    <Preloader show={preloading} />
-    <div
-      className="project-details-container d-flex flex-column justify-content-center mt-5"
-      style={{ width: "90vw" }}
-    >
-      <CookiePopup
-        show={showPopup}
-        onClose={closePopup}
-        onAccept={handleAccept}
-        onManage={handleManage}
-      />
+    <>
+      <Preloader show={preloading} />
       <div
-        className="image-section mb-4 d-flex w-100"
-        style={{
-          backgroundImage: `url(${project.image})`,
-          backgroundSize: "contain",
-          backgroundPosition: "center",
-          borderRadius: "10px",
-          backgroundRepeat: "no-repeat",
-        }}
-      ></div>
+        className="project-details-container d-flex flex-column justify-content-center align-items-center mt-5"
+        dir={i18n.language === "ar" ? "rtl" : "ltr"}
+        style={{ width: "90vw" }}
+      >
+        <CookiePopup
+          show={showPopup}
+          onClose={closePopup}
+          onAccept={handleAccept}
+          onManage={handleManage}
+        />
+        <div
+          className="image-section mb-4 d-flex"
+          style={{
+            backgroundImage: `url(${project.image})`,
+            backgroundSize: "contain",
+            backgroundPosition: "center",
+            borderRadius: "10px",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
 
-      <div className="title-section mb-2 fw-bold fs-4">{project.title}</div>
+        <div className="title-section mb-2 fw-bold fs-4">{project.title}</div>
 
-      <div className="desc-section mb-4 text-secondary">
-        {project.explanation}
-      </div>
+        <div className="desc-section mb-4 text-secondary">
+          {project.explanation}
+        </div>
 
-      <div className="target-section mb-4 d-none flex-column w-100">
-        <h4 className="fw-bold fs-5">{t("project_target")}</h4>
-        <div className="target-value d-flex align-items-center justify-content-center my-2">
-          <div
-            className="circle-progress border border-danger rounded-circle me-3 d-flex align-items-center justify-content-center"
-            style={{ width: "70px", height: "70px" }}
-          >
-            <div className="percentage fw-bold">{totalProgress}%</div>
-          </div>
-          <div className="d-flex flex-row align-items-end gap-4">
-            <div className="d-flex flex-column">
-              <p>{t("project_goal")}</p>
-              <span>${project.goal}</span>
+        <div className="target-section mb-4 d-none flex-column w-100">
+          <h4 className="fw-bold fs-5">{t("project_target")}</h4>
+          <div className="target-value d-flex align-items-center justify-content-center my-2">
+            <div
+              className="circle-progress border border-danger rounded-circle me-3 d-flex align-items-center justify-content-center"
+              style={{ width: "70px", height: "70px" }}
+            >
+              <div className="percentage fw-bold">{totalProgress}%</div>
             </div>
-            <p>-</p>
-            <div className="d-flex flex-column">
-              <p>{t("project_raised")}</p>
-              <span>${project.raised}</span>
-            </div>
-            <p>-</p>
-            <div className="d-flex flex-column">
-              <p>{t("project_togo")}</p>
-              <span>${remaining}</span>
+            <div className="d-flex flex-row align-items-end gap-4">
+              <div className="d-flex flex-column">
+                <p>{t("project_goal")}</p>
+                <span>${project.goal}</span>
+              </div>
+              <p>-</p>
+              <div className="d-flex flex-column">
+                <p>{t("project_raised")}</p>
+                <span>${project.raised}</span>
+              </div>
+              <p>-</p>
+              <div className="d-flex flex-column">
+                <p>{t("project_togo")}</p>
+                <span>${remaining}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="payment-section mb-4 d-flex flex-column w-100 mt-4">
-        <h4 className="fw-bold fs-5">{t("project_join_efforts")}</h4>
-        <h6 className="fw-bold">{t("project_join_intro")}</h6>
-        <form onSubmit={handleSubmit} className="d-flex flex-column w-100 mt-3">
-          <div className="row g-2 mb-3">
-            <div className="col-md-6">
-              <input
-                type="text"
-                className="form-control"
-                placeholder={t("form_fullname")}
-                value={formData.fullName}
-                onChange={(e) =>
-                  setFormData({ ...formData, fullName: e.target.value })
-                }
-                required
-              />
+        <div className="payment-section mb-4 d-flex flex-column w-100 mt-4">
+          <h4 className="fw-bold fs-5">{t("project_join_efforts")}</h4>
+          <h6 className="fw-bold">{t("project_join_intro")}</h6>
+          <form
+            onSubmit={handleSubmit}
+            className="d-flex flex-column w-100 mt-3"
+          >
+            <div className="row g-2 mb-3">
+              <div className="col-md-6">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder={t("form_fullname")}
+                  value={formData.fullName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, fullName: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="col-md-6">
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder={t("form_email")}
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  required
+                />
+              </div>
             </div>
-            <div className="col-md-6">
-              <input
-                type="email"
-                className="form-control"
-                placeholder={t("form_email")}
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                required
-              />
-            </div>
-          </div>
 
-          <div className="row g-2 mb-3">
-            <div className="col-md-4">
-              <input
-                type="text"
-                className="form-control"
-                placeholder={t("form_phone")}
-                value={formData.Phonenumber}
-                onChange={(e) =>
-                  setFormData({ ...formData, Phonenumber: e.target.value })
-                }
-              />
+            <div className="row g-2 mb-3">
+              <div className="col-md-4">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder={t("form_phone")}
+                  value={formData.Phonenumber}
+                  onChange={(e) =>
+                    setFormData({ ...formData, Phonenumber: e.target.value })
+                  }
+                />
+              </div>
+              <div className="col-md-4">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder={t("form_city")}
+                  value={formData.city}
+                  onChange={(e) =>
+                    setFormData({ ...formData, city: e.target.value })
+                  }
+                />
+              </div>
             </div>
-            <div className="col-md-4">
-              <input
-                type="text"
-                className="form-control"
-                placeholder={t("form_city")}
-                value={formData.city}
-                onChange={(e) =>
-                  setFormData({ ...formData, city: e.target.value })
-                }
-              />
-            </div>
-          </div>
 
-          <div className="form-check mb-3 d-none">
+            <div className="form-check mb-3 d-none">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="dedicateCheck"
+                onChange={() => setCheck(!ischecked)}
+              />
+              <label className="form-check-label" htmlFor="dedicateCheck">
+                {t("form_dedicate")}
+              </label>
+              {ischecked && (
+                <input
+                  type="text"
+                  className="form-control mt-2"
+                  placeholder={t("form_dedicate_placeholder")}
+                  value={formData.honor}
+                  onChange={(e) =>
+                    setFormData({ ...formData, honor: e.target.value })
+                  }
+                />
+              )}
+            </div>
+
             <input
-              className="form-check-input"
-              type="checkbox"
-              id="dedicateCheck"
-              onChange={() => setCheck(!ischecked)}
+              type="number"
+              className="form-control mb-3 d-none"
+              placeholder="$00.00"
+              value={formData.amount}
+              onChange={(e) => handleAmountChange(Number(e.target.value))}
+              required
             />
-            <label className="form-check-label" htmlFor="dedicateCheck">
-              {t("form_dedicate")}
-            </label>
-            {ischecked && (
-              <input
-                type="text"
-                className="form-control mt-2"
-                placeholder={t("form_dedicate_placeholder")}
-                value={formData.honor}
-                onChange={(e) =>
-                  setFormData({ ...formData, honor: e.target.value })
-                }
-              />
-            )}
+
+            <button
+              onClick={openpopupmetod}
+              type="submit"
+              className="btn btn-success"
+            >
+              {t("form_learn_more")}
+            </button>
+          </form>
+        </div>
+
+        <div className="mission-section mb-4 d-none">
+          <h4 className="fw-bold fs-5">{t("project_mission_objective")}</h4>
+          <p className="text-secondary">{project.mission}</p>
+          <p className="text-secondary">{project.objective}</p>
+        </div>
+
+        <div className="more-section mb-4 ">
+          <h4 className="fw-bold fs-5 text-center">
+            {t("project_more_related")}
+          </h4>
+          <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mt-3">
+            {relatedProjects.map((cause) => (
+              <CauseCard key={cause.id} value={cause} />
+            ))}
           </div>
-
-          <input
-            type="number"
-            className="form-control mb-3 d-none"
-            placeholder="$00.00"
-            value={formData.amount}
-            onChange={(e) => handleAmountChange(Number(e.target.value))}
-            required
-          />
-
-          <button
-            onClick={openpopupmetod}
-            type="submit"
-            className="btn btn-success"
-          >
-            {t("form_learn_more")}
-          </button>
-        </form>
-      </div>
-
-      <div className="mission-section mb-4 d-none">
-        <h4 className="fw-bold fs-5">{t("project_mission_objective")}</h4>
-        <p className="text-secondary">{project.mission}</p>
-        <p className="text-secondary">{project.objective}</p>
-      </div>
-
-      <div className="more-section mb-4 ">
-        <h4 className="fw-bold fs-5 text-center">{t("project_more_related")}</h4>
-        <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mt-3">
-          {relatedProjects.map((cause) => (
-            <CauseCard key={cause.id} value={cause} />
-          ))}
         </div>
       </div>
-    </div>
-  </>
-);
-
+    </>
+  );
 };
 
 export default ProjectDetailsPage;

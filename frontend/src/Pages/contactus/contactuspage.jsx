@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./contactuspage.css";
 import Bottomline from "../../components/bottomline/bottomline";
-import Morebtn from "../../components/btns/morebtn";
 import { useState } from "react";
 import Preloader from "../../components/preloader/preloader";
 import { useTranslation } from "react-i18next";

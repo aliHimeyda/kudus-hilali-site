@@ -14,8 +14,9 @@ if ($method === 'OPTIONS') {
 }
 
 // Dil-bazlı kolon seçici: base = title|explanation|mission|objective|category
-function get_lang_col($base, $lang) {
-    $allowed = ['tr','en','ar'];
+function get_lang_col($base, $lang)
+{
+    $allowed = ['tr', 'en', 'ar'];
     $lang = strtolower(trim($lang ?? ''));
     if (in_array($lang, $allowed, true)) {
         return $lang . "_" . $base; // örn: tr_title, en_mission, ar_category
@@ -27,54 +28,63 @@ switch ($method) {
 
     case 'GET':
         $category = isset($_GET['category']) ? mysqli_real_escape_string($conn, $_GET['category']) : '';
-        $id       = isset($_GET['id']) ? intval($_GET['id']) : 0;
-        $lang     = isset($_GET['lang']) ? $_GET['lang'] : '';
+        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        $lang = isset($_GET['lang']) ? $_GET['lang'] : '';
 
-        $title_col       = get_lang_col('title', $lang);
-        $explanation_col = get_lang_col('explanation', $lang);
-        $mission_col     = get_lang_col('mission', $lang);
-        $objective_col   = get_lang_col('objective', $lang);
-        $category_col    = get_lang_col('category', $lang);
+        if ($lang) {
+            // Eğer dil parametresi gönderilmişse sadece o dilin kolonlarını seç
+            $title_col = get_lang_col('title', $lang);
+            $explanation_col = get_lang_col('explanation', $lang);
+            $mission_col = get_lang_col('mission', $lang);
+            $objective_col = get_lang_col('objective', $lang);
+            $category_col = get_lang_col('category', $lang);
+
+            $select_cols = "
+            $title_col       AS title,
+            $explanation_col AS explanation,
+            $mission_col     AS mission,
+            $objective_col   AS objective,
+            $category_col    AS category
+        ";
+        } else {
+            // Eğer dil gönderilmemişse tüm dilleri seç
+            $select_cols = "
+            en_title, tr_title, ar_title,
+            en_explanation, tr_explanation, ar_explanation,
+            en_mission, tr_mission, ar_mission,
+            en_objective, tr_objective, ar_objective,
+            en_category, tr_category, ar_category
+        ";
+        }
 
         if ($id > 0) {
             $sql = "SELECT id,
-                           $title_col       AS title,
-                           $explanation_col AS explanation,
-                           $mission_col     AS mission,
-                           $objective_col   AS objective,
-                           $category_col    AS category,
-                           image,
-                           goal_amount AS goal, raised_amount AS raised,
-                           status, created_at
-                    FROM projects
-                    WHERE id=$id AND isDeleted=0";
-        } elseif ($category && $category !== 'All') {
-            // Kategori filtresi seçilen dil kolonuna uygulanır
+                       $select_cols,
+                       image,
+                       goal_amount AS goal, raised_amount AS raised,
+                       status, created_at
+                FROM projects
+                WHERE id=$id AND isDeleted=0";
+        } elseif ($category && $category !== 'All' && $lang) {
+            // kategori filtresi sadece dil seçilmişse uygulanır
+            $category_col = get_lang_col('category', $lang);
             $sql = "SELECT id,
-                           $title_col       AS title,
-                           $explanation_col AS explanation,
-                           $mission_col     AS mission,
-                           $objective_col   AS objective,
-                           $category_col    AS category,
-                           image,
-                           goal_amount AS goal, raised_amount AS raised,
-                           status, created_at
-                    FROM projects
-                    WHERE $category_col='$category' AND isDeleted=0
-                    ORDER BY created_at DESC";
+                       $select_cols,
+                       image,
+                       goal_amount AS goal, raised_amount AS raised,
+                       status, created_at
+                FROM projects
+                WHERE $category_col='$category' AND isDeleted=0
+                ORDER BY created_at DESC";
         } else {
             $sql = "SELECT id,
-                           $title_col       AS title,
-                           $explanation_col AS explanation,
-                           $mission_col     AS mission,
-                           $objective_col   AS objective,
-                           $category_col    AS category,
-                           image,
-                           goal_amount AS goal, raised_amount AS raised,
-                           status, created_at
-                    FROM projects
-                    WHERE isDeleted=0
-                    ORDER BY created_at DESC";
+                       $select_cols,
+                       image,
+                       goal_amount AS goal, raised_amount AS raised,
+                       status, created_at
+                FROM projects
+                WHERE isDeleted=0
+                ORDER BY created_at DESC";
         }
 
         $result = $conn->query($sql);
@@ -88,57 +98,108 @@ switch ($method) {
         echo json_encode(["status" => "success", "data" => $projects], JSON_UNESCAPED_UNICODE);
         break;
 
-    case 'POST':
-        $data = json_decode(file_get_contents("php://input"), true);
 
-        $lang            = $data['lang'] ?? '';
-        $title_col       = get_lang_col('title', $lang);
-        $explanation_col = get_lang_col('explanation', $lang);
-        $mission_col     = get_lang_col('mission', $lang);
-        $objective_col   = get_lang_col('objective', $lang);
-        $category_col    = get_lang_col('category', $lang);
+   case 'POST':
+    header('Content-Type: application/json; charset=utf-8');
 
-        $title       = mysqli_real_escape_string($conn, $data['title'] ?? '');
-        $explanation = mysqli_real_escape_string($conn, $data['explanation'] ?? '');
-        $mission     = mysqli_real_escape_string($conn, $data['mission'] ?? '');
-        $objective   = mysqli_real_escape_string($conn, $data['objective'] ?? '');
-        $category    = mysqli_real_escape_string($conn, $data['category'] ?? '');
-        $image       = mysqli_real_escape_string($conn, $data['image'] ?? '');
-        $goal        = floatval($data['goal'] ?? 0);
-        $raised      = isset($data['raised']) ? floatval($data['raised']) : 0;
-        $status      = mysqli_real_escape_string($conn, $data['status'] ?? '');
+    $raw  = file_get_contents('php://input');
+    $data = json_decode($raw, true);
+    if (!is_array($data)) {
+        http_response_code(400);
+        echo json_encode(["status"=>"error","message"=>"Invalid JSON"]); break;
+    }
 
-        $sql = "INSERT INTO projects ($title_col, $explanation_col, $mission_col, $objective_col, $category_col, image, goal_amount, raised_amount, status)
-                VALUES ('$title', '$explanation', '$mission', '$objective', '$category', '$image', $goal, $raised, '$status')";
+    mysqli_set_charset($conn, 'utf8mb4');
 
-        if ($conn->query($sql)) {
-            echo json_encode(["status" => "success", "message" => "Project added successfully"]);
-        } else {
-            echo json_encode(["status" => "error", "message" => $conn->error]);
+    // Sadece bu kolonları kabul et (şemanla birebir)
+    $allowed = [
+        // çok dilli alanlar
+        'en_title','tr_title','ar_title',
+        'en_explanation','tr_explanation','ar_explanation',
+        'en_mission','tr_mission','ar_mission',
+        'en_objective','tr_objective','ar_objective',
+        'en_category','tr_category','ar_category',
+        // ortak alanlar
+        'image','goal_amount','raised_amount','status',
+    ];
+
+    // (Opsiyonel) basit doğrulama
+    if (
+        empty($data['en_title']) &&
+        empty($data['tr_title']) &&
+        empty($data['ar_title'])
+    ) {
+        http_response_code(422);
+        echo json_encode(["status"=>"error","message"=>"At least one title (en/tr/ar) is required"]); break;
+    }
+
+    // Gönderilenlerden allowed olanları sırayla topla
+    $columns = [];
+    $placeholders = [];
+    $values = [];
+    foreach ($allowed as $col) {
+        if (array_key_exists($col, $data)) {
+            $columns[]      = $col;
+            $placeholders[] = '?';
+            if ($col === 'goal_amount' || $col === 'raised_amount') {
+                $values[] = (string) (float) $data[$col]; // numerik güvenliği; string bind yeterli
+            } else {
+                $values[] = (string) $data[$col];
+            }
         }
-        break;
+    }
+
+    if (empty($columns)) {
+        http_response_code(422);
+        echo json_encode(["status"=>"error","message"=>"No fields provided"]); break;
+    }
+
+    // Prepared INSERT
+    $colsSql = '`' . implode('`, `', $columns) . '`';
+    $phSql   = implode(', ', $placeholders);
+    $sql     = "INSERT INTO `projects` ($colsSql) VALUES ($phSql)";
+
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        http_response_code(500);
+        echo json_encode(["status"=>"error","message"=>"Prepare failed","detail"=>$conn->error]); break;
+    }
+
+    $types = str_repeat('s', count($values)); // pratik: hepsini 's' olarak bağla
+    $stmt->bind_param($types, ...$values);
+
+    if ($stmt->execute()) {
+        echo json_encode(["status"=>"success","id"=>$stmt->insert_id]);
+    } else {
+        http_response_code(500);
+        echo json_encode(["status"=>"error","message"=>"DB error","detail"=>$stmt->error]);
+    }
+    $stmt->close();
+    break;
+
+
 
     case 'PUT':
         parse_str($_SERVER['QUERY_STRING'], $params);
-        $id   = intval($params['id'] ?? 0);
+        $id = intval($params['id'] ?? 0);
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $lang            = $data['lang'] ?? '';
-        $title_col       = get_lang_col('title', $lang);
+        $lang = $data['lang'] ?? '';
+        $title_col = get_lang_col('title', $lang);
         $explanation_col = get_lang_col('explanation', $lang);
-        $mission_col     = get_lang_col('mission', $lang);
-        $objective_col   = get_lang_col('objective', $lang);
-        $category_col    = get_lang_col('category', $lang);
+        $mission_col = get_lang_col('mission', $lang);
+        $objective_col = get_lang_col('objective', $lang);
+        $category_col = get_lang_col('category', $lang);
 
-        $title       = mysqli_real_escape_string($conn, $data['title'] ?? '');
+        $title = mysqli_real_escape_string($conn, $data['title'] ?? '');
         $explanation = mysqli_real_escape_string($conn, $data['explanation'] ?? '');
-        $mission     = mysqli_real_escape_string($conn, $data['mission'] ?? '');
-        $objective   = mysqli_real_escape_string($conn, $data['objective'] ?? '');
-        $category    = mysqli_real_escape_string($conn, $data['category'] ?? '');
-        $image       = mysqli_real_escape_string($conn, $data['image'] ?? '');
-        $goal        = floatval($data['goal'] ?? 0);
-        $raised      = floatval($data['raised'] ?? 0);
-        $status      = mysqli_real_escape_string($conn, $data['status'] ?? '');
+        $mission = mysqli_real_escape_string($conn, $data['mission'] ?? '');
+        $objective = mysqli_real_escape_string($conn, $data['objective'] ?? '');
+        $category = mysqli_real_escape_string($conn, $data['category'] ?? '');
+        $image = mysqli_real_escape_string($conn, $data['image'] ?? '');
+        $goal = floatval($data['goal'] ?? 0);
+        $raised = floatval($data['raised'] ?? 0);
+        $status = mysqli_real_escape_string($conn, $data['status'] ?? '');
 
         $sql = "UPDATE projects SET
                 $title_col='$title',
@@ -161,7 +222,7 @@ switch ($method) {
 
     case 'DELETE':
         parse_str($_SERVER['QUERY_STRING'], $params);
-        $id   = intval($params['id']);
+        $id = intval($params['id']);
         $soft = isset($params['soft']) ? intval($params['soft']) : 1;
 
         if ($soft === 1) {

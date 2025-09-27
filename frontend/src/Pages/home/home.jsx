@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./home.css";
 import Hero from "../../components/herospace/herospace";
 import KPIS from "../../components/kpi/kpi";
@@ -26,7 +26,7 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div style={{ width: "100vw" ,overflow:"hidden"}}>
+    <div style={{ width: "100vw", overflow: "hidden" }}>
       <Hero />
 
       <div className={showContent ? "d-block" : "d-none"}>
