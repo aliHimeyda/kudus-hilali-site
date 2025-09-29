@@ -15,7 +15,7 @@ const RecentCauses = () => {
   const fetchLatestProjects = async () => {
     try {
       const res = await axios.get(
-        "http://kudushilali.org/backend/projects/projects_CRUD.php",
+        "http://kudushilali.org/backend/projects/projects_CRUD.php?limit=5",
         {
           params: {
             lang: i18n.language,

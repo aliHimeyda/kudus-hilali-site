@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./newspage.css";
 import Newscard from "../../components/newscard/newscard";
@@ -9,68 +9,87 @@ import Preloader from "../../components/preloader/preloader";
 import { useTranslation } from "react-i18next";
 
 const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
-
 const Newspage = () => {
-  const { t } = useTranslation();
-  const sectionRef = useRef(null);
-  const elementRef = useRef(null);
-  const [isloading, setIsLoading] = useState(false);
-  const [news, setNews] = useState([]);
-  const [catActive, setActive] = useState(
-    t("news_categories", { returnObjects: true })[0]
-  );
-  const [loading, setLoading] = useState(true);
+ const { t, i18n } = useTranslation();
+const sectionRef = useRef(null);
+const elementRef = useRef(null);
 
-  const categories = t("news_categories", { returnObjects: true });
-  const { i18n } = useTranslation();
-  useEffect(() => {
-    // Örnek: 2.5 sn sonra kapat
-    const t = setTimeout(() => setLoading(false), 0);
-    return () => clearTimeout(t);
-  }, []);
+const PAGE_SIZE = 5;
 
-  const fetchNews = async (
-    category = t("news_categories", { returnObjects: true })[0]
-  ) => {
-    setIsLoading(true);
-    try {
-      const url =
-        category === t("news_categories", { returnObjects: true })[0]
-          ? `${BASE_URL}?action=view`
-          : `${BASE_URL}?action=view&category=${encodeURIComponent(category)}`;
-      const res = await axios.get(url, {
-        params: {
-          lang: i18n.language,
-        },
-      });
-      setNews(res.data.data);
-    } catch (err) {
-      console.error(err);
-    }
+const [pagenum, setPagenum]     = useState(0);
+const [hasMore, setHasMore]     = useState(true);
+const [isLoading, setIsLoading] = useState(false);
+const [news, setNews]           = useState([]);
+const [loading, setLoading]     = useState(true);
+
+const categories = t("news_categories", { returnObjects: true });
+const [catActive, setActive] = useState(categories[0]);
+
+useEffect(() => {
+  const tmr = setTimeout(() => setLoading(false), 0);
+  return () => clearTimeout(tmr);
+}, []);
+
+const fetchNews = useCallback(async (category = categories[0], num = 0) => {
+  if (isLoading || (!hasMore && num > 0)) return;
+
+  setIsLoading(true);
+  try {
+    const base = `${BASE_URL}?action=view`;
+    const params =
+      category === categories[0]
+        ? `&limit=${PAGE_SIZE}&page=${num}`
+        : `&category=${encodeURIComponent(category)}&limit=${PAGE_SIZE}&page=${num}`;
+
+    const res = await axios.get(base + params, { params: { lang: i18n.language } });
+    const items = res?.data?.data ?? [];
+
+    // İlk sayfa ise replace, devamında append
+    setNews(prev => (num === 0 ? items : [...prev, ...items]));
+
+    // Has more: son paket PAGE_SIZE'tan küçükse bitti
+    if (items.length < PAGE_SIZE) setHasMore(false);
+
+    // Sadece sonuç geldiyse sayfayı ilerlet
+    if (items.length > 0) setPagenum(n => n + 1);
+  } catch (err) {
+    console.error(err);
+  } finally {
     setIsLoading(false);
+  }
+}, [i18n.language, categories, isLoading, hasMore]);
+
+// İlk yükleme + dil değişince yeniden yükle
+useEffect(() => {
+  setPagenum(0);
+  setHasMore(true);
+  fetchNews(catActive, 0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [i18n.language, catActive]);
+
+const GetNewsByCategory = (category) => {
+  setActive(category);
+  setPagenum(0);
+  setHasMore(true);
+  fetchNews(category, 0);
+};
+
+useEffect(() => {
+  const handleScroll = () => {
+    if (isLoading || !hasMore) return;
+
+    const scrollPos = window.innerHeight + window.scrollY;
+    const docHeight = document.documentElement.scrollHeight;
+
+    if (docHeight - scrollPos < 120) {
+      fetchNews(catActive, pagenum);
+    }
   };
 
-  useEffect(() => {
-    fetchNews();
-  }, );
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [isLoading, hasMore, fetchNews, catActive, pagenum]);
 
-  const GetNewsByCategory = (category) => {
-    setActive(category);
-    fetchNews(category);
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.innerHeight + window.scrollY;
-      const bottomPosition = elementRef.current.offsetHeight;
-      if (bottomPosition - scrollPosition < 100 && !isloading) {
-        setIsLoading(true);
-        setTimeout(() => setIsLoading(false), 500);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isloading]);
 
   return (
     <>
@@ -90,7 +109,7 @@ const Newspage = () => {
               className={`category-btn ${
                 catActive === category ? "active" : ""
               }`}
-              onClick={() => GetNewsByCategory(category)}
+              onClick={() => GetNewsByCategory(category,pagenum)}
             >
               {category}
             </div>
@@ -137,7 +156,7 @@ const Newspage = () => {
 
         <div
           className={`loading ${
-            isloading ? "visible" : ""
+            isLoading ? "visible" : ""
           } d-flex justify-content-center align-items-center mt-5`}
         >
           <Logo />

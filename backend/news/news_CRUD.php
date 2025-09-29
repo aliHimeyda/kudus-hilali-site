@@ -42,7 +42,9 @@ switch ($method) {
         $categoryParam = isset($_GET['category']) ? mysqli_real_escape_string($conn, $_GET['category']) : '';
         $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         $lang = $_GET['lang'] ?? '';
-
+        $limit = isset($_GET['limit']) ? max(0, intval($_GET['limit'])) : 0;
+        $page = isset($_GET['page']) ? max(0, intval($_GET['page'])) : 0;
+        $offset = ($limit > 0) ? $page * $limit : 0;
         if ($lang) {
             // Tek dil seçiliyse: o dilin kolonlarını alias'larla döndür
             $title_col = get_lang_col('title', $lang);
@@ -107,6 +109,11 @@ switch ($method) {
                 ORDER BY created_at DESC";
         }
 
+        // <-- YENİ: Sadece limit > 0 ise LIMIT ekle
+        if ($limit > 0) {
+            $sql .= " LIMIT $offset, $limit";
+        }
+
         $result = $conn->query($sql);
         $newsData = [];
 
@@ -119,157 +126,194 @@ switch ($method) {
         echo json_encode(["status" => "success", "data" => $newsData], JSON_UNESCAPED_UNICODE);
         break;
 
-   case 'POST':
-    header('Content-Type: application/json; charset=utf-8');
 
-    $raw  = file_get_contents('php://input');
-    $data = json_decode($raw, true);
-    if (!is_array($data)) {
-        http_response_code(400);
-        echo json_encode(["status"=>"error","message"=>"Invalid JSON"]); break;
-    }
+    case 'POST':
+        header('Content-Type: application/json; charset=utf-8');
 
-    mysqli_set_charset($conn, 'utf8mb4');
-
-    // 1) Sadece bu kolonları kabul et (şemanla birebir)
-    $allowed = [
-        // dil alanları
-        'en_title','tr_title','ar_title',
-        'en_content','tr_content','ar_content',
-        'en_category','tr_category','ar_category',
-        'en_admin_name','ar_admin_name', // tr_admin_name yok
-        // ortak alanlar
-        'admin_image','image_url','publish_date','isDeleted',
-    ];
-
-    // (İsteğe bağlı) minimum validasyon: en az bir title dolu olsun
-    if (
-        empty($data['en_title']) &&
-        empty($data['tr_title']) &&
-        empty($data['ar_title'])
-    ) {
-        http_response_code(422);
-        echo json_encode(["status"=>"error","message"=>"At least one title (en/tr/ar) is required"]);
-        break;
-    }
-
-    // 2) Gönderilenlerden allowed olanları sırayla topla
-    $columns = [];
-    $placeholders = [];
-    $values = [];
-
-    foreach ($allowed as $col) {
-        if (array_key_exists($col, $data)) {
-            $columns[]      = $col;
-            $placeholders[] = '?';
-            $values[]       = (string)$data[$col];
+        $raw = file_get_contents('php://input');
+        $data = json_decode($raw, true);
+        if (!is_array($data)) {
+            http_response_code(400);
+            echo json_encode(["status" => "error", "message" => "Invalid JSON"]);
+            break;
         }
-    }
 
-    if (empty($columns)) {
-        http_response_code(422);
-        echo json_encode(["status"=>"error","message"=>"No fields provided"]); break;
-    }
+        mysqli_set_charset($conn, 'utf8mb4');
 
-    // 3) INSERT (prepared)
-    $colsSql = '`' . implode('`, `', $columns) . '`';
-    $phSql   = implode(', ', $placeholders);
-    $sql     = "INSERT INTO `news` ($colsSql) VALUES ($phSql)";
+        // 1) Sadece bu kolonları kabul et (şemanla birebir)
+        $allowed = [
+            // dil alanları
+            'en_title',
+            'tr_title',
+            'ar_title',
+            'en_content',
+            'tr_content',
+            'ar_content',
+            'en_category',
+            'tr_category',
+            'ar_category',
+            'en_admin_name',
+            'ar_admin_name', // tr_admin_name yok
+            // ortak alanlar
+            'admin_image',
+            'image_url',
+            'publish_date',
+            'isDeleted',
+        ];
 
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        http_response_code(500);
-        echo json_encode(["status"=>"error","message"=>"Prepare failed","detail"=>$conn->error]); break;
-    }
+        // (İsteğe bağlı) minimum validasyon: en az bir title dolu olsun
+        if (
+            empty($data['en_title']) &&
+            empty($data['tr_title']) &&
+            empty($data['ar_title'])
+        ) {
+            http_response_code(422);
+            echo json_encode(["status" => "error", "message" => "At least one title (en/tr/ar) is required"]);
+            break;
+        }
 
-    $types = str_repeat('s', count($values));
-    $stmt->bind_param($types, ...$values);
+        // 2) Gönderilenlerden allowed olanları sırayla topla
+        $columns = [];
+        $placeholders = [];
+        $values = [];
 
-    if ($stmt->execute()) {
-        echo json_encode(["status"=>"success","id"=>$stmt->insert_id]);
-    } else {
-        http_response_code(500);
-        echo json_encode(["status"=>"error","message"=>"DB error","detail"=>$stmt->error]);
-    }
-    $stmt->close();
-    break;
+        foreach ($allowed as $col) {
+            if (array_key_exists($col, $data)) {
+                $columns[] = $col;
+                $placeholders[] = '?';
+                $values[] = (string) $data[$col];
+            }
+        }
+
+        if (empty($columns)) {
+            http_response_code(422);
+            echo json_encode(["status" => "error", "message" => "No fields provided"]);
+            break;
+        }
+
+        // 3) INSERT (prepared)
+        $colsSql = '`' . implode('`, `', $columns) . '`';
+        $phSql = implode(', ', $placeholders);
+        $sql = "INSERT INTO `news` ($colsSql) VALUES ($phSql)";
+
+        $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => "Prepare failed", "detail" => $conn->error]);
+            break;
+        }
+
+        $types = str_repeat('s', count($values));
+        $stmt->bind_param($types, ...$values);
+
+        if ($stmt->execute()) {
+            echo json_encode(["status" => "success", "id" => $stmt->insert_id]);
+        } else {
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => "DB error", "detail" => $stmt->error]);
+        }
+        $stmt->close();
+        break;
 
 
     case 'PUT':
-  parse_str($_SERVER['QUERY_STRING'], $params);
-  $id = intval($params['id'] ?? 0);
-  $data = json_decode(file_get_contents('php://input'), true);
-  if ($id <= 0 || !is_array($data)) { http_response_code(400); echo json_encode(["status"=>"error","message"=>"Invalid id or payload"]); break; }
+        parse_str($_SERVER['QUERY_STRING'], $params);
+        $id = intval($params['id'] ?? 0);
+        $data = json_decode(file_get_contents('php://input'), true);
+        if ($id <= 0 || !is_array($data)) {
+            http_response_code(400);
+            echo json_encode(["status" => "error", "message" => "Invalid id or payload"]);
+            break;
+        }
 
-  // Ortak alanlar
-  $sets = [];
-  $vals = [];
-  $types = '';
+        // Ortak alanlar
+        $sets = [];
+        $vals = [];
+        $types = '';
 
-  foreach (['admin_image','image_url','publish_date'] as $fixed) {
-    if (array_key_exists($fixed, $data)) {
-      $sets[] = "`$fixed`=?";
-      $vals[] = (string)$data[$fixed];
-      $types .= 's';
-    }
-  }
+        foreach (['admin_image', 'image_url', 'publish_date'] as $fixed) {
+            if (array_key_exists($fixed, $data)) {
+                $sets[] = "`$fixed`=?";
+                $vals[] = (string) $data[$fixed];
+                $types .= 's';
+            }
+        }
 
-  $updated = false;
+        $updated = false;
 
-  if (!empty($data['languages']) && is_array($data['languages'])) {
-    $seen = [];
-    foreach ($data['languages'] as $entry) {
-      $lang = norm_lang($entry['lang'] ?? '');
-      if (!$lang || isset($seen[$lang])) continue;
-      $seen[$lang] = true;
+        if (!empty($data['languages']) && is_array($data['languages'])) {
+            $seen = [];
+            foreach ($data['languages'] as $entry) {
+                $lang = norm_lang($entry['lang'] ?? '');
+                if (!$lang || isset($seen[$lang]))
+                    continue;
+                $seen[$lang] = true;
 
-      $map = [
-        get_lang_col('title',$lang)    => $entry['title']    ?? null,
-        get_lang_col('content',$lang)  => $entry['content']  ?? null,
-        get_lang_col('category',$lang) => $entry['category'] ?? null,
-        get_admin_name_col($lang)      => $entry['admin_name'] ?? null,
-      ];
-      foreach ($map as $col=>$val) {
-        if (!$col || $val === null) continue;
-        $sets[] = "`$col`=?";
-        $vals[] = (string)$val;
-        $types .= 's';
-        $updated = true;
-      }
-    }
-  } else {
-    $lang = norm_lang($data['lang'] ?? ($params['lang'] ?? ''));
-    if (!$lang) { http_response_code(422); echo json_encode(["status"=>"error","message"=>"Missing lang"]); break; }
+                $map = [
+                    get_lang_col('title', $lang) => $entry['title'] ?? null,
+                    get_lang_col('content', $lang) => $entry['content'] ?? null,
+                    get_lang_col('category', $lang) => $entry['category'] ?? null,
+                    get_admin_name_col($lang) => $entry['admin_name'] ?? null,
+                ];
+                foreach ($map as $col => $val) {
+                    if (!$col || $val === null)
+                        continue;
+                    $sets[] = "`$col`=?";
+                    $vals[] = (string) $val;
+                    $types .= 's';
+                    $updated = true;
+                }
+            }
+        } else {
+            $lang = norm_lang($data['lang'] ?? ($params['lang'] ?? ''));
+            if (!$lang) {
+                http_response_code(422);
+                echo json_encode(["status" => "error", "message" => "Missing lang"]);
+                break;
+            }
 
-    $map = [
-      get_lang_col('title',$lang)    => $data['title']    ?? null,
-      get_lang_col('content',$lang)  => $data['content']  ?? null,
-      get_lang_col('category',$lang) => $data['category'] ?? null,
-      get_admin_name_col($lang)      => $data['admin_name'] ?? null,
-    ];
-    foreach ($map as $col=>$val) {
-      if (!$col || $val === null) continue;
-      $sets[] = "`$col`=?";
-      $vals[] = (string)$val;
-      $types .= 's';
-      $updated = true;
-    }
-  }
+            $map = [
+                get_lang_col('title', $lang) => $data['title'] ?? null,
+                get_lang_col('content', $lang) => $data['content'] ?? null,
+                get_lang_col('category', $lang) => $data['category'] ?? null,
+                get_admin_name_col($lang) => $data['admin_name'] ?? null,
+            ];
+            foreach ($map as $col => $val) {
+                if (!$col || $val === null)
+                    continue;
+                $sets[] = "`$col`=?";
+                $vals[] = (string) $val;
+                $types .= 's';
+                $updated = true;
+            }
+        }
 
-  if (!$updated && empty($sets)) { http_response_code(422); echo json_encode(["status"=>"error","message"=>"No fields to update"]); break; }
+        if (!$updated && empty($sets)) {
+            http_response_code(422);
+            echo json_encode(["status" => "error", "message" => "No fields to update"]);
+            break;
+        }
 
-  $sql = "UPDATE `news` SET ".implode(', ',$sets)." WHERE id=?";
-  $types .= 'i';
-  $vals[] = $id;
+        $sql = "UPDATE `news` SET " . implode(', ', $sets) . " WHERE id=?";
+        $types .= 'i';
+        $vals[] = $id;
 
-  $stmt = $conn->prepare($sql);
-  if (!$stmt) { http_response_code(500); echo json_encode(["status"=>"error","message"=>"Prepare failed","detail"=>$conn->error]); break; }
-  $stmt->bind_param($types, ...$vals);
+        $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => "Prepare failed", "detail" => $conn->error]);
+            break;
+        }
+        $stmt->bind_param($types, ...$vals);
 
-  if ($stmt->execute()) echo json_encode(["status"=>"success","message"=>"News updated successfully"]);
-  else { http_response_code(500); echo json_encode(["status"=>"error","message"=>"DB error","detail"=>$stmt->error]); }
-  $stmt->close();
-  break;
+        if ($stmt->execute())
+            echo json_encode(["status" => "success", "message" => "News updated successfully"]);
+        else {
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => "DB error", "detail" => $stmt->error]);
+        }
+        $stmt->close();
+        break;
 
     case 'DELETE':
         parse_str($_SERVER['QUERY_STRING'], $params);

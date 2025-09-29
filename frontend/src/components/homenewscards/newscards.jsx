@@ -6,7 +6,7 @@ import Bottomline from "../bottomline/bottomline";
 import Allsbtn from "../btns/allsbtn";
 import { useTranslation } from "react-i18next";
 
-const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php";
+const BASE_URL = "http://kudushilali.org/backend/news/news_CRUD.php?limit=5";
 
 const NewsCards = () => {
   const [cards, setCards] = useState([]);

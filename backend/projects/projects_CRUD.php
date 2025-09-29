@@ -30,7 +30,9 @@ switch ($method) {
         $category = isset($_GET['category']) ? mysqli_real_escape_string($conn, $_GET['category']) : '';
         $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         $lang = isset($_GET['lang']) ? $_GET['lang'] : '';
-
+        $limit = isset($_GET['limit']) ? max(0, intval($_GET['limit'])) : 0;
+        $page = isset($_GET['page']) ? max(0, intval($_GET['page'])) : 0;
+        $offset = ($limit > 0) ? $page * $limit : 0;
         if ($lang) {
             // Eğer dil parametresi gönderilmişse sadece o dilin kolonlarını seç
             $title_col = get_lang_col('title', $lang);
@@ -87,6 +89,11 @@ switch ($method) {
                 ORDER BY created_at DESC";
         }
 
+        // <-- YENİ: sadece limit > 0 ise LIMIT ekle
+        if ($limit > 0) {
+            $sql .= " LIMIT $offset, $limit";
+        }
+
         $result = $conn->query($sql);
         $projects = [];
 
@@ -99,83 +106,101 @@ switch ($method) {
         break;
 
 
-   case 'POST':
-    header('Content-Type: application/json; charset=utf-8');
 
-    $raw  = file_get_contents('php://input');
-    $data = json_decode($raw, true);
-    if (!is_array($data)) {
-        http_response_code(400);
-        echo json_encode(["status"=>"error","message"=>"Invalid JSON"]); break;
-    }
+    case 'POST':
+        header('Content-Type: application/json; charset=utf-8');
 
-    mysqli_set_charset($conn, 'utf8mb4');
+        $raw = file_get_contents('php://input');
+        $data = json_decode($raw, true);
+        if (!is_array($data)) {
+            http_response_code(400);
+            echo json_encode(["status" => "error", "message" => "Invalid JSON"]);
+            break;
+        }
 
-    // Sadece bu kolonları kabul et (şemanla birebir)
-    $allowed = [
-        // çok dilli alanlar
-        'en_title','tr_title','ar_title',
-        'en_explanation','tr_explanation','ar_explanation',
-        'en_mission','tr_mission','ar_mission',
-        'en_objective','tr_objective','ar_objective',
-        'en_category','tr_category','ar_category',
-        // ortak alanlar
-        'image','goal_amount','raised_amount','status',
-    ];
+        mysqli_set_charset($conn, 'utf8mb4');
 
-    // (Opsiyonel) basit doğrulama
-    if (
-        empty($data['en_title']) &&
-        empty($data['tr_title']) &&
-        empty($data['ar_title'])
-    ) {
-        http_response_code(422);
-        echo json_encode(["status"=>"error","message"=>"At least one title (en/tr/ar) is required"]); break;
-    }
+        // Sadece bu kolonları kabul et (şemanla birebir)
+        $allowed = [
+            // çok dilli alanlar
+            'en_title',
+            'tr_title',
+            'ar_title',
+            'en_explanation',
+            'tr_explanation',
+            'ar_explanation',
+            'en_mission',
+            'tr_mission',
+            'ar_mission',
+            'en_objective',
+            'tr_objective',
+            'ar_objective',
+            'en_category',
+            'tr_category',
+            'ar_category',
+            // ortak alanlar
+            'image',
+            'goal_amount',
+            'raised_amount',
+            'status',
+        ];
 
-    // Gönderilenlerden allowed olanları sırayla topla
-    $columns = [];
-    $placeholders = [];
-    $values = [];
-    foreach ($allowed as $col) {
-        if (array_key_exists($col, $data)) {
-            $columns[]      = $col;
-            $placeholders[] = '?';
-            if ($col === 'goal_amount' || $col === 'raised_amount') {
-                $values[] = (string) (float) $data[$col]; // numerik güvenliği; string bind yeterli
-            } else {
-                $values[] = (string) $data[$col];
+        // (Opsiyonel) basit doğrulama
+        if (
+            empty($data['en_title']) &&
+            empty($data['tr_title']) &&
+            empty($data['ar_title'])
+        ) {
+            http_response_code(422);
+            echo json_encode(["status" => "error", "message" => "At least one title (en/tr/ar) is required"]);
+            break;
+        }
+
+        // Gönderilenlerden allowed olanları sırayla topla
+        $columns = [];
+        $placeholders = [];
+        $values = [];
+        foreach ($allowed as $col) {
+            if (array_key_exists($col, $data)) {
+                $columns[] = $col;
+                $placeholders[] = '?';
+                if ($col === 'goal_amount' || $col === 'raised_amount') {
+                    $values[] = (string) (float) $data[$col]; // numerik güvenliği; string bind yeterli
+                } else {
+                    $values[] = (string) $data[$col];
+                }
             }
         }
-    }
 
-    if (empty($columns)) {
-        http_response_code(422);
-        echo json_encode(["status"=>"error","message"=>"No fields provided"]); break;
-    }
+        if (empty($columns)) {
+            http_response_code(422);
+            echo json_encode(["status" => "error", "message" => "No fields provided"]);
+            break;
+        }
 
-    // Prepared INSERT
-    $colsSql = '`' . implode('`, `', $columns) . '`';
-    $phSql   = implode(', ', $placeholders);
-    $sql     = "INSERT INTO `projects` ($colsSql) VALUES ($phSql)";
+        // Prepared INSERT
+        $colsSql = '`' . implode('`, `', $columns) . '`';
+        $phSql = implode(', ', $placeholders);
+        $sql = "INSERT INTO `projects` ($colsSql) VALUES ($phSql)";
 
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        http_response_code(500);
-        echo json_encode(["status"=>"error","message"=>"Prepare failed","detail"=>$conn->error]); break;
-    }
+        $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => "Prepare failed", "detail" => $conn->error]);
+            break;
+        }
 
-    $types = str_repeat('s', count($values)); // pratik: hepsini 's' olarak bağla
-    $stmt->bind_param($types, ...$values);
+        $types = str_repeat('s', count($values)); // pratik: hepsini 's' olarak bağla
+        $stmt->bind_param($types, ...$values);
 
-    if ($stmt->execute()) {
-        echo json_encode(["status"=>"success","id"=>$stmt->insert_id]);
-    } else {
-        http_response_code(500);
-        echo json_encode(["status"=>"error","message"=>"DB error","detail"=>$stmt->error]);
-    }
-    $stmt->close();
-    break;
+        if ($stmt->execute()) {
+            echo json_encode(["status" => "success", "id" => $stmt->insert_id]);
+        } else {
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => "DB error", "detail" => $stmt->error]);
+        }
+        $stmt->close();
+        break;
 
 
 
