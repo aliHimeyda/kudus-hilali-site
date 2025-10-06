@@ -1,5 +1,6 @@
 html,
 body {
+  font-family: "Alexandria", sans-serif;
   /* Chrome, Safari, Edge */
   ::-webkit-scrollbar {
     display: none;
@@ -13,46 +14,17 @@ body {
 
   background-color: #f5f4f4;
   margin-right: 0px;
-  
+
   display: flex;
   justify-content: center;
   overflow-x: hidden;
-  
+
   background-image: url("../public/assets/Sideicons.svg"),
     url("../public/assets/Sideicon2.svg");
   background-position: 30px top, calc(100% - 30px) top;
   background-repeat: repeat-y, repeat-y; /* her biri Y’de sonsuz tekrar */
-  background-size: auto auto,  auto;
+  background-size: auto auto, auto;
 }
-
-/* 
-body {
-  margin: 0; padding: 0; min-height: 100vh;
-  position: relative;
-  background: #ffffff;
-  overflow: hidden;
-}
-body::before {
-  content: '';
-  position: fixed;
-  top: -50%; left: -50%;
-  width: 200%; height: 200%;
- background-image:
-    url('/public/assets/crescent.png'),
-    radial-gradient(circle at 25% 30%, rgba(168,224,150,0.3) 0%, transparent 40%),
-    radial-gradient(circle at 75% 70%, rgba(102,187,106,0.3) 0%, transparent 50%);
-  background-size: 300px 300px, 400px 400px;
-  animation: moveBokeh 30s linear infinite;
-  z-index: 0;
-}
-body > * {
-  position: relative;
-  z-index: 1;  /* içeriği bokeh’in üstünde tutar */
-/* }
-@keyframes moveBokeh {
-  from { transform: translate(0, 0); }
-  to   { transform: translate(50%, 50%); }
- }   */
 
 .h4 {
   font-family: "Alexandria", sans-serif;
@@ -75,11 +47,13 @@ body > * {
   .h2 {
     font-size: 20px;
   }
-  body{
-    background-size: 10%,  10%;
+  body {
+    font-family: "Alexandria", sans-serif;
+    background-size: 10%, 10%;
   }
 }
 code {
+  font-family: "Alexandria", sans-serif;
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

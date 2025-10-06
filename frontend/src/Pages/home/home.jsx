@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./home.css";
+
 import Hero from "../../components/herospace/herospace";
 import KPIS from "../../components/kpi/kpi";
 import RecentCauses from "../../components/recentcauses/causes";

@@ -47,7 +47,7 @@ const Volunteers = () => {
     >
       <h4 className="h4">{t("volunteers_meet_us")}</h4>
       <h2 className="h2">{t("volunteers_our_team")}</h2>
-      <div className="d-flex flex-column flex-md-row flex-wrap justify-content-center align-items-center p-5 mt-5 gap-4">
+      <div className="d-flex flex-column flex-md-row flex-wrap justify-content-center align-items-center mt-5 gap-4">
         {volunteers.length === 0 ? (
           <p>{t("volunteers_none")}</p>
         ) : (

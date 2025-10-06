@@ -11,7 +11,7 @@
 
 .vol-card {
   margin-bottom: 20px;
-  width: 250px;
+  width: 270px;
   background: var(--color-cream);
   border-radius: 12px;
   transition: box-shadow 0.3s ease;

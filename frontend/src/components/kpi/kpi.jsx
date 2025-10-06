@@ -40,7 +40,11 @@ const KPIS = () => {
         { value: kpi.months, label: t("month") },
         { value: kpi.projects, label: t("projects") },
         { value: kpi.partners, label: t("partners") },
-        { value: parseInt(kpi.budget), suffix: "M", label: t("budget") },
+        {
+          value: parseInt(kpi.budget),
+          suffix: kpi.budgetchar,
+          label: t("budget"),
+        },
       ];
 
       // 3200 ms bekle sonra animasyonu başlat
@@ -62,7 +66,7 @@ const KPIS = () => {
     { value: kpi.months, label: t("month") },
     { value: kpi.projects, label: t("projects") },
     { value: kpi.partners, label: t("partners") },
-    { value: parseInt(kpi.budget), suffix: "M", label: t("budget") },
+    { value: parseInt(kpi.budget), suffix: kpi.budgetchar, label: t("budget") },
   ];
 
   return (
@@ -77,7 +81,7 @@ const KPIS = () => {
               ref={(el) => (statRefs.current[idx] = el)}
               className="stat-number shadow-text"
             >
-              0
+              0<h6>{stat.suffix}</h6>
             </h2>
             <p className="stat-label text-light">{stat.label}</p>
           </div>

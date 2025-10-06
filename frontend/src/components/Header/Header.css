@@ -2,6 +2,8 @@
 
 /* Header arka planları */
 .transparent-header {
+
+
   background-color: transparent;
   transition: background-color 0.3s ease-in-out;
   animation: fadein-down 1s ease-out;
@@ -153,14 +155,14 @@
   padding: 0.5rem 0;
   border-radius: 4px;
 }
-.mobile-navbar.bg-transparent .navbar-toggler.n-top{
+.mobile-navbar.bg-transparent .navbar-toggler.n-top {
   top: 0;
 }
-.navbar-toggler{
+.navbar-toggler {
   bottom: -20px;
   left: 44%;
 }
-.navbar-toggler-icon{
+.navbar-toggler-icon {
   width: 20px;
   height: 20px;
 }

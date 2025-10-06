@@ -9,6 +9,9 @@
   height: 80vh;
   clip-path: ellipse(90% 95% at 50% 0%);
 }
+.value-card {
+  height: 240px;
+}
 .hero-section img {
   display: block;
   width: 100%;

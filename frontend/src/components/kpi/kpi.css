@@ -8,7 +8,9 @@
     transform: translateY(0);
   }
 }
-
+.kpi-content {
+  justify-content: space-around;
+}
 .stats-container {
   position: absolute;
   bottom: 3vw;
@@ -18,7 +20,7 @@
   animation: fadeUp 0.5s ease-out;
   font-family: "Alexandria", sans-serif;
   color: #fff;
-  width: 55vw;
+  width: 70vw;
 }
 
 .stat-number {
@@ -45,4 +47,3 @@
     padding: 1.5rem;
   }
 }
-

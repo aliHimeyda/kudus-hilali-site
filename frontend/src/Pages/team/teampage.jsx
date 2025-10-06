@@ -31,18 +31,20 @@ const Teampage = () => {
       setIsLoading(false);
     };
     fetchTeam();
-  }, );
+  }, []);
 
   return (
     <>
       <Preloader show={loading} />
       <div className="teampage d-flex flex-column align-items-center justify-content-center">
-        <h4 className="h4">{t("team_section_title")}</h4>
+        <h4 className="h4">{t("volunteers_meet_us")}</h4>
         <h2 className="h2">{t("team_our_team")}</h2>
 
         <div className="d-flex flex-row align-items-center justify-content-center flex-wrap gap-5 pt-5">
           {team.length === 0 ? (
-            <p dir={i18n.language === "ar" ? "rtl" : "ltr"}>{t("team_not_found")}</p>
+            <p dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+              {t("team_not_found")}
+            </p>
           ) : (
             team.map((person) => (
               <Volunteer key={person.id} volunteerdata={person} />
