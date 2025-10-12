@@ -44,9 +44,9 @@
 
 .flogostext span {
   margin: 0;
+  margin-bottom: 3px;
   color: white;
   height: 22px;
-  font-family: "Alexandria", sans-serif;
 }
 .bottomtext {
   color: white !important;

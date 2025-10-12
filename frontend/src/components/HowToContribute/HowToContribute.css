@@ -4,7 +4,6 @@
   gap: 20px;
   padding: 80px;
   position: relative;
-  font-family: "Alexandria", sans-serif;
 }
 .animate-section {
   opacity: 0;
@@ -102,7 +101,6 @@
 }
 
 .headline {
-  font-family: "Alexandria", sans-serif;
   font-weight: 700;
   font-size: 40px;
   line-height: 67px;

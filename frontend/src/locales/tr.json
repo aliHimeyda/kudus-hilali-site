@@ -96,10 +96,10 @@
       }
     ],
     "titles": [
-      "<strong>Acil</strong> Yardım & Mevsimlik Destek",
-      "Toplum <strong>Kalkınması</strong>",
-      "Çocuklar & <strong>Eğitim</strong>",
-      "<strong>Savunuculuk</strong> & Farkındalık"
+      "<h1 class='strong'>Acil</h1> Yardım & Mevsimlik Destek",
+      "Toplum <h1 class='strong'>Kalkınması</h1>",
+      "Çocuklar & <h1 class='strong'>Eğitim</h1>",
+      "<h1 class='strong'>Savunuculuk</h1> & Farkındalık"
     ],
     "descriptions": [
       "Krizlere (savaş, deprem, göç) acil yanıt veriyoruz, Ramazan gıda kampanyaları, Kurban eti dağıtımı ve kış paketleri (battaniye, ısınma desteği) sağlıyoruz.",
@@ -196,5 +196,8 @@
   "month": "Ay",
   "partners": "Paydaşlar",
   "projects": "Projeler",
-  "budget": "Bütçe"
+  "budget": "Bütçe",
+   "thousand": "B+",
+  "million": "M+",
+  "trillion": "T+"
 }

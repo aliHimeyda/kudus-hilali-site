@@ -19,7 +19,9 @@ const HowToContribute = () => {
       { threshold: 0.3 }
     );
     if (contributeRef.current) observer.observe(contributeRef.current);
-    return () => { if (contributeRef.current) observer.unobserve(contributeRef.current); };
+    return () => {
+      if (contributeRef.current) observer.unobserve(contributeRef.current);
+    };
   }, []);
 
   return (
@@ -76,67 +78,92 @@ const HowToContribute = () => {
               className={`headline ${isAr ? "rtl-text text-end" : ""}`}
               dir={isAr ? "rtl" : "ltr"}
             >
-              {t("contribute_headline")} <span>{t("contribute_headline_span")}</span>
+              {t("contribute_headline")}{" "}
+              <span>{t("contribute_headline_span")}</span>
             </h3>
 
-            <p className={`desc ${isAr ? "rtl-text text-end" : ""}`} dir={isAr ? "rtl" : "ltr"}>
+            <p
+              className={`desc ${isAr ? "rtl-text text-end" : ""}`}
+              dir={isAr ? "rtl" : "ltr"}
+            >
               {t("contribute_desc1")}
             </p>
-            <p className={`desc ${isAr ? "rtl-text text-end" : ""}`} dir={isAr ? "rtl" : "ltr"}>
+            <p
+              className={`desc ${isAr ? "rtl-text text-end" : ""}`}
+              dir={isAr ? "rtl" : "ltr"}
+            >
               {t("contribute_desc2")}
             </p>
 
-            <p className={`icon-title ${isAr ? "rtl-text text-end" : ""}`} dir={isAr ? "rtl" : "ltr"}>
+            <p
+              className={`icon-title ${isAr ? "rtl-text text-end" : ""}`}
+              dir={isAr ? "rtl" : "ltr"}
+            >
               {t("contribute_ways")}
             </p>
             <br />
 
             <div className="donationcontainer d-flex justify-content-center align-items-center gap-4">
-  {/* Kart 1 */}
-  <div className="icon-card d-flex flex-row gap-2">
-    <div className="icon-bg" />
-    {/* SATIR: Arapça ise ikon-sağda/metin-solda için row'u ters çevir */}
-    <div className={`d-flex align-items-center gap-4 ${isAr ? "flex-row-reverse" : "flex-row"}`}>
-      <div className="image-container">
-        <img
-          decoding="async"
-          loading="lazy"
-          src="/assets/DonationVector.webp"
-          alt={t("contribute_donation_alt")}
-          className="icon-img"
-        />
-      </div>
+              {/* Kart 1 */}
+              <div className="icon-card d-flex flex-row gap-2">
+                <div className="icon-bg" />
+                {/* SATIR: Arapça ise ikon-sağda/metin-solda için row'u ters çevir */}
+                <div
+                  className={`d-flex align-items-center gap-4 ${
+                    isAr ? "flex-row-reverse" : "flex-row"
+                  }`}
+                >
+                  <div className="image-container">
+                    <img
+                      decoding="async"
+                      loading="lazy"
+                      src="/assets/DonationVector.webp"
+                      alt={t("contribute_donation_alt")}
+                      className="icon-img"
+                    />
+                  </div>
 
-      {/* METİN BLOĞU: RTL + sağa hizalı */}
-      <div className={isAr ? "rtl-text text-end" : ""} dir={isAr ? "rtl" : "ltr"}>
-        <p className="icon-title">{t("contribute_contact_title")}</p>
-        <p className="icon-text">{t("contribute_contact_text")}</p>
-      </div>
-    </div>
-  </div>
+                  {/* METİN BLOĞU: RTL + sağa hizalı */}
+                  <div
+                    className={isAr ? "rtl-text text-end" : ""}
+                    dir={isAr ? "rtl" : "ltr"}
+                  >
+                    <p className="icon-title">
+                      {t("contribute_contact_title")}
+                    </p>
+                    <p className="icon-text">{t("contribute_contact_text")}</p>
+                  </div>
+                </div>
+              </div>
 
-  {/* Kart 2 */}
-  <div className="icon-card d-flex flex-row gap-2">
-    <div className="icon-bg" />
-    <div className={`d-flex align-items-center gap-4 ${isAr ? "flex-row-reverse" : "flex-row"}`}>
-      <div className="image-container">
-        <img
-          decoding="async"
-          loading="lazy"
-          src="/assets/Volunteerector.webp"
-          alt={t("contribute_volunteer_alt")}
-          className="icon-img"
-        />
-      </div>
+              {/* Kart 2 */}
+              <div className="icon-card d-flex flex-row gap-2">
+                <div className="icon-bg" />
+                <div
+                  className={`d-flex align-items-center gap-4 ${
+                    isAr ? "flex-row-reverse" : "flex-row"
+                  }`}
+                >
+                  <div className="image-container">
+                    <img
+                      decoding="async"
+                      loading="lazy"
+                      src="/assets/Volunteerector.webp"
+                      alt={t("contribute_volunteer_alt")}
+                      className="icon-img"
+                    />
+                  </div>
 
-      <div className={isAr ? "rtl-text text-end" : ""} dir={isAr ? "rtl" : "ltr"}>
-        <p className="icon-title">{t("contribute_spread_title")}</p>
-        <p className="icon-text">{t("contribute_spread_text")}</p>
-      </div>
-    </div>
-  </div>
-</div>
-
+                  <div
+                    className={isAr ? "rtl-text text-end" : ""}
+                    dir={isAr ? "rtl" : "ltr"}
+                  >
+                    <p className="icon-title">{t("contribute_spread_title")}</p>
+                    <p className="icon-text">{t("contribute_spread_text")}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <Morebtn title={t("contribute_find_more")} path={"/Projects"} />
           </div>

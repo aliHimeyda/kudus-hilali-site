@@ -19,7 +19,6 @@
 .comments-title {
   font-size: 29px;
   font-weight: 700;
-  font-family: "Alexandria", sans-serif;
   color: var(--color-block);
   margin-bottom: 30px;
 }
@@ -50,13 +49,11 @@
   font-size: 15px;
   font-weight: 600;
   color: var(--color-block);
- font-family: "Alexandria", sans-serif;
 }
 
 .comment-date {
   font-size: 11px;
   color: var(--color-red);
-  font-family: "Alexandria", sans-serif;
   margin-top: 2px;
   margin-bottom: 8px;
 }
@@ -64,7 +61,6 @@
 .comment-text {
   font-size: 13px;
   color: #4F4F4F;
-  font-family: "Alexandria", sans-serif;
 }
 
 .post-comment-wrapper {
@@ -75,7 +71,6 @@
   font-size: 29px;
   font-weight: 700;
   color: var(--color-block);
-  font-family: "Alexandria", sans-serif;
   margin-bottom: 20px;
 }
 
@@ -92,7 +87,6 @@
   font-size: 13px;
   border: 2px solid #F4F5F8;
   border-radius: 5px;
-  font-family: "Alexandria", sans-serif;
 }
 
 textarea {
@@ -102,7 +96,6 @@ textarea {
   font-size: 13px;
   border: 2px solid #F4F5F8;
   border-radius: 5px;
-  font-family: "Alexandria", sans-serif;
   margin-bottom: 20px;
   resize: none;
 }
@@ -110,7 +103,6 @@ textarea {
 .submit-btn {
   background: var(--color-red);
   color: white;
-  font-family: "Alexandria", sans-serif;
   font-size: 13px;
   font-weight: 500;
   padding: 15px 40px;

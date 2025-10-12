@@ -10,7 +10,6 @@
 }
 
 .section-sub {
-  font-family: "Alexandria", sans-serif;
   color: var(--color-red);
   text-align: center;
   letter-spacing: 3px;
@@ -18,7 +17,6 @@
 }
 
 .section-title {
-  font-family: "Alexandria", sans-serif;
   font-size: 48px;
   text-align: center;
   font-weight: bold;

@@ -35,7 +35,6 @@
   background-color: var(--color-gray);
 }
 .vol-name {
-  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: var(--color-block);
@@ -44,7 +43,6 @@
 }
 
 .vol-role {
-  font-family: "Alexandria", sans-serif;
   font-size: 12px;
   color: var(--color-block);
   line-height: 32px;

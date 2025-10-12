@@ -153,7 +153,7 @@ const WhatWeDo = () => {
                       className="wicon"
                     />
                   </div>
-                  <strong
+                  <h1
                     className="witemtitle"
                     style={{
                       fontSize: "0.8rem",
@@ -162,7 +162,7 @@ const WhatWeDo = () => {
                     }}
                   >
                     {item.title}
-                  </strong>
+                  </h1>
                   <p
                     className="d-none d-md-block"
                     style={{ fontSize: "0.8rem" }} dir={i18n.language === "ar" ? "rtl" : "ltr"}
@@ -224,7 +224,7 @@ const WhatWeDo = () => {
                       className="wicon"
                     />
                   </div>
-                  <strong
+                  <h1
                     className="witemtitle"
                     style={{
                       fontSize: "0.8rem",
@@ -233,7 +233,7 @@ const WhatWeDo = () => {
                     }}
                   >
                     {item.title}
-                  </strong>
+                  </h1>
                   <p
                     className="d-none d-md-block"
                     style={{ fontSize: "0.8rem" }}

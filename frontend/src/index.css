@@ -1,6 +1,12 @@
+:root {
+  --app-font: "Alexandria", system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
 html,
 body {
-  font-family: "Alexandria", sans-serif;
+  font-family: var(--app-font)!important;
   /* Chrome, Safari, Edge */
   ::-webkit-scrollbar {
     display: none;
@@ -27,16 +33,14 @@ body {
 }
 
 .h4 {
-  font-family: "Alexandria", sans-serif;
   font-size: 14px;
   color: var(--color-red);
   letter-spacing: 1px;
 }
 
 .h2 {
-  font-family: "Alexandria", sans-serif;
   font-size: 32px;
-  font-weight: bold;
+  font-weight: 600;
   margin: 10px 0;
   color: black;
 }
@@ -48,14 +52,8 @@ body {
     font-size: 20px;
   }
   body {
-    font-family: "Alexandria", sans-serif;
     background-size: 10%, 10%;
   }
-}
-code {
-  font-family: "Alexandria", sans-serif;
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
 .categoriescontainer {
   display: flex;
@@ -77,7 +75,6 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Poppins", sans-serif;
   font-size: 13px;
   font-weight: 400;
   color: #252839;

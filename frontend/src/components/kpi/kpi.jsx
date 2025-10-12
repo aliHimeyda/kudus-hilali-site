@@ -2,22 +2,24 @@ import React, { useEffect, useRef, useState } from "react";
 import "./kpi.css";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 
-const animateCount = (el, to, suffix = "", duration = 2000) => {
+const animateCount = (el, to, duration = 2000) => {
+  if (!el) return;
   let start = 0;
-  const stepTime = Math.abs(Math.floor(duration / to));
+  const safeTo = Math.max(1, Number(to) || 0);
+  const stepTime = Math.max(15, Math.floor(duration / safeTo));
   const counter = setInterval(() => {
     start++;
-    el.innerText = suffix ? `$${start}${suffix}+` : `${start}+`;
-    if (start >= to) clearInterval(counter);
+    el.textContent = `${start}`;
+    if (start >= safeTo) clearInterval(counter);
   }, stepTime);
 };
 
 const KPIS = () => {
   const [kpi, setKpi] = useState(null);
   const statRefs = useRef([]);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+
   useEffect(() => {
     const fetchKPI = async () => {
       try {
@@ -35,32 +37,33 @@ const KPIS = () => {
   }, []);
 
   useEffect(() => {
-    if (kpi) {
-      const dynamicStats = [
-        { value: kpi.months, label: t("month") },
-        { value: kpi.projects, label: t("projects") },
-        { value: kpi.partners, label: t("partners") },
-        {
-          value: parseInt(kpi.budget),
-          suffix: kpi.budgetchar,
-          label: t("budget"),
-        },
-      ];
+    if (!kpi) return;
 
-      // 3200 ms bekle sonra animasyonu başlat
-      const timer = setTimeout(() => {
-        statRefs.current.forEach((el, i) => {
-          const { value, suffix } = dynamicStats[i];
-          animateCount(el, value, suffix);
-        });
-      }, 3200);
+    const dynamicStats = [
+      { value: kpi.months, label: t("month") },
+      { value: kpi.projects, label: t("projects") },
+      { value: kpi.partners, label: t("partners") },
+      {
+        value: parseInt(kpi.budget),
+        suffix: kpi.budgetchar,
+        label: t("budget"),
+      },
+    ];
 
-      return () => clearTimeout(timer);
-    }
-  }, [kpi]);
+    const timer = setTimeout(() => {
+      statRefs.current.forEach((el, i) => {
+        const { value } = dynamicStats[i];
+        animateCount(el, value);
+      });
+    }, 3200);
+
+    return () => clearTimeout(timer);
+  }, [kpi, t]);
 
   if (!kpi)
     return <p className="text-center text-light mt-3">Loading KPIs...</p>;
+
+  const suffixMap = { K: "thousand", M: "million", T: "trillion" };
 
   const stats = [
     { value: kpi.months, label: t("month") },
@@ -77,11 +80,16 @@ const KPIS = () => {
       <div className="row text-center text-white">
         {stats.map((stat, idx) => (
           <div key={idx} className="col-6 col-md-3">
-            <h2
-              ref={(el) => (statRefs.current[idx] = el)}
-              className="stat-number shadow-text"
-            >
-              0<h6>{stat.suffix}</h6>
+            <h2 className="stat-number shadow-text">
+              <span
+                className="stat-value"
+                ref={(el) => (statRefs.current[idx] = el)}
+              >
+                0
+              </span>
+              <h6 className={i18n.language === "ar" ? "fs-6-smaller" : ""}>
+                {t(suffixMap[stat.suffix]) || stat.suffix || ""}
+              </h6>
             </h2>
             <p className="stat-label text-light">{stat.label}</p>
           </div>

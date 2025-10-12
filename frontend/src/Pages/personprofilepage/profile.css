@@ -31,13 +31,11 @@
 
 /* Titles and Labels */
 .username {
-  font-family: "Alexandria", sans-serif;
   font-size: 32px;
   font-weight: 700;
   color: var(--color-block);
 }
 .charity-title {
-  font-family: "Alexandria", sans-serif;
   font-size: 20px;
   font-weight: 700;
   color: var(--color-orange);
@@ -45,13 +43,11 @@
 }
 .address-label,
 .social-label {
-  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: var(--color-block);
 }
 .address {
-  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: #4f4f4f;
@@ -98,13 +94,11 @@
   margin-top: 80px;
 }
 .bio-title {
-  font-family: "Alexandria", sans-serif;
   font-size: 24px;
   font-weight: 700;
   color: var(--color-block);
 }
 .bio-text {
-  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: #4f4f4f;
@@ -112,7 +106,6 @@
 
 /* Experience Boxes */
 .experience-title {
-  font-family: "Alexandria", sans-serif;
   font-size: 24px;
   font-weight: 700;
   color: var(--color-block);
@@ -126,7 +119,6 @@
   padding: 10px 20px;
 }
 .info-text {
-  font-family: "Alexandria", sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: var(--color-block);

@@ -8,7 +8,6 @@
   transition: background-color 0.3s ease-in-out;
   animation: fadein-down 1s ease-out;
   z-index: 100000;
-  font-family: "Alexandria", sans-serif;
 }
 .transparent-header .nav-link,
 .transparent-header .fw-bold {
@@ -41,7 +40,6 @@
   transition: background-color 0.3s ease-in-out;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   z-index: 100000;
-  font-family: "Alexandria", sans-serif;
 }
 /* Frame  */
 
@@ -61,7 +59,6 @@
   list-style: none;
 }
 .frametext {
-  font-family: "Alexandria", sans-serif;
   font-style: normal;
   display: block;
   font-weight: 500;
@@ -181,12 +178,13 @@
 
 .logostext span {
   margin: 0;
+  margin-bottom: 3px;
   color: white;
   height: 22px;
-  font-family: "Alexandria", sans-serif;
 }
 .scrolled-header .logostext span {
   margin: 0;
+  margin-bottom: 3px;
   color: white;
   height: 22px;
 }
@@ -194,5 +192,6 @@
   color: white;
 }
 .logostext {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+    justify-content: center !important;
 }
