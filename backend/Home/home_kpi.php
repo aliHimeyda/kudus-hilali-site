@@ -18,7 +18,7 @@ if ($method === 'OPTIONS') {
 switch ($method) {
 
     case 'GET':
-        $sql = "SELECT id, months, projects, partners, budget, hero_image 
+        $sql = "SELECT id, months, projects, partners, budget, hero_image, budgetchar
                 FROM home_stats 
                 WHERE isDeleted=0 
                 ORDER BY created_at DESC 

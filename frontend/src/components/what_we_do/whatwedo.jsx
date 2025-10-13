@@ -116,7 +116,10 @@ const WhatWeDo = () => {
               ],
             }}
           />
-          <p className="description text-center" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+          <p
+            className="description text-center"
+            dir={i18n.language === "ar" ? "rtl" : "ltr"}
+          >
             {t("whatwedo.descriptions", { returnObjects: true })[selected - 1]}
           </p>
           <Morebtn title={t("read_more")} path={"/aboutuspage"} />
@@ -165,7 +168,8 @@ const WhatWeDo = () => {
                   </h1>
                   <p
                     className="d-none d-md-block"
-                    style={{ fontSize: "0.8rem" }} dir={i18n.language === "ar" ? "rtl" : "ltr"}
+                    style={{ fontSize: "0.8rem" }}
+                    dir={i18n.language === "ar" ? "rtl" : "ltr"}
                   >
                     {item.description}
                   </p>
@@ -253,7 +257,10 @@ const WhatWeDo = () => {
                         })[selected - 1],
                       }}
                     />
-                    <p className="bdescription" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+                    <p
+                      className="bdescription"
+                      dir={i18n.language === "ar" ? "rtl" : "ltr"}
+                    >
                       {
                         t("whatwedo.descriptions", {
                           returnObjects: true,

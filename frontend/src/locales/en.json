@@ -96,10 +96,10 @@
       }
     ],
     "titles": [
-      "<h1 class='strong'>Emergency</h1> Relief & Seasonal Aid",
-      "Community <h1 class='strong'>Development</h1>",
-      "Children & <h1 class='strong'>Education</h1>",
-      "<h1 class='strong'>Advocacy</h1> & Awareness"
+      "<strong>Emergency</strong> Relief & Seasonal Aid",
+      "Community <strong>Development</strong>",
+      "Children & <strong>Education</strong>",
+      "<strong>Advocacy</strong> & Awareness"
     ],
     "descriptions": [
       "We provide urgent response to crises (war, earthquakes, displacement), Ramadan food campaigns, Qurban meat distribution and winter kits (blankets, heating support).",

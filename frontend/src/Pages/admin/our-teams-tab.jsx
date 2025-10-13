@@ -286,13 +286,6 @@ export default class OurTeamsTab extends Component {
           <Modal.Footer className="d-flex justify-content-between">
             <div>
               <Button
-                variant="outline-primary"
-                onClick={() => this.handleUpdateSave(false)}
-                className="me-2"
-              >
-                Save (Current Lang)
-              </Button>
-              <Button
                 variant="primary"
                 onClick={() => this.handleUpdateSave(true)}
               >

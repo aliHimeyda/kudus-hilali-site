@@ -22,10 +22,14 @@
   width: 70vw;
 }
 .fs-6-smaller {
-  font-size: 0.2em;
+  font-size: 0.5em;
 }
 
 .stat-number {
+  gap: 8px;
+  align-items: end;
+  justify-content: center;
+  display: flex;
   font-weight: 700;
   font-size: clamp(24px, 4vw, 40px);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
