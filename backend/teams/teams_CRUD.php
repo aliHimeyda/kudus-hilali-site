@@ -199,18 +199,27 @@ switch ($method) {
     case 'PUT':
         parse_str($_SERVER['QUERY_STRING'], $params);
         $id = intval($params['id'] ?? 0);
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = json_decode(file_get_contents("php://input"), true) ?? [];
 
-        $lang = $data['lang'] ?? '';
+        // lang: önce body, yoksa query
+        $lang = $data['lang'] ?? ($params['lang'] ?? '');
+
         $name_col = get_name_col($lang);
         $role_col = get_lang_col('role', $lang);
         $address_col = get_lang_col('address', $lang);
         $bio_col = get_lang_col('bio', $lang);
         $experience_col = get_lang_col('experience', $lang);
 
+        // Kolon adları boşsa erken çık (aksi SQL syntax error 1064)
+        if (!$name_col || !$role_col || !$address_col || !$bio_col || !$experience_col) {
+            http_response_code(400);
+            echo json_encode(["status" => "error", "message" => "Invalid lang or column mapping"]);
+            break;
+        }
+
         $name = mysqli_real_escape_string($conn, $data['name'] ?? '');
         $role = mysqli_real_escape_string($conn, $data['role'] ?? '');
-        $image_url = mysqli_real_escape_string($conn, $data['image'] ?? '');
+        $image_url = mysqli_real_escape_string($conn, $data['image_url'] ?? $data['image'] ?? '');
         $address = mysqli_real_escape_string($conn, $data['address'] ?? '');
         $phone = mysqli_real_escape_string($conn, $data['phone'] ?? '');
         $email = mysqli_real_escape_string($conn, $data['email'] ?? '');
@@ -221,27 +230,32 @@ switch ($method) {
         $twitter = mysqli_real_escape_string($conn, $data['twitter'] ?? '');
         $instagram = mysqli_real_escape_string($conn, $data['instagram'] ?? '');
 
-        $sql = "UPDATE teams SET 
-                    $name_col='$name',
-                    $role_col='$role',
-                    image_url='$image_url',
-                    $address_col='$address',
-                    phone='$phone',
-                    email='$email',
-                    $bio_col='$bio',
-                    $experience_col='$experience',
-                    facebook='$facebook',
-                    linkedin='$linkedin',
-                    twitter='$twitter',
-                    instagram='$instagram'
-                WHERE id=$id";
+        // >>> BACKTICK YOK, normal string <<<
+        $sql = "
+        UPDATE teams SET
+            $name_col = '$name',
+            $role_col = '$role',
+            image_url = '$image_url',
+            $address_col = '$address',
+            phone = '$phone',
+            email = '$email',
+            $bio_col = '$bio',
+            $experience_col = '$experience',
+            facebook = '$facebook',
+            linkedin = '$linkedin',
+            twitter = '$twitter',
+            instagram = '$instagram'
+        WHERE id = $id
+    ";
 
         if ($conn->query($sql)) {
             echo json_encode(["status" => "success", "message" => "Team member updated successfully"]);
         } else {
-            echo json_encode(["status" => "error", "message" => $conn->error]);
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => $conn->error, "sql" => $sql]);
         }
         break;
+
 
     case 'DELETE':
         parse_str($_SERVER['QUERY_STRING'], $params);

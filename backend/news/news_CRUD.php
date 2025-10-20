@@ -306,9 +306,10 @@ switch ($method) {
         }
         $stmt->bind_param($types, ...$vals);
 
-        if ($stmt->execute())
+        if ($stmt->execute()) {
+            echo "<script>console.log($sql);</script>";
             echo json_encode(["status" => "success", "message" => "News updated successfully"]);
-        else {
+        } else {
             http_response_code(500);
             echo json_encode(["status" => "error", "message" => "DB error", "detail" => $stmt->error]);
         }

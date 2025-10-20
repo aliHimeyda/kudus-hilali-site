@@ -131,10 +131,9 @@ export default class OurTeamsTab extends Component {
 
     try {
       for (const lang of langsToSend) {
-        const payload = this.buildPayload(selectedTeam, lang);
+        const payload = { ...this.buildPayload(selectedTeam, lang), lang };
         await axios.put(`${this.apiUrl}?id=${selectedTeam.id}`, payload, {
           headers: { "Content-Type": "application/json" },
-          params: { lang },
         });
       }
       this.setState({ showModal: false, selectedTeam: null });
@@ -289,7 +288,7 @@ export default class OurTeamsTab extends Component {
                 variant="primary"
                 onClick={() => this.handleUpdateSave(true)}
               >
-                Save All Languages
+                Save All
               </Button>
             </div>
             <Button

@@ -151,12 +151,12 @@ export default class ProjectsTab extends Component {
 
     try {
       for (const lang of langsToSend) {
-        const payload = this.buildPayload(selectedProject, lang);
+        const payload = { ...this.buildPayload(selectedProject, lang), lang };
         // PUT + lang paramı
         // Not: backend id'yi query'den alıyor
+        console.log(payload);
         await axios.put(`${this.apiUrl}?id=${selectedProject.id}`, payload, {
           headers: { "Content-Type": "application/json" },
-          params: { lang },
         });
       }
       this.setState({ showModal: false, selectedProject: null });
@@ -278,17 +278,10 @@ export default class ProjectsTab extends Component {
           <Modal.Footer className="d-flex justify-content-between">
             <div>
               <Button
-                variant="outline-primary"
-                onClick={() => this.handleUpdateSave(false)}
-                className="me-2"
-              >
-                Save (Current Lang)
-              </Button>
-              <Button
                 variant="primary"
                 onClick={() => this.handleUpdateSave(true)}
               >
-                Save All Languages
+                Save All
               </Button>
             </div>
             <Button

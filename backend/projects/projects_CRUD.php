@@ -205,45 +205,74 @@ switch ($method) {
 
 
     case 'PUT':
+        header('Content-Type: application/json; charset=utf-8');
+
         parse_str($_SERVER['QUERY_STRING'], $params);
         $id = intval($params['id'] ?? 0);
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = json_decode(file_get_contents("php://input"), true) ?? [];
 
-        $lang = $data['lang'] ?? '';
+        // lang: önce body, yoksa query
+        $lang = $data['lang'] ?? ($params['lang'] ?? '');
+
+        // Kolon eşlemesi
         $title_col = get_lang_col('title', $lang);
         $explanation_col = get_lang_col('explanation', $lang);
         $mission_col = get_lang_col('mission', $lang);
         $objective_col = get_lang_col('objective', $lang);
         $category_col = get_lang_col('category', $lang);
 
+        // Kolonlar dolu mu? (aksi halde SQL syntax error)
+        if (!$id || !$title_col || !$explanation_col || !$mission_col || !$objective_col || !$category_col) {
+            http_response_code(400);
+            echo json_encode([
+                "status" => "error",
+                "message" => "Invalid id/lang or column mapping",
+                "lang" => $lang,
+                "cols" => compact('title_col', 'explanation_col', 'mission_col', 'objective_col', 'category_col')
+            ]);
+            break;
+        }
+
+        // Alanlar — isimleri şemanla uyumlu hale getir
         $title = mysqli_real_escape_string($conn, $data['title'] ?? '');
         $explanation = mysqli_real_escape_string($conn, $data['explanation'] ?? '');
         $mission = mysqli_real_escape_string($conn, $data['mission'] ?? '');
         $objective = mysqli_real_escape_string($conn, $data['objective'] ?? '');
         $category = mysqli_real_escape_string($conn, $data['category'] ?? '');
-        $image = mysqli_real_escape_string($conn, $data['image'] ?? '');
-        $goal = floatval($data['goal'] ?? 0);
-        $raised = floatval($data['raised'] ?? 0);
+
+        // image / image_url ikisini de destekle
+        $image = mysqli_real_escape_string($conn, $data['image'] ?? ($data['image_url'] ?? ''));
+
+        // amount alan isimleri: payload’ına göre ayarla
+        // Eğer frontend `goal_amount` ve `raised_amount` gönderiyorsa önce onları dene:
+        $goal = floatval($data['goal_amount'] ?? ($data['goal'] ?? 0));
+        $raised = floatval($data['raised_amount'] ?? ($data['raised'] ?? 0));
+
         $status = mysqli_real_escape_string($conn, $data['status'] ?? '');
 
-        $sql = "UPDATE projects SET
-                $title_col='$title',
-                $explanation_col='$explanation',
-                $mission_col='$mission',
-                $objective_col='$objective',
-                $category_col='$category',
-                image='$image',
-                goal_amount=$goal,
-                raised_amount=$raised,
-                status='$status'
-                WHERE id=$id";
+        // >>> DİKKAT: backtick YOK, normal string <<<
+        $sql = "
+        UPDATE projects SET
+            $title_col       = '$title',
+            $explanation_col = '$explanation',
+            $mission_col     = '$mission',
+            $objective_col   = '$objective',
+            $category_col    = '$category',
+            image            = '$image',
+            goal_amount      = $goal,
+            raised_amount    = $raised,
+            status           = '$status'
+        WHERE id = $id
+    ";
 
         if ($conn->query($sql)) {
             echo json_encode(["status" => "success", "message" => "Project updated successfully"]);
         } else {
-            echo json_encode(["status" => "error", "message" => $conn->error]);
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => $conn->error, "sql" => $sql]);
         }
         break;
+
 
     case 'DELETE':
         parse_str($_SERVER['QUERY_STRING'], $params);

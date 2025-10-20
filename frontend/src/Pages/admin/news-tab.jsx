@@ -328,18 +328,12 @@ export default class NewsTab extends Component {
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-between">
             <div>
-              <Button
-                variant="outline-primary"
-                onClick={() => this.handleUpdateSave(false)}
-                className="me-2"
-              >
-                Save (Current Lang)
-              </Button>
+              
               <Button
                 variant="primary"
                 onClick={() => this.handleUpdateSave(true)}
               >
-                Save All Languages
+                Save All
               </Button>
             </div>
             <Button
