@@ -96,14 +96,7 @@ const Header = () => {
               <LanguageSwitcher />
             </li>
             <li>
-              
-                href="/annual-report-2025.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn report-btn fontsize"
-              >
-                {t("nav_annual_report")}
-              </a>
+              <a href="/annual-report-2025.pdf" target="_blank" rel="noopener noreferrer" className="btn report-btn fontsize">{t("nav_annual_report")}</a>
             </li>
           </ul>
 
@@ -197,15 +190,8 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                
-                  href="/annual-report-2025.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="nav-link report-btn-mobile"
-                >
-                  {t("nav_annual_report")}
-                </a>
-              </li>
+                  <a href="/annual-report-2025.pdf" target="_blank" rel="noopener noreferrer" className="nav-link report-btn-mobile">{t("nav_annual_report")}</a>
+                </li>
               </ul>
             </div>
           </div>
