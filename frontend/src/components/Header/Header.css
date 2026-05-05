@@ -2,8 +2,6 @@
 
 /* Header arka planları */
 .transparent-header {
-
-
   background-color: transparent;
   transition: background-color 0.3s ease-in-out;
   animation: fadein-down 1s ease-out;
@@ -41,8 +39,8 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   z-index: 100000;
 }
-/* Frame  */
 
+/* Frame  */
 .frame {
   display: none;
   position: fixed;
@@ -72,8 +70,8 @@
 .frametext:hover {
   color: var(--color-orange);
 }
-/* Projects */
 
+/* Projects */
 .frameprojects {
   position: absolute;
   width: 65px;
@@ -83,7 +81,6 @@
 }
 
 /* Volunteers */
-
 .framevolunteers {
   position: absolute;
   width: 87px;
@@ -93,7 +90,6 @@
 }
 
 /* NEWS & ARTICLES */
-
 .framenews {
   position: absolute;
   width: 139px;
@@ -120,7 +116,6 @@
   font-weight: 500;
   border: none;
 }
-
 .contact-btn:hover {
   background-color: var(--color-orange);
   color: white;
@@ -140,7 +135,6 @@
 .menu-toggle {
   display: inline-block;
 }
-
 .hover-menu {
   display: none;
   position: absolute;
@@ -166,16 +160,13 @@
 .menu-toggle:hover .hover-menu {
   display: inline-block;
 }
-
 .hover-menu .nav-link {
   color: var(--color-block);
   padding: 0.5rem 1rem;
 }
-
 .hover-menu .nav-link:hover {
   background-color: var(--color-orange);
 }
-
 .logostext span {
   margin: 0;
   margin-bottom: 3px;
@@ -193,5 +184,33 @@
 }
 .logostext {
   margin-bottom: 5px;
-    justify-content: center !important;
+  justify-content: center !important;
+}
+
+/* Annual Report butonu */
+.report-btn {
+  background-color: transparent;
+  color: white !important;
+  border: 2px solid var(--color-orange);
+  border-radius: 25px;
+  padding: 6px 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.report-btn:hover {
+  background-color: var(--color-orange);
+  color: white !important;
+}
+.scrolled-header .report-btn {
+  color: white !important;
+}
+
+/* Annual Report butonu - Mobil */
+.report-btn-mobile {
+  color: white !important;
+  font-weight: 600;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: 4px;
+  padding-top: 8px;
 }
